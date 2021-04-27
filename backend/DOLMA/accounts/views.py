@@ -13,13 +13,13 @@ import json
 
 
 from silhouettes.dataList import books_dict, character_dict
-
 # Create your views here.
 
 
 
 @api_view(['POST'])
 def signup(request):
+    print('작동되나여')
     serializer = CustomUserSerializer(data=request.data)
     if get_user_model().objects.filter(username=request.data.get('username')).exists():
         return Response({'fail': '이미 아이디가 존재합니다.'})
