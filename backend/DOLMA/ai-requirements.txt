@@ -1,138 +1,175 @@
+SSJJ
+#3343
+
+커피마시는법 — 2021.04.27.
+저희 머 얘기할거 있나여??
+지라 쓰는거랑 커밋 남기는거 말구?
+지현 — 2021.04.27.
+회의따로 있나요
+개미 — 2021.04.27.
+아뇽
+지라 쓰시고
+커밋 잊지마시구
+개발하고 마무리할게여
+개미 — 2021.04.27.
+맛저하세요~~~~
+myoung — 2021.04.27.
+맛저하세요 !!
+커밋도 꼭 찍으세욧
+커피마시는법 — 어제 오전 9:45
+아침부터 말이....
+개미 — 어제 오전 9:45
+ㅋㅋㅋㅋㅋㅋㅋ
+10시에 미팅하고 시작하겠슴다
+커피마시는법 — 어제 오전 9:45
+넹넹
+개미 — 어제 오전 9:45
+미팅주제는 안부인사 + 오늘할거 공유
+입니다
+커피마시는법 — 어제 오전 9:46
+안부인사...?
+개미 — 어제 오전 9:47
+커피마시는법 — 어제 오전 9:47
+?
+개미 — 어제 오전 9:48
+myoung — 어제 오후 12:00
+맛점하세욧 !!
+지현 — 어제 오후 12:01
+:yum:
+개미 — 어제 오후 1:14
+04.28 팀장미팅
+잡담잡담잡담
+1. 코로나 백신에 대해 어떻게 생각하나요?
+2. 여러분이 만족하는 회사의 마지노선?
+3. 강림씨가 네이버에 간다면?
+ - 레퍼런스 체크가 올것이다?
+ - 나한테 온다면? (강림쓰가 딴 7 달러를 얘기? ㄴㄴ 이렇게는 얘기 안한다 - 결론 안나옴)
+ - 트롤짓만 안하면 나쁘게 얘기 안해드릴게요
+- 교수님이 이전 직장에서 상사 평가했던 이야기(너무 재미있는 이야기라 종례미팅으로 미룸)
+개미 — 어제 오후 2:39
+모바비는 제이름으로 신청했습니다
+지현 — 어제 오후 2:39
+넵
+SSJJ — 어제 오후 2:39
+넹
+커피마시는법 — 어제 오후 5:08
+아니 다민님
+그런걸 말하면
+또 15분 길어지자나여
+myoung — 어제 오후 5:08
+ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+개미 — 어제 오후 5:09
+myoung — 어제 오후 5:09
+표정 존똑인데요 ,,
+개미 — 어제 오후 5:09
+ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+myoung — 어제 오후 5:09
+
+개미 — 어제 오후 5:09
+ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+tmi 멈춰!
+커피마시는법 — 어제 오후 5:12
+myoung — 어제 오후 5:13
+SSJJ — 어제 오후 5:14
+네
+커피마시는법 — 어제 오후 5:19
+저는 이만
+지현 — 어제 오후 5:19
+저는 어제랑 이어서 리팩토링하고있습니당 현재 아이추가 axios 하는중이에유
+아이추가페이지 마무리하고 찍어놓겠습니당
+myoung — 어제 오후 6:01
+퇴실하세용 ~!
+개미 — 어제 오후 6:01
+맛저하세용
+지현 — 어제 오후 6:02
+맛저!
+커피마시는법 — 오늘 오전 12:32
 absl-py==0.12.0
-argon2-cffi==20.1.0
+asgiref==3.3.1
 astunparse==1.6.3
-async-generator==1.10
-attrs==20.3.0
-backcall==0.2.0
-beautifulsoup4==4.9.3
-bleach==3.3.0
-branca==0.3.1
-bs4==0.0.1
+boto3==1.17.39
+botocore==1.20.39
 cachetools==4.2.1
-certifi==2019.11.28
-cffi==1.14.5
-chardet==3.0.4
-click==7.1.2
-colorama==0.4.4
+확장
+ai-requirements.txt
+2KB
+﻿
+absl-py==0.12.0
+asgiref==3.3.1
+astunparse==1.6.3
+boto3==1.17.39
+botocore==1.20.39
+cachetools==4.2.1
+certifi==2020.12.5
+chardet==4.0.0
+coreapi==2.3.3
+coreschema==0.0.4
 cycler==0.10.0
-decorator==5.0.7
-defusedxml==0.7.1
-entrypoints==0.3
-et-xmlfile==1.0.1
+Django==3.1.7
+django-cors-headers==3.7.0
+django-storages==1.11.1
+djangorestframework==3.11.0
+djangorestframework-simplejwt==4.6.0
+
+easydict==1.9
 flatbuffers==1.12
-folium==0.10.1
 gast==0.3.3
-google==3.0.0
-google-api-core==1.26.1
-google-api-python-client==2.0.2
-google-auth==1.27.1
-google-auth-httplib2==0.1.0
-google-auth-oauthlib==0.4.4
-google-cloud==0.34.0
-google-cloud-bigquery==2.10.0
-google-cloud-core==1.6.0
-google-cloud-storage==1.36.1
-google-cloud-vision==2.2.0
-google-crc32c==1.1.2
+google-api-core==1.26.3
+google-auth==1.28.0
+google-auth-oauthlib==0.4.3
+google-cloud-speech==2.2.0
+google-cloud-texttospeech==2.2.0
 google-pasta==0.2.0
-google-resumable-media==1.2.0
 googleapis-common-protos==1.53.0
 grpcio==1.32.0
 h5py==2.10.0
-httplib2==0.19.0
-idna==2.8
-importlib-metadata==3.10.1
-install==1.3.4
-ipykernel==5.5.3
-ipython==7.22.0
-ipython-genutils==0.2.0
-ipywidgets==7.6.3
-jdcal==1.4.1
-jedi==0.18.0
-Jinja2==2.10.3
-joblib==1.0.1
-jsonschema==3.2.0
-jupyter==1.0.0
-jupyter-client==6.1.12
-jupyter-console==6.4.0
-jupyter-core==4.7.1
-jupyterlab-pygments==0.1.2
-jupyterlab-widgets==1.0.0
+idna==2.10
+inflection==0.5.1
+itypes==1.2.0
+Jinja2==2.11.3
+jmespath==0.10.0
+Keras==2.4.3
 Keras-Preprocessing==1.1.2
-kiwisolver==1.1.0
+kiwisolver==1.3.1
 libcst==0.3.17
 Markdown==3.3.4
 MarkupSafe==1.1.1
-matplotlib==3.1.2
-mistune==0.8.4
+matplotlib==3.4.0
 mypy-extensions==0.4.3
-mysqlclient==2.0.3
-nbclient==0.5.3
-nbconvert==6.0.7
-nbformat==5.1.3
-nest-asyncio==1.5.1
-nltk==3.5
-notebook==6.3.0
-numpy==1.19.2
+
+numpy==1.19.5
 oauthlib==3.1.0
-openpyxl==3.0.6
+opencv-python==4.5.1.48
 opt-einsum==3.3.0
 packaging==20.9
-pandas==0.25.3
-pandocfilters==1.4.3
-parso==0.8.2
-pickleshare==0.7.5
-prometheus-client==0.10.1
-prompt-toolkit==3.0.18
-proto-plus==1.14.2
-protobuf==3.15.5
-pyarrow==3.0.0
+Pillow==8.1.2
+proto-plus==1.18.1
+protobuf==3.15.6
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-pycparser==2.20
-Pygments==2.8.1
-pymongo==3.11.3
-PyMySQL==1.0.2
-pyparsing==2.4.5
-pyrsistent==0.17.3
+PyJWT==2.0.1
+pyparsing==2.4.7
 python-dateutil==2.8.1
-pytz==2019.3
-pywin32==300
-pywinpty==0.5.7
-PyYAML==5.4.1
-pyzmq==22.0.3
-qtconsole==5.0.3
-QtPy==1.9.0
-regex==2020.11.13
-requests==2.22.0
+pytz==2021.1
+# PyYAML==5.4.1
+requests==2.25.1
 requests-oauthlib==1.3.0
 rsa==4.7.2
-scipy==1.3.1
-seaborn==0.9.0
-selenium==3.141.0
-Send2Trash==1.5.0
+ruamel.yaml==0.17.0
+ruamel.yaml.clib==0.2.2
+s3transfer==0.3.6
+scipy==1.6.2
 six==1.15.0
-sns==0.1
-soupsieve==2.2
+sqlparse==0.4.1
 tensorboard==2.4.1
 tensorboard-plugin-wit==1.8.0
 tensorflow==2.4.1
 tensorflow-estimator==2.4.0
-tensorflow-gpu==2.4.1
 termcolor==1.1.0
-terminado==0.9.4
-testpath==0.4.4
-tornado==6.1
-tqdm==4.59.0
-traitlets==5.0.5
 typing-extensions==3.7.4.3
 typing-inspect==0.6.0
 uritemplate==3.0.1
-urllib3==1.25.7
-wcwidth==0.2.5
-webencodings==0.5.1
+urllib3==1.26.4
 Werkzeug==1.0.1
-widgetsnbextension==3.5.1
 wrapt==1.12.1
-xlrd==2.0.1
-zipp==3.4.1
+mysqlclient==2.0.1
