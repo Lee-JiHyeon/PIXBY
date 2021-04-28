@@ -1,4 +1,4 @@
-FROM python:3.8.5
+FROM python:3.8.8
 
 ENV PYTHONUNBUFFERED 0
 RUN apt-get -y update 
