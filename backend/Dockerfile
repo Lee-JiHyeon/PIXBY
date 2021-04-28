@@ -19,6 +19,5 @@ RUN pip install -r ai-requirements.txt
 # 실행
 EXPOSE 8000
 # ENTRYPOINT ["./start"]
-
-
+RUN ["python3", "manage.py", "migrate"]
 CMD ["python3", "manage.py", "runserver", "0:8000"]
