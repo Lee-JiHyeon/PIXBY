@@ -1,7 +1,6 @@
 FROM python:3.8.5
 
 ENV PYTHONUNBUFFERED 0
-
 RUN apt-get -y update 
 RUN apt-get install -y libgl1-mesa-glx
 RUN pip3 install django
@@ -20,7 +19,5 @@ RUN pip install -r ai-requirements.txt
 # 실행
 EXPOSE 8000
 # ENTRYPOINT ["./start"]
-
-RUN ["python", "manage.py", "migrate"]
 
 CMD ["python3", "manage.py", "runserver", "0:8000"]

@@ -17,5 +17,4 @@ urlpatterns = [
     path('changelanguage/', views.changelanguage, name="changelanguage"),
     path('getsettings/', views.getsettings, name="getsettings"),
     path('getlanguage/', views.getlanguage, name="getlanguage"),
-
 ]
