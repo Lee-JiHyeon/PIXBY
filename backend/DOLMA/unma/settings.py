@@ -88,23 +88,21 @@ WSGI_APPLICATION = 'unma.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default' : {
+        'ENGINE': 'django.db.backends.mysql',   
+        'NAME': 'django_unma',               
+        'USER': 'DOLMA',                         
+        'PASSWORD': 'ssafyc102',                
+        'HOST': '172.17.0.1',                   
+        'PORT': '3306',                        
     }
 }
 
-# {
-#     'default' : {
-#         'ENGINE': 'django.db.backends.mysql',   
-#         'NAME': 'django_unma',               
-#         'USER': 'root',                         
-#         'PASSWORD': 'ssafy',                
-#         'HOST': 'localhost',                   
-#         'PORT': '3306',                        
-#     }
-# }
 
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 # 기존 database링크
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',

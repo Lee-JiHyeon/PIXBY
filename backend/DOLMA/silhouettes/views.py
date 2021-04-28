@@ -147,7 +147,6 @@ def kitchenList(request):
     return Response(serializer.data)
 
 
-
 @api_view(['POST'])
 def foodList(request):
     data = json.loads(request.body.decode(encoding='utf-8'))
@@ -157,7 +156,6 @@ def foodList(request):
     food_list = food.silhouette_character_set.all()
     serializer = SilhouetteCharacterSerializer(food_list, many=True)
     return Response(serializer.data)
-
 
 
 @api_view(['POST'])
@@ -171,7 +169,6 @@ def myroomList(request):
     return Response(serializer.data)
 
 
-
 @api_view(['POST'])
 def skiList(request):
     data = json.loads(request.body.decode(encoding='utf-8'))
@@ -181,7 +178,6 @@ def skiList(request):
     ski_list = ski.silhouette_character_set.all()
     serializer = SilhouetteCharacterSerializer(ski_list, many=True)
     return Response(serializer.data)
-
 
 
 @api_view(['POST'])
