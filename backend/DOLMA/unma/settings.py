@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'unma.wsgi.application'
 DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql',   
-        'NAME': 'django_unma',               
+        'NAME': 'mydb',               
         'USER': 'DOLMA',                         
         'PASSWORD': 'ssafyc102',                
         'HOST': '172.17.0.1',                   
