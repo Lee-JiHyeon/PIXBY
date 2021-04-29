@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "recoil": "^0.2.0",
+    "styled-components": "^5.2.3"
+  }
+}
