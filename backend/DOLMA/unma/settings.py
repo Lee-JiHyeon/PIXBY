@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'mydb',               
         'USER': 'DOLMA',                         
         'PASSWORD': 'ssafyc102',                
-        'HOST': '172.17.0.1',                   
+        'HOST': 'k4c102.p.ssafy.io',                   
         'PORT': '3306',                        
     }
 }
