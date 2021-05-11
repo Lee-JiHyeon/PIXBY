@@ -13,15 +13,36 @@ def resource_path(relative_path):
  
 # 1. ui 연결 
 # 연결할 ui 파일의 경로 설정
-form = resource_path('ui/newSR.ui')
+form1 = resource_path('ui/newSR.ui')
+form2 = resource_path('ui/learn.ui')
 # ui 로드 
-form_class = uic.loadUiType(form)[0]
+form_class1 = uic.loadUiType(form1)[0]
+form_class2 = uic.loadUiType(form2)[0]
 
 
 
 
 #화면을 띄우는데 사용되는 Class 선언
-class Create_SR_Model(QMainWindow, form_class) :
+class Create_SR_Model(QMainWindow, form_class1) :
+    filename = ''
+
+    def __init__(self) :
+        super().__init__()
+        self.setupUi(self)
+
+        self.pushButton.clicked.connect(self.dataLoadFn)
+
+    
+    def dataLoadFn(self):
+        filename = QFileDialog.getOpenFileName(self, 'Open File', './')
+        print(filename)
+        if filename:
+            self.label_34.setPixmap(QtGui.QPixmap("filename"))
+            self.label_34.setGeometry(QtCore.QRect(100, 100))
+
+
+
+class Learn_SR_Model(QMainWindow, form_class2) :
     filename = ''
 
     def __init__(self) :
@@ -37,4 +58,3 @@ class Create_SR_Model(QMainWindow, form_class) :
         if filename:
             self.label_34.setPixmap(QtGui.QPixmap("filename"))
             self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
-
