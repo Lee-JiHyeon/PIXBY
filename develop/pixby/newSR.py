@@ -27,7 +27,6 @@ class Create_SR_Model(QMainWindow, form_class) :
     def __init__(self) :
         super().__init__()
         self.setupUi(self)
-
         self.pushButton.clicked.connect(self.dataLoadFn)
 
     
@@ -37,4 +36,3 @@ class Create_SR_Model(QMainWindow, form_class) :
         if filename:
             self.label_34.setPixmap(QtGui.QPixmap("filename"))
             self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
-

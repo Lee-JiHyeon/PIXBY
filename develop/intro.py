@@ -4,7 +4,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from pixby.newSR import Create_SR_Model
-from pixby.compare import compareModel, resultModel
+from pixby.compare import compareModel
 # form_class = uic.loadUiType("intro.ui")[0]
 
 
@@ -61,13 +61,13 @@ if __name__ == "__main__":
     model = Model()
     create_sr = Create_SR_Model()
     compare_model = compareModel()
-    result_model = resultModel()
+    # result_model = resultModel()
     widget.addWidget(windowclass)
     widget.addWidget(choice)
     widget.addWidget(model)
     widget.addWidget(create_sr)
     widget.addWidget(compare_model)
-    widget.addWidget(result_model)    
+    # widget.addWidget(result_model)   
     widget.setFixedHeight(960)
     widget.setFixedWidth(1280)
     widget.show()
