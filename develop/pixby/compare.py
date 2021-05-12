@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
 from PyQt5 import uic
 from PyQt5.QtCore import *
-
+from pixby.cnn.
 #UI파일 연결
 #단, UI파일은 Python 코드 파일과 같은 디렉토리에 위치해야한다.
 
@@ -14,13 +14,13 @@ def resource_path(relative_path):
  
 # 1. ui 연결 
 # 연결할 ui 파일의 경로 설정
-form1 = resource_path('ui/compare.ui')
-form2 = resource_path('ui/res.ui')
+compare_ui = resource_path('ui/compare.ui')
+res_ui = resource_path('ui/res.ui')
 # ui 로드 
-form_class1 = uic.loadUiType(form1)[0]
+compare_form = uic.loadUiType(compare_ui)[0]
 
 #화면을 띄우는데 사용되는 Class 선언
-class compareModel(QMainWindow, form_class1):
+class compareModel(QMainWindow, compare_form ):
     command = QtCore.pyqtSignal(str) # 이미지 주소 전달
     model_1= ""
     model_2 = ""
@@ -29,14 +29,19 @@ class compareModel(QMainWindow, form_class1):
         super().__init__()
         self.setupUi(self)
         self.setStyleSheet("background-color: #F2F2F2;")
-        
 
         # 위치 셋팅
         self.groupBox1.move(300,100)
         self.groupBox2.move(700,100)
         self.data_msg = QLabel("text", self)
         # self.groupBox1.addStrech(3)
-
+        # backbutton
+        backbutton = QPushButton(self)
+        backbutton.move(0,10)
+        backbutton.resize(80,80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet('image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
         self.selectModel1.clicked.connect(self.choiceModel_1)
         self.selectModel2.clicked.connect(self.choiceModel_2)
         # 이미지 보여주기
@@ -45,8 +50,12 @@ class compareModel(QMainWindow, form_class1):
         
         self.nextButton.clicked.connect(self.nextPage)
 
-        #res 창
+    # 뒤로가기 -> classfication 설정 페이지
+    def goToBack(self):
+        print("gotoback")
+        pass
 
+        #res 창
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -80,19 +89,25 @@ class compareModel(QMainWindow, form_class1):
 
     # model 1
     def choiceModel_1(self):
-        name = QFileDialog.getOpenFileName(self, 'Open File')[0]
-        compareModel.model1 = name
-        self.model_name1.clear()
-        self.model_name1.append(name.split('/')[-1])
+        try:
+            name = QFileDialog.getOpenFileName(self, 'Open File')[0]
+            compareModel.model_1 = name # 분류모델 경로
+            self.model_name1.clear()
+            self.model_name1.append(name.split('/')[-1])
+        except:
+            self.warningMSG("주의", "모델 파일이 아닙니다.")
     # model 2 
     def choiceModel_2(self):
         name = QFileDialog.getOpenFileName(self, 'Open File')[0]
-        compareModel.model2 = name
+        compareModel.model_2 = name
+
+        # 모델 경로 보여주기
         self.model_name2.clear()
         self.model_name2.append(name.split('/')[-1])
 
     def nextPage(self):
         if compareModel.compare_image2 and compareModel.compare_image1:
+            
             resultModel(self)
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
@@ -100,13 +115,14 @@ class compareModel(QMainWindow, form_class1):
 
 
 
-form_class2 = uic.loadUiType(form2)[0]
-class resultModel(QMainWindow,form_class2):
+res_form = uic.loadUiType(res_ui)[0]
+class resultModel(QMainWindow,res_form):
     def __init__(self, parent):
         super(resultModel,self).__init__(parent)
         self.setupUi(self) # for_class2 ui 셋
         # UI 
         # print(parent.compare_image1)
+        # 모델 경로 출력
         self.info1.append(parent.compare_image1[0])
         self.info2.append(parent.compare_image2[0])
         # uic.loadUi(form_class2,self)
@@ -117,14 +133,3 @@ class resultModel(QMainWindow,form_class2):
         self.show()
     
  
-
-
-
-# app = QApplication(sys.argv)
-# new_widget = QStackedWidget()
-# compare_model =compareModel()
-# result_model =resultModel()
-# new_widget.addWidget(compare_model)
-# new_widget.addWidget(result_model)
-
-# app.exec_()
