@@ -223,10 +223,12 @@ class Select_SR_Model(QMainWindow):
             print('이미 테이블 있어')
         else:
             # 모델테이블 생성 임시로test라고 해놓음(모델이름있으면 오류남)
-            self.cur.execute("CREATE TABLE Test(Model Name, Epoch);")
+            self.cur.execute(
+                "CREATE TABLE Test(model_name, 배율, batch_size, learning_rate, epoch);")
 
         # 테이블에 값 넣기
-        self.cur.execute("INSERT INTO Test Values('ThirdSR', '8');")
+        self.cur.execute(
+            "INSERT INTO Test Values('SRModel_1', '2배', '2', '10', '10');")
         # pyqt창에 표로 db데이터 보여주기 함수실행
         self.getData()
 
@@ -241,6 +243,9 @@ class Select_SR_Model(QMainWindow):
 
         # 보여줄 행 갯수 설정
         self.tableWidget.setRowCount(len(data_list))
+        # 표값 읽기모드
+        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
         # 행 전체 클릭하게 하는 코드
         self.tableWidget.setSelectionBehavior(QTableWidget.SelectRows)
         # 클릭한 행의 모델값 전달함수
@@ -248,10 +253,13 @@ class Select_SR_Model(QMainWindow):
 
         tablerow = 0
         for row in self.cur.execute(sqlquery):
-            # print(row)
+            # print(row[2])
             # print(row[0])
             self.tableWidget.setItem(tablerow, 0, QTableWidgetItem(row[0]))
             self.tableWidget.setItem(tablerow, 1, QTableWidgetItem(row[1]))
+            self.tableWidget.setItem(tablerow, 2, QTableWidgetItem(row[2]))
+            self.tableWidget.setItem(tablerow, 3, QTableWidgetItem(row[3]))
+            self.tableWidget.setItem(tablerow, 4, QTableWidgetItem(row[4]))
             tablerow += 1
 
     def selectSR(self, row):

@@ -98,18 +98,36 @@ font: 57 9pt &quot;삼성긴고딕OTF Medium&quot;;</string>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>40</y>
-      <width>1181</width>
-      <height>401</height>
+      <x>60</x>
+      <y>30</y>
+      <width>651</width>
+      <height>400</height>
      </rect>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgb(255, 255, 255)</string>
+    </property>
     <column>
      <property name="text">
-      <string>모델이름</string>
+      <string>model name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>배율</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>batch size</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>learning rate</string>
      </property>
     </column>
     <column>
