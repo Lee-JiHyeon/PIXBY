@@ -74,6 +74,8 @@ class compareModel(QMainWindow, compare_form ):
     command = QtCore.pyqtSignal(str) # 이미지 주소 전달
     model_1= ""
     model_2 = ""
+    working_path1 = ""
+    working_path2 = ""
     send_valve_popup_signal = pyqtSignal(bool, name='sendValvePopupSignal')
     def __init__(self) :
         super().__init__()
@@ -117,23 +119,23 @@ class compareModel(QMainWindow, compare_form ):
 
 
     def folder_first(self):
-        global working_path1
+        # global working_path1
         # 폴더 구조 선택
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        working_path1 = QFileDialog.getExistingDirectory(self,"select Directory")
+        compareModel.working_path1 = QFileDialog.getExistingDirectory(self,"select Directory")
         # 비우고 경로 입력
         self.dir1.clear()
-        self.dir1.append('경로: {}'.format(working_path1))
+        self.dir1.append('경로: {}'.format(compareModel.working_path1))
 
 
     def folder_second(self):
-        global working_path2
+        # global working_path2
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        working_path2 = QFileDialog.getExistingDirectory(self,"select Directory")
+        compareModel.working_path2 = QFileDialog.getExistingDirectory(self,"select Directory")
         self.dir2.clear()
-        self.dir2.append('경로: {}'.format(working_path2))
+        self.dir2.append('경로: {}'.format(compareModel.working_path2))
 
     # model 1
     def choiceModel_1(self):
@@ -154,7 +156,7 @@ class compareModel(QMainWindow, compare_form ):
         self.model_name2.append(name.split('/')[-1])
 
     def nextPage(self):
-        if compareModel.compare_image2 and compareModel.compare_image1:
+        if compareModel.working_path1 and compareModel.working_path2:
             resultModel(self)
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
@@ -166,10 +168,10 @@ class resultModel(QMainWindow,res_form):
         super(resultModel,self).__init__(parent)
         self.setupUi(self) # for_class2 ui 셋
         # UI 
-        # print(parent.compare_image1)
+        print(parent.working_path1)
         # 모델 경로 출력
-        self.info1.append(parent.compare_image1[0])
-        self.info2.append(parent.compare_image2[0])
+        self.info1.append(parent.working_path1)
+        self.info2.append(parent.working_path2)
         # uic.loadUi(form_class2,self)
         self.te = QTextEdit()
         self.lbl1 = QLabel('The number of words is 0')
