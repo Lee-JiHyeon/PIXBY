@@ -98,6 +98,8 @@ font: 57 9pt &quot;삼성긴고딕OTF Medium&quot;;</string>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
+      <x>50</x>
+      <y>40</y>
       <width>1181</width>
       <height>401</height>
      </rect>
