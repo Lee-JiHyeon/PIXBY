@@ -112,6 +112,8 @@ class compareModel(QMainWindow, compare_form ):
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
 
+        
+
 
 
 

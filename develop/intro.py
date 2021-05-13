@@ -2,15 +2,17 @@ import sys, os
 # from PyQt5 import QtWidgets
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from PyQt5 import uic
 from pixby.newSR import Create_SR_Model
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
-from PyQt5.QtCore import *
 
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
 
+from pixby.newSR import Create_SR_Model, Learn_SR_Model
+from pixby.compare import compareModel, resultModel
 
 # form_class = uic.loadUiType("intro.ui")[0]
 
@@ -24,7 +26,8 @@ class WindowClass(QMainWindow):
     def __init__(self):
         super(WindowClass, self).__init__()
         loadUi('./pixby/ui/intro.ui', self)
-
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
         self.startBtn.clicked.connect(self.gotoChoice)
         self.compare.clicked.connect(self.gotoCompare)
 
@@ -188,12 +191,14 @@ if __name__ == "__main__":
     choice = Choice()
     model = Model()
     create_sr = Create_SR_Model()
+    learn_sr = Learn_SR_Model()
     compare_model = compareModel()
     # result_model = resultModel()
     widget.addWidget(windowclass)
     widget.addWidget(choice)
     widget.addWidget(model)
     widget.addWidget(create_sr)
+    widget.addWidget(learn_sr)
     widget.addWidget(compare_model)
     # widget.addWidget(result_model)
     widget.setFixedHeight(960)
