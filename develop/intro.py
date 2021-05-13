@@ -286,12 +286,23 @@ class Thread1(QThread):
     def run(self):
         Go()
 
+
 # 화면을 띄우는데 사용되는 Class 선언
+creat_sr_data = {'filename': '',
+                 'batch_size': '',
+                 'learning_rate': '',
+                 'epoch': '',
+                 'resblock': '',
+                 'feature_map': '',
+                 'scale': '',
+                 'data_dir': '',
+                 'save_dir': ''
+                 }
 
 
 class Create_SR_Model(QMainWindow, new_sr_form):
-    filename = ''
 
+   # 보낼 시그널 데이터 타입 , 갯수 지정
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -304,12 +315,39 @@ class Create_SR_Model(QMainWindow, new_sr_form):
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
 
+        # batch_box = self.batchtextEdit
+        self.batchtextEdit.textChanged.connect(self.batch_changed)
+        self.learningtextEdit.textChanged.connect(self.learning_changed)
+        self.epochtextEdit.textChanged.connect(self.epoch_changed)
+
+        res_box = self.resblockcombobox
+        res_box.addItem('16')
+        res_box.addItem('32')
+        res_box.addItem('48')
+        res_box.addItem('64')
+
+        feature_box = self.featurecombobox
+        feature_box.addItem('32')
+        feature_box.addItem('64')
+
+        scale_box = self.scalecombobox
+        scale_box.addItem('x2')
+        scale_box.addItem('x4')
+
+        res_box.activated[str].connect(self.onRes)
+        feature_box.activated[str].connect(self.onFeature)
+        scale_box.activated[str].connect(self.onScale)
+
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-2)
 
     def dataLoadFn(self):
-        x = Thread1(self)
-        x.start()
+
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        # Learn_SR_Model(self)
+        # self.close()
+        # x = Thread1(self)
+        # x.start()
         # Go()
         # filename = QFileDialog.getOpenFileName(self, 'Open File', './')
         # print(filename)
@@ -317,14 +355,55 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         #     self.label_34.setPixmap(QtGui.QPixmap("filename"))
         #     self.label_34.setGeometry(QtCore.QRect(100, 100))
 
+    def batch_changed(self):
+        creat_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
+        # print(self.batch_size)
+
+    def learning_changed(self):
+        creat_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
+
+    def epoch_changed(self):
+        creat_sr_data['epoch'] = self.epochtextEdit.toPlainText()
+
+    def onRes(self, text):
+        creat_sr_data['resblock'] = text
+
+    def onFeature(self, text):
+        creat_sr_data['feature_map'] = text
+
+    def onScale(self, text):
+
+        creat_sr_data['scale'] = text
+        print(creat_sr_data['scale'])
+
 
 class Learn_SR_Model(QMainWindow, learn_ui_form):
-    filename = ''
-
+    # filename = ''
+    # def __init__(self, parent) :
+    # super(Learn_SR_Model, self).__init__(parent)
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
+        self.golearnbutton_2.clicked.connect(self.dataLoadFn)
+
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+        # self.show()
+        # x = Thread1(self)
+        # x.start()
+
+    def dataLoadFn(self):
+
+        print(creat_sr_data)
+
+    def goToBack(self):
+        widget.setCurrentIndex(widget.currentIndex()-1)
     #     self.pushButton.clicked.connect(self.dataLoadFn)
 
     # def dataLoadFn(self):
@@ -356,6 +435,7 @@ class resultModel(QMainWindow, res_form):
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
 
     widget = QStackedWidget()
