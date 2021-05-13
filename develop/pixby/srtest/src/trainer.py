@@ -84,35 +84,36 @@ class Trainer():
         timer_test = utility.timer()
         if self.args.save_results: self.ckp.begin_background()
         for idx_data, d in enumerate(self.loader_test):
-            for idx_scale, scale in enumerate(self.scale):
-                d.dataset.set_scale(idx_scale)
-                for lr, hr, filename in tqdm(d, ncols=80):
-                    lr, hr = self.prepare(lr, hr)
-                    lr = lr[:, :3, :, :]
-                    sr = self.model(lr, idx_scale)
-                    sr = utility.quantize(sr, self.args.rgb_range)
+            with torch.no_grad():
+                for idx_scale, scale in enumerate(self.scale):
+                    d.dataset.set_scale(idx_scale)
+                    for lr, hr, filename in tqdm(d, ncols=80):
+                        lr, hr = self.prepare(lr, hr)
+                        lr = lr[:, :3, :, :]
+                        sr = self.model(lr, idx_scale)
+                        sr = utility.quantize(sr, self.args.rgb_range)
 
-                    save_list = [sr]
-                    self.ckp.log[-1, idx_data, idx_scale] += utility.calc_psnr(
-                        sr, hr, scale, self.args.rgb_range, dataset=d
+                        save_list = [sr]
+                        self.ckp.log[-1, idx_data, idx_scale] += utility.calc_psnr(
+                            sr, hr, scale, self.args.rgb_range, dataset=d
+                        )
+                        if self.args.save_gt:
+                            save_list.extend([lr, hr])
+
+                        if self.args.save_results:
+                            self.ckp.save_results(d, filename[0], save_list, scale)
+
+                    self.ckp.log[-1, idx_data, idx_scale] /= len(d)
+                    best = self.ckp.log.max(0)
+                    self.ckp.write_log(
+                        '[{} x{}]\tPSNR: {:.3f} (Best: {:.3f} @epoch {})'.format(
+                            d.dataset.name,
+                            scale,
+                            self.ckp.log[-1, idx_data, idx_scale],
+                            best[0][idx_data, idx_scale],
+                            best[1][idx_data, idx_scale] + 1
+                        )
                     )
-                    if self.args.save_gt:
-                        save_list.extend([lr, hr])
-
-                    if self.args.save_results:
-                        self.ckp.save_results(d, filename[0], save_list, scale)
-
-                self.ckp.log[-1, idx_data, idx_scale] /= len(d)
-                best = self.ckp.log.max(0)
-                self.ckp.write_log(
-                    '[{} x{}]\tPSNR: {:.3f} (Best: {:.3f} @epoch {})'.format(
-                        d.dataset.name,
-                        scale,
-                        self.ckp.log[-1, idx_data, idx_scale],
-                        best[0][idx_data, idx_scale],
-                        best[1][idx_data, idx_scale] + 1
-                    )
-                )
 
         self.ckp.write_log('Forward: {:.2f}s\n'.format(timer_test.toc()))
         self.ckp.write_log('Saving...')

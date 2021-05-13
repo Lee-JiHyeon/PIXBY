@@ -23,7 +23,10 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
-    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    try:
+        base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    except Exception:
+        base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
 # db연결
@@ -33,8 +36,8 @@ class WindowClass(QMainWindow):
     def __init__(self):
         super(WindowClass, self).__init__()
         loadUi('./pixby/ui/intro.ui', self)
-        self.threadpool = QThreadPool()
-        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        # self.threadpool = QThreadPool()
+        # print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
         self.startBtn.clicked.connect(self.gotoChoice)
         self.compare.clicked.connect(self.gotoCompare)
 
@@ -257,6 +260,8 @@ class Thread1(QThread):
     #parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.threadpool = QThreadPool()
+
     def run(self):
         Go()
 
