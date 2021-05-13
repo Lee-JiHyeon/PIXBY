@@ -2,6 +2,7 @@ import sys
 # from PyQt5 import QtWidgets
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from PyQt5 import uic
 from pixby.newSR import Create_SR_Model, Learn_SR_Model
 from pixby.compare import compareModel, resultModel
@@ -12,7 +13,8 @@ class WindowClass(QMainWindow):
     def __init__(self):
         super(WindowClass, self).__init__()
         loadUi('./pixby/ui/intro.ui', self)
-
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
         self.startBtn.clicked.connect(self.gotoChoice)
         self.compare.clicked.connect(self.gotoCompare)
 

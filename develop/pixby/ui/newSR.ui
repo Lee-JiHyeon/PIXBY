@@ -204,8 +204,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextEdit" name="textEdit_3">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>220</y>
+      <x>300</x>
+      <y>230</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -262,8 +262,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextEdit" name="textEdit_15">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>270</y>
+      <x>290</x>
+      <y>290</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -302,8 +302,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextEdit" name="textEdit_12">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>320</y>
+      <x>290</x>
+      <y>330</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -409,9 +409,96 @@ p, li { white-space: pre-wrap; }
      <string>BATCH SIZE</string>
     </property>
    </widget>
+   <widget class="QRadioButton" name="radioButton_3">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>360</y>
+      <width>90</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>100</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_5">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>360</y>
+      <width>90</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>300</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_24">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>370</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>scale</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="scale2button">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>370</y>
+      <width>90</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="scale4button">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>370</y>
+      <width>90</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>scale2button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>scale4button</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>364</x>
+     <y>377</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>434</x>
+     <y>377</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

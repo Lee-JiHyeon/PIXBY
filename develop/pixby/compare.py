@@ -48,6 +48,8 @@ class compareModel(QMainWindow, form_class1):
     def nextPage(self):
         resWindow = resultModel()
 
+        
+
 
 class resultModel(QMainWindow, form_class2):
     def __init__(self) :
