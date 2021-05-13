@@ -14,6 +14,8 @@ from PyQt5 import QtGui, QtCore
 from pixby.newSR import Create_SR_Model, Learn_SR_Model
 from pixby.compare import compareModel, resultModel
 
+
+from pixby.selectSR import Select_SR_Model
 # form_class = uic.loadUiType("intro.ui")[0]
 
 def resource_path(relative_path):
@@ -45,26 +47,12 @@ class Choice(QMainWindow):
 
         self.gotoModelBtn.clicked.connect(self.gotoModel)
         self.goToCreateSR.clicked.connect(self.gotoCreateSR)
+
     def gotoModel(self):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def gotoCreateSR(self):
         widget.setCurrentIndex(widget.currentIndex()+2)
-        
-
-class Model(QMainWindow):
-    def __init__(self):
-        super(Model, self).__init__()
-        loadUi('./pixby/ui/model.ui', self)
-
-        self.modelBtn.clicked.connect(self.openModel)
-        self.imageBtn.clicked.connect(self.openImage)
-
-    def openModel(self):
-        modelOpen = QFileDialog.getOpenFileName(self, 'open file', './')
-
-    def openImage(self):
-        imageOpen = QFileDialog.getOpenFileName(self, 'open file', './')
 
 
 compare_ui = resource_path('pixby/ui/compare.ui')
@@ -189,14 +177,14 @@ if __name__ == "__main__":
     widget = QStackedWidget()
     windowclass = WindowClass()
     choice = Choice()
-    model = Model()
+    select_sr_model = Select_SR_Model()
     create_sr = Create_SR_Model()
     learn_sr = Learn_SR_Model()
     compare_model = compareModel()
     # result_model = resultModel()
     widget.addWidget(windowclass)
     widget.addWidget(choice)
-    widget.addWidget(model)
+    widget.addWidget(select_sr_model)
     widget.addWidget(create_sr)
     widget.addWidget(learn_sr)
     widget.addWidget(compare_model)
