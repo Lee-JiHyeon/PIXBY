@@ -1,7 +1,9 @@
 import sys
 import os
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from PyQt5 import uic, QtGui, QtCore
+from pixby.srtest.src.please import Go
 
 # UI파일 연결.
 # 단, UI파일은 Python 코드 파일과 같은 디렉토리에 위치해야한다.
@@ -17,25 +19,55 @@ def resource_path(relative_path):
 
 # 1. ui 연결
 # 연결할 ui 파일의 경로 설정
-form = resource_path('ui/newSR.ui')
-# ui 로드
-form_class = uic.loadUiType(form)[0]
+new_sr_ui = resource_path('pixby/ui/newSR.ui')
+learn_ui = resource_path('pixby/ui/learn.ui')
+# ui 로드 
+new_sr_form  = uic.loadUiType(new_sr_ui )[0]
+learn_ui_form  = uic.loadUiType(learn_ui )[0]
 
 
-# 화면을 띄우는데 사용되는 Class 선언
-class Create_SR_Model(QMainWindow, form_class):
+class Thread1(QThread):
+    #parent = MainWidget을 상속 받음.
+    def __init__(self, parent=None):
+        super().__init__(parent)
+    def run(self):
+        Go()
+
+#화면을 띄우는데 사용되는 Class 선언
+class Create_SR_Model(QMainWindow, new_sr_form) :
     filename = ''
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
         self.pushButton.clicked.connect(self.dataLoadFn)
 
     def dataLoadFn(self):
-        filename = QFileDialog.getOpenFileName(self, 'Open File', './')
-        print(filename)
-        if filename:
-            self.label_34.setPixmap(QtGui.QPixmap("filename"))
-            self.label_34.setGeometry(QtCore.QRect(
-                100, 100, width_size, height_size))
+        x = Thread1(self)
+        x.start()
+        # Go()
+        # filename = QFileDialog.getOpenFileName(self, 'Open File', './')
+        # print(filename)
+        # if filename:
+        #     self.label_34.setPixmap(QtGui.QPixmap("filename"))
+        #     self.label_34.setGeometry(QtCore.QRect(100, 100))
+
+
+
+class Learn_SR_Model(QMainWindow, learn_ui_form) :
+    filename = ''
+
+    def __init__(self) :
+        super().__init__()
+        self.setupUi(self)
+
+    #     self.pushButton.clicked.connect(self.dataLoadFn)
+
+    
+    # def dataLoadFn(self):
+    #     filename = QFileDialog.getOpenFileName(self, 'Open File', './')
+    #     print(filename)
+    #     if filename:
+    #         self.label_34.setPixmap(QtGui.QPixmap("filename"))
+    #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
+

@@ -1,16 +1,15 @@
-from os import pardir
-from sqlite3.dbapi2 import connect
 import sys
 from PyQt5 import uic
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 
 # db연결
-import sqlite3
 
+import sqlite3
 from PyQt5.uic.uiparser import QtWidgets
 
-
+from sqlite3.dbapi2 import connect
+# SR 이전 모델 선택 
 class Select_SR_Model(QMainWindow):
     def __init__(self):
         super(Select_SR_Model, self).__init__()
