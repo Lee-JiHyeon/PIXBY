@@ -15,7 +15,6 @@ class Select_SR_Model(QMainWindow):
     def __init__(self):
         super(Select_SR_Model, self).__init__()
         loadUi('./pixby/ui/select.ui', self)
-
         # sql 연동
         self.sqlConnect()
 
@@ -35,7 +34,7 @@ class Select_SR_Model(QMainWindow):
         # 커서 객체를 받아와서 execute 메서드로 CREATE TABLE 쿼리를 전송합니다.
         self.cur = self.conn.cursor()
         # 모델테이블 생성 임시로test라고 해놓음(모델이름있으면 오류남)
-        self.cur.execute("CREATE TABLE Test(Model Name, Epoch);")
+        # self.cur.execute("CREATE TABLE Test(Model Name, Epoch);")
         # 테이블에 값 넣기
         self.cur.execute("INSERT INTO Test Values('ThirdSR', '8');")
 
