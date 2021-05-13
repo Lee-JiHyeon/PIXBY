@@ -19,12 +19,11 @@ def resource_path(relative_path):
 
 # 1. ui 연결
 # 연결할 ui 파일의 경로 설정
-<<<<<<< HEAD
-form1 = resource_path('ui/newSR.ui')
-form2 = resource_path('ui/learn.ui')
+new_sr_ui = resource_path('pixby/ui/newSR.ui')
+learn_ui = resource_path('pixby/ui/learn.ui')
 # ui 로드 
-form_class1 = uic.loadUiType(form1)[0]
-form_class2 = uic.loadUiType(form2)[0]
+new_sr_form  = uic.loadUiType(new_sr_ui )[0]
+learn_ui_form  = uic.loadUiType(learn_ui )[0]
 
 
 class Thread1(QThread):
@@ -35,16 +34,7 @@ class Thread1(QThread):
         Go()
 
 #화면을 띄우는데 사용되는 Class 선언
-class Create_SR_Model(QMainWindow, form_class1) :
-=======
-form = resource_path('ui/newSR.ui')
-# ui 로드
-form_class = uic.loadUiType(form)[0]
-
-
-# 화면을 띄우는데 사용되는 Class 선언
-class Create_SR_Model(QMainWindow, form_class):
->>>>>>> 238dbce638bd1245231068c99c54598de1a3b9b5
+class Create_SR_Model(QMainWindow, new_sr_form) :
     filename = ''
 
     def __init__(self):
@@ -53,14 +43,6 @@ class Create_SR_Model(QMainWindow, form_class):
         self.pushButton.clicked.connect(self.dataLoadFn)
 
     def dataLoadFn(self):
-<<<<<<< HEAD
-        filename = QFileDialog.getOpenFileName(self, 'Open File', './')
-        print(filename)
-        if filename:
-            self.label_34.setPixmap(QtGui.QPixmap("filename"))
-<<<<<<< HEAD
-            self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
-=======
         x = Thread1(self)
         x.start()
         # Go()
@@ -72,7 +54,7 @@ class Create_SR_Model(QMainWindow, form_class):
 
 
 
-class Learn_SR_Model(QMainWindow, form_class2) :
+class Learn_SR_Model(QMainWindow, learn_ui_form) :
     filename = ''
 
     def __init__(self) :
@@ -88,8 +70,4 @@ class Learn_SR_Model(QMainWindow, form_class2) :
     #     if filename:
     #         self.label_34.setPixmap(QtGui.QPixmap("filename"))
     #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
->>>>>>> f05acce23935333602591b6b31db3ef6fcab1056
-=======
-            self.label_34.setGeometry(QtCore.QRect(
-                100, 100, width_size, height_size))
->>>>>>> 238dbce638bd1245231068c99c54598de1a3b9b5
+
