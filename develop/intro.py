@@ -329,7 +329,6 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         feature_box = self.featurecombobox
         feature_box.addItem('32')
         feature_box.addItem('64')
-
         scale_box = self.scalecombobox
         scale_box.addItem('x2')
         scale_box.addItem('x4')
@@ -342,7 +341,6 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         widget.setCurrentIndex(widget.currentIndex()-2)
 
     def dataLoadFn(self):
-
         widget.setCurrentIndex(widget.currentIndex()+1)
         # Learn_SR_Model(self)
         # self.close()
@@ -435,7 +433,6 @@ class resultModel(QMainWindow, res_form):
 
 
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
 
     widget = QStackedWidget()
