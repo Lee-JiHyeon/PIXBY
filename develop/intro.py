@@ -55,8 +55,9 @@ class Choice(QMainWindow):
         super(Choice, self).__init__()
         loadUi('./pixby/ui/choice.ui', self)
 
-        self.gotoModelBtn.clicked.connect(self.gotoModel)
         self.goToCreateSR.clicked.connect(self.gotoCreateSR)
+        self.goToSelectSR.clicked.connect(self.gotoSelectSR)
+
         backbutton = QPushButton(self)
         backbutton.move(0, 10)
         backbutton.resize(80, 80)
@@ -68,7 +69,7 @@ class Choice(QMainWindow):
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
 
-    def gotoModel(self):
+    def gotoSelectSR(self):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def gotoCreateSR(self):
@@ -180,18 +181,81 @@ class compareModel(QMainWindow, compare_form):
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
 
 
-# SR 이전 모델 선택
-class Select_SR_Model(QMainWindow):
+class ChoiceSR(QMainWindow):
+    def __init__(self, parent):
+        super(ChoiceSR, self).__init__(parent)
+        loadUi('./pixby/ui/choiceSR.ui', self)
+        self.show()
 
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.closeBtn.clicked.connect(self.closeChoice)
+
+        # sql 표로보여주기
+        self.getData()
+
+    def getData(self):
+        connection = sqlite3.connect("db.sqlite3")
+        self.cur = connection.cursor()
+        sqlquery = 'SELECT * FROM Test'
+
+        self.cur.execute("SELECT name from sqlite_master WHERE type='table'")
+        tables = self.cur.fetchall()
+        if len(tables) > 0:
+            # 표 행값구하기위해 fetchall로 [(), ()..] 형태 만들어줌
+            data_list = self.cur.execute(sqlquery).fetchall()
+
+            # 보여줄 행 갯수 설정
+            self.tableWidget.setRowCount(len(data_list))
+            # 표값 읽기모드
+            self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+            # 행 전체 클릭하게 하는 코드
+            self.tableWidget.setSelectionBehavior(QTableWidget.SelectRows)
+            # 클릭한 행의 모델값 전달함수
+            self.tableWidget.cellClicked.connect(self.selectSR)
+
+            tablerow = 0
+            for row in self.cur.execute(sqlquery):
+                # print(row[2])
+                # print(row[0])
+                self.tableWidget.setItem(
+                    tablerow, 0, QTableWidgetItem(row[0]))
+                self.tableWidget.setItem(
+                    tablerow, 1, QTableWidgetItem(row[1]))
+                self.tableWidget.setItem(
+                    tablerow, 2, QTableWidgetItem(row[2]))
+                self.tableWidget.setItem(
+                    tablerow, 3, QTableWidgetItem(row[3]))
+                self.tableWidget.setItem(
+                    tablerow, 4, QTableWidgetItem(row[4]))
+                tablerow += 1
+
+    def selectSR(self, row):
+        # pyqt창 선택한 모델이름 표시
+        select_sr_modelname = self.tableWidget.item(row, 0).text()
+        select_sr_scale = self.tableWidget.item(row, 1).text()
+        select_sr_batch_size = self.tableWidget.item(row, 2).text()
+        select_sr_learning_rate = self.tableWidget.item(row, 3).text()
+        select_sr_epoch = self.tableWidget.item(row, 4).text()
+
+        # self.selectSRModelName.setText(select_sr_modelname)
+        print(select_sr_modelname, select_sr_scale, select_sr_batch_size,
+              select_sr_learning_rate, select_sr_epoch)
+
+    def closeChoice(self):
+        ChoiceSR.close(self)
+# SR 이전 모델 선택
+
+
+class Select_SR_Model(QMainWindow):
     def __init__(self):
         super(Select_SR_Model, self).__init__()
         loadUi('./pixby/ui/select.ui', self)
 
-        # sql 연동
-        self.sqlConnect()
-
         # 이미지 열기 버튼
         self.imageBtn.clicked.connect(self.openImage)
+        self.goToChoiceSR.clicked.connect(self.showChoice)
+
         backbutton = QPushButton(self)
         backbutton.move(0, 10)
         backbutton.resize(80, 80)
@@ -206,67 +270,8 @@ class Select_SR_Model(QMainWindow):
     def openImage(self):
         imageOpen = QFileDialog.getOpenFileName(self, 'open file', './')
 
-    # DB) SQL 연결 및 테이블 생성
-    def sqlConnect(self):
-        # db파일 이름 설정
-        self.dbName = "db.sqlite3"
-
-        self.conn = sqlite3.connect(self.dbName, isolation_level=None)
-
-        # 커서 객체를 받아와서 execute 메서드로 CREATE TABLE 쿼리를 전송합니다.
-        self.cur = self.conn.cursor()
-
-        # 테이블 생성 전 있는지 확인
-        self.cur.execute("SELECT name from sqlite_master WHERE type='table'")
-        tables = self.cur.fetchall()
-        if len(tables) > 0:
-            print('이미 테이블 있어')
-        else:
-            # 모델테이블 생성 임시로test라고 해놓음(모델이름있으면 오류남)
-            self.cur.execute(
-                "CREATE TABLE Test(model_name, 배율, batch_size, learning_rate, epoch);")
-
-        # 테이블에 값 넣기
-        self.cur.execute(
-            "INSERT INTO Test Values('SRModel_1', '2배', '2', '10', '10');")
-        # pyqt창에 표로 db데이터 보여주기 함수실행
-        self.getData()
-
-    # db값 가져오기 + 표로 보여주기
-    def getData(self):
-        connection = sqlite3.connect("db.sqlite3")
-        self.cur = connection.cursor()
-        sqlquery = 'SELECT * FROM Test'
-
-        # 표 행값구하기위해 fetchall로 [(), ()..] 형태 만들어줌
-        data_list = self.cur.execute(sqlquery).fetchall()
-
-        # 보여줄 행 갯수 설정
-        self.tableWidget.setRowCount(len(data_list))
-        # 표값 읽기모드
-        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
-
-        # 행 전체 클릭하게 하는 코드
-        self.tableWidget.setSelectionBehavior(QTableWidget.SelectRows)
-        # 클릭한 행의 모델값 전달함수
-        self.tableWidget.cellClicked.connect(self.selectSR)
-
-        tablerow = 0
-        for row in self.cur.execute(sqlquery):
-            # print(row[2])
-            # print(row[0])
-            self.tableWidget.setItem(tablerow, 0, QTableWidgetItem(row[0]))
-            self.tableWidget.setItem(tablerow, 1, QTableWidgetItem(row[1]))
-            self.tableWidget.setItem(tablerow, 2, QTableWidgetItem(row[2]))
-            self.tableWidget.setItem(tablerow, 3, QTableWidgetItem(row[3]))
-            self.tableWidget.setItem(tablerow, 4, QTableWidgetItem(row[4]))
-            tablerow += 1
-
-    def selectSR(self, row):
-        # pyqt창 선택한 모델이름 표시
-        data = self.tableWidget.item(row, 0)
-        select_sr_modelname = data.text()
-        self.selectSRModelName.setText(select_sr_modelname)
+    def showChoice(self):
+        ChoiceSR(self)
 
 
 # 1. ui 연결
@@ -288,16 +293,16 @@ class Thread1(QThread):
 
 
 # 화면을 띄우는데 사용되는 Class 선언
-creat_sr_data = {'filename': '',
-                 'batch_size': '',
-                 'learning_rate': '',
-                 'epoch': '',
-                 'resblock': '',
-                 'feature_map': '',
-                 'scale': '',
-                 'data_dir': '',
-                 'save_dir': ''
-                 }
+create_sr_data = {'filename': '',
+                  'batch_size': '',
+                  'learning_rate': '',
+                  'epoch': '',
+                  'resblock': '16',
+                  'feature_map': '32',
+                  'scale': 'x2',
+                  'data_dir': '',
+                  'save_dir': ''
+                  }
 
 
 class Create_SR_Model(QMainWindow, new_sr_form):
@@ -354,25 +359,25 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         #     self.label_34.setGeometry(QtCore.QRect(100, 100))
 
     def batch_changed(self):
-        creat_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
+        create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
         # print(self.batch_size)
 
     def learning_changed(self):
-        creat_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
+        create_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
 
     def epoch_changed(self):
-        creat_sr_data['epoch'] = self.epochtextEdit.toPlainText()
+        create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
 
     def onRes(self, text):
-        creat_sr_data['resblock'] = text
+        create_sr_data['resblock'] = text
 
     def onFeature(self, text):
-        creat_sr_data['feature_map'] = text
+        create_sr_data['feature_map'] = text
 
     def onScale(self, text):
 
-        creat_sr_data['scale'] = text
-        print(creat_sr_data['scale'])
+        create_sr_data['scale'] = text
+        print(create_sr_data['scale'])
 
 
 class Learn_SR_Model(QMainWindow, learn_ui_form):
@@ -396,9 +401,31 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         # x = Thread1(self)
         # x.start()
 
+    # 학습한 SR저장
     def dataLoadFn(self):
+        print(create_sr_data)
+        # 모델이름 추후수정하기
+        model_name = create_sr_data['filename']
+        scale = create_sr_data['scale']
+        batch_size = create_sr_data['batch_size']
+        learning_rate = create_sr_data['learning_rate']
+        epoch = create_sr_data['epoch']
 
-        print(creat_sr_data)
+        self.dbName = "db.sqlite3"
+        self.conn = sqlite3.connect(self.dbName, isolation_level=None)
+        self.cur = self.conn.cursor()
+
+        self.cur.execute("SELECT name from sqlite_master WHERE type='table'")
+        tables = self.cur.fetchall()
+        if len(tables) > 0:
+            print('이미 테이블 있어')
+        else:
+            # 모델테이블 생성 임시로test라고 해놓음(모델이름있으면 오류남)
+            self.cur.execute(
+                "CREATE TABLE Test(model_name, 배율, batch_size, learning_rate, epoch);")
+
+        self.cur.execute(
+            f"INSERT INTO Test Values('{model_name}', '{scale}', '{batch_size}', '{learning_rate}', '{epoch}');")
 
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
