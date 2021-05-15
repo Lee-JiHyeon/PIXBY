@@ -293,16 +293,18 @@ class Thread1(QThread):
 
 
 # 화면을 띄우는데 사용되는 Class 선언
-create_sr_data = {'filename': '',
-                  'batch_size': '',
-                  'learning_rate': '',
-                  'epoch': '',
-                  'resblock': '16',
-                  'feature_map': '32',
-                  'scale': 'x2',
-                  'data_dir': '',
-                  'save_dir': ''
-                  }
+create_sr_data = {
+    'model_name': '',
+    'filename': '',
+    'batch_size': '',
+    'learning_rate': '',
+                'epoch': '',
+                'resblock': '16',
+                'feature_map': '32',
+                'scale': 'x2',
+                'data_dir': '',
+                'save_dir': ''
+}
 
 
 class Create_SR_Model(QMainWindow, new_sr_form):
@@ -324,6 +326,7 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         self.batchtextEdit.textChanged.connect(self.batch_changed)
         self.learningtextEdit.textChanged.connect(self.learning_changed)
         self.epochtextEdit.textChanged.connect(self.epoch_changed)
+        self.modelnametextEdit.textChanged.connect(self.model_name_changed)
 
         res_box = self.resblockcombobox
         res_box.addItem('16')
@@ -368,6 +371,9 @@ class Create_SR_Model(QMainWindow, new_sr_form):
     def epoch_changed(self):
         create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
 
+    def model_name_changed(self):
+        create_sr_data['model_name'] = self.modelnametextEdit.toPlainText()
+
     def onRes(self, text):
         create_sr_data['resblock'] = text
 
@@ -405,7 +411,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     def dataLoadFn(self):
         print(create_sr_data)
         # 모델이름 추후수정하기
-        model_name = create_sr_data['filename']
+        model_name = create_sr_data['model_name']
         scale = create_sr_data['scale']
         batch_size = create_sr_data['batch_size']
         learning_rate = create_sr_data['learning_rate']
