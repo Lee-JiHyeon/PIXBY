@@ -433,9 +433,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
 
     # 학습한 SR저장
     def dataLoadFn(self):
-<<<<<<< HEAD
         self.textBox_terminal.append(creat_sr_data['scale'])
-=======
         print(create_sr_data)
         # 모델이름 추후수정하기
         model_name = create_sr_data['model_name']
@@ -456,7 +454,6 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
             # 모델테이블 생성 임시로test라고 해놓음(모델이름있으면 오류남)
             self.cur.execute(
                 "CREATE TABLE Test(model_name, 배율, batch_size, learning_rate, epoch);")
->>>>>>> 06d779e2b6527a0a0fbade858799ea0f8d38c281
 
         self.cur.execute(
             f"INSERT INTO Test Values('{model_name}', '{scale}', '{batch_size}', '{learning_rate}', '{epoch}');")
