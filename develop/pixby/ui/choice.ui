@@ -38,7 +38,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -51,22 +51,22 @@ p, li { white-space: pre-wrap; }
      <item>
       <widget class="QPushButton" name="goToCreateSR">
        <property name="styleSheet">
-        <string notr="true">background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(1, 194, 201, 255), stop:1 rgba(117, 153, 234, 255));
-font: 36pt &quot;삼성긴고딕OTF Medium&quot;;</string>
-       </property>
-       <property name="text">
-        <string>새로운 모델 학습</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="gotoModelBtn">
-       <property name="styleSheet">
         <string notr="true">font: 36pt &quot;삼성긴고딕OTF Medium&quot;;
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(1, 194, 201, 255), stop:1 rgba(117, 153, 234, 255))</string>
        </property>
        <property name="text">
-        <string>기존 모델 사용</string>
+        <string>새로운 SR만들기</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="goToSelectSR">
+       <property name="styleSheet">
+        <string notr="true">background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(1, 194, 201, 255), stop:1 rgba(117, 153, 234, 255));
+font: 36pt &quot;삼성긴고딕OTF Medium&quot;;</string>
+       </property>
+       <property name="text">
+        <string>기존모델 이용하기</string>
        </property>
       </widget>
      </item>
