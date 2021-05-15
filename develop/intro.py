@@ -315,6 +315,10 @@ class Create_SR_Model(QMainWindow, new_sr_form):
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
 
+
+        self.traindataButton.clicked.connect(self.data_dir_save)
+        self.modeldirButton.clicked.connect(self.save_dir_save)
+
         # batch_box = self.batchtextEdit
         self.batchtextEdit.textChanged.connect(self.batch_changed)
         self.learningtextEdit.textChanged.connect(self.learning_changed)
@@ -336,6 +340,25 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         res_box.activated[str].connect(self.onRes)
         feature_box.activated[str].connect(self.onFeature)
         scale_box.activated[str].connect(self.onScale)
+
+    def data_dir_save(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ShowDirsOnly
+        creat_sr_data['data_dir'] = QFileDialog.getExistingDirectory(
+            self, "select Directory")
+        # 비우고 경로 입력
+        self.traindatatextEdit.clear()
+        self.traindatatextEdit.append('경로: {}'.format(creat_sr_data['data_dir']))
+    # model 2
+
+    def save_dir_save(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ShowDirsOnly
+        creat_sr_data['save_dir'] = QFileDialog.getExistingDirectory(
+            self, "select Directory")
+        # 비우고 경로 입력
+        self.modeldirtextEdit.clear()
+        self.modeldirtextEdit.append('경로: {}'.format(creat_sr_data['save_dir']))
 
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-2)
@@ -384,6 +407,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         self.setupUi(self)
 
         self.golearnbutton_2.clicked.connect(self.dataLoadFn)
+        self.gotestbutton.clicked.connect(self.goSR)
 
         backbutton = QPushButton(self)
         backbutton.move(0, 10)
@@ -397,6 +421,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         # x.start()
 
     def dataLoadFn(self):
+        self.textBox_terminal.append(creat_sr_data['scale'])
 
         print(creat_sr_data)
 
@@ -411,6 +436,10 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     #         self.label_34.setPixmap(QtGui.QPixmap("filename"))
     #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
 
+    def goSR(self):
+        x = Thread1(self)
+        x.start()
+        
 
 res_form = uic.loadUiType(res_ui)[0]
 

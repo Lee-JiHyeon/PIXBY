@@ -14,13 +14,16 @@ checkpoint = utility.checkpoint(args)
 def main():
     global model
     # subprocess.call('--data_test Demo --scale 4 --pre_train ../experiment/edsr_baseline_x4/model/model_best.pt --test_only --ave_results --chop', shell=True)
-    
-    # args.data_test = ['Demo']
-    # args.test_only = True
-    # args.scale = [4]
-    # args.pre_train = '../experiment/edsr_baseline_x4/model/model_best.pt'
+    # print(args.data_test)
+    # print(args.test_only)
+
+    args.data_test = ['Demo']
+    args.test_only = True
+    args.scale = [2]
+    args.pre_train = '../experiment/edsr_baseline_x2/model/model_best.pt'
     # args.save_result = True
-    # args.chop = True
+    args.save_results = True
+    args.chop = True
     if args.data_test == ['video']:
         from videotester import VideoTester
         model = model.Model(args, checkpoint)

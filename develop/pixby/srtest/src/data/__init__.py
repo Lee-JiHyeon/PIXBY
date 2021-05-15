@@ -15,6 +15,7 @@ class MyConcatDataset(ConcatDataset):
 
 class Data:
     def __init__(self, args):
+        # print(args.scale)
         self.loader_train = None
         if not args.test_only:
             datasets = []

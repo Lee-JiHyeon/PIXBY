@@ -174,7 +174,7 @@
     <string>모델저장하기</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="golearnbutton_3">
+  <widget class="QPushButton" name="gotestbutton">
    <property name="geometry">
     <rect>
      <x>1020</x>
@@ -185,6 +185,19 @@
    </property>
    <property name="text">
     <string>테스트하기</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="textBox_terminal">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>500</y>
+     <width>971</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
   </widget>
  </widget>

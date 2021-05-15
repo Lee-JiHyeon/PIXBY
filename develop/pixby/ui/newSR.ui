@@ -36,7 +36,7 @@
      <string>학습하러 GO</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="modeldirButton">
     <property name="geometry">
      <rect>
       <x>990</x>
@@ -98,7 +98,7 @@
      <string>MODEL 저장경로</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="traindatatextEdit">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -203,7 +203,7 @@ p, li { white-space: pre-wrap; }
      <string>이미지</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="golearnbutton">
+   <widget class="QPushButton" name="traindataButton">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -282,7 +282,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_2">
+   <widget class="QTextEdit" name="modeldirtextEdit">
     <property name="geometry">
      <rect>
       <x>740</x>
