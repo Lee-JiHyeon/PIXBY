@@ -322,7 +322,6 @@ class Create_SR_Model(QMainWindow, new_sr_form):
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
 
-
         self.traindataButton.clicked.connect(self.data_dir_save)
         self.modeldirButton.clicked.connect(self.save_dir_save)
 
@@ -352,21 +351,23 @@ class Create_SR_Model(QMainWindow, new_sr_form):
     def data_dir_save(self):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        creat_sr_data['data_dir'] = QFileDialog.getExistingDirectory(
+        create_sr_data['data_dir'] = QFileDialog.getExistingDirectory(
             self, "select Directory")
         # 비우고 경로 입력
         self.traindatatextEdit.clear()
-        self.traindatatextEdit.append('경로: {}'.format(creat_sr_data['data_dir']))
+        self.traindatatextEdit.append(
+            '경로: {}'.format(create_sr_data['data_dir']))
     # model 2
 
     def save_dir_save(self):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        creat_sr_data['save_dir'] = QFileDialog.getExistingDirectory(
+        create_sr_data['save_dir'] = QFileDialog.getExistingDirectory(
             self, "select Directory")
         # 비우고 경로 입력
         self.modeldirtextEdit.clear()
-        self.modeldirtextEdit.append('경로: {}'.format(creat_sr_data['save_dir']))
+        self.modeldirtextEdit.append(
+            '경로: {}'.format(create_sr_data['save_dir']))
 
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-2)
@@ -433,7 +434,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
 
     # 학습한 SR저장
     def dataLoadFn(self):
-        self.textBox_terminal.append(creat_sr_data['scale'])
+        self.textBox_terminal.append(create_sr_data['scale'])
         print(create_sr_data)
         # 모델이름 추후수정하기
         model_name = create_sr_data['model_name']
@@ -472,7 +473,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     def goSR(self):
         x = Thread1(self)
         x.start()
-        
+
 
 res_form = uic.loadUiType(res_ui)[0]
 
