@@ -124,8 +124,12 @@ class Trainer():
                             self.ckp.log[-1, idx_data, idx_scale],
                             best[0][idx_data, idx_scale],
                             best[1][idx_data, idx_scale] + 1
+<<<<<<< HEAD
                         ),
                         self.window
+=======
+                        )
+>>>>>>> fbc99a893898c518e5f46ebacefc4a156d408e63
                     )
 
         self.ckp.write_log('Forward: {:.2f}s\n'.format(timer_test.toc()), self.window)
