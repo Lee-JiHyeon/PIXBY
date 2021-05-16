@@ -418,11 +418,7 @@ class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
-<<<<<<< HEAD
         # self.threadpool = QThreadPool()
-=======
-        self.threadpool = QThreadPool()
->>>>>>> fbc99a893898c518e5f46ebacefc4a156d408e63
 
 
     def run(self):
