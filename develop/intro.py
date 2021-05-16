@@ -12,6 +12,7 @@ from PyQt5 import uic
 from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
 from PyQt5.QtCore import Qt
+import math
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
 
@@ -294,8 +295,8 @@ class Compare_Model(QMainWindow, compare_form ):
 
     def nextPage(self):
         if Compare_Model.working_path1 and Compare_Model.working_path2:
-            Inf.Infer(Compare_Model.working_path1, Compare_Model.model_1)
-            Inf.Infer(Compare_Model.working_path2, Compare_Model.model_2)
+            self.res1 = Inf.Infer(Compare_Model.working_path1, Compare_Model.model_1)
+            self.res2 = Inf.Infer(Compare_Model.working_path2, Compare_Model.model_2)
             Result_Model(self)
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
@@ -654,16 +655,27 @@ class Result_Model(QMainWindow,res_form):
         super(Result_Model,self).__init__(parent)
         self.setupUi(self) # for_class2 ui 셋
         # UI 
-        print(parent.working_path1)
+        self.res1_loss, self.res1_accuracy = parent.res1
+        self.res2_loss, self.res2_accuracy = parent.res2
+        self.res1_loss, self.res1_accuracy = round(self.res1_loss,4), round(self.res1_accuracy,2)
+        self.res2_loss, self.res2_accuracy = round(self.res2_loss,4), round(self.res2_accuracy,2)
         # 모델 경로 출력
-        self.info1.append(parent.working_path1)
-        self.info2.append(parent.working_path2)
         # uic.loadUi(form_class2,self)
-        self.te = QTextEdit()
-        self.lbl1 = QLabel('The number of words is 0')
-        self.save.setStyleSheet('image:url(img/save.png);border:0px;')
-        self.setGeometry(300, 300, 1000, 700)
+
+        # self.setGeometry(300, 300, 1000, 700)
+        self.compare_table.resize(300, 140)
+        self.compare_table.move(660, 610) # table 사이즈 위치 조정
+        self.setTableWidgetData()
+        self.setFixedWidth(1000)
+        self.setFixedHeight(800)
         self.show()
+
+    def setTableWidgetData(self):
+        self.compare_table.setItem(0, 0, QTableWidgetItem(str(self.res1_accuracy)))
+        self.compare_table.setItem(0, 1, QTableWidgetItem(str(self.res1_loss)))
+        self.compare_table.setItem(1, 0, QTableWidgetItem(str(self.res2_accuracy)))
+        self.compare_table.setItem(1, 1, QTableWidgetItem(str(self.res2_loss)))
+
 
 
 if __name__ == "__main__":

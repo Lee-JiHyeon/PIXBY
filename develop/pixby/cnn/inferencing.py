@@ -180,4 +180,7 @@ def Infer(dataset_path, model_path):
     test_accuracy = 100. * correct / len(test_loader.dataset)
     return test_loss, test_accuracy
 
-  print(evaluate(model, test_loader))
+  test_loss, test_accuracy = evaluate(model, test_loader)
+
+  print(test_loss, test_accuracy)
+  return test_loss, test_accuracy
