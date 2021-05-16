@@ -41,16 +41,10 @@ class timer():
     def reset(self):
         self.acc = 0
 
-#redefine bg_target
-def bg_target(queue):
-    while True:
-        if not queue.empty():
-            filename, tensor = queue.get()
-            if filename is None: break
-            imageio.imwrite(filename, tensor.numpy())
-            
 class checkpoint():
     def __init__(self, args):
+        # 0514 queue 추가해봄 -> 했다가 다시 주석 처리함(내가 쓴 코드임)
+        #self.queue = Queue()
         self.args = args
         self.ok = True
         self.log = torch.Tensor()
@@ -130,32 +124,43 @@ class checkpoint():
             plt.grid(True)
             plt.savefig(self.get_path('test_{}.pdf'.format(d)))
             plt.close(fig)
-    '''    def begin_background(self):
-        self.queue = Queue()
 
-        def bg_target(queue):
-            while True:
-                if not queue.empty():
-                    filename, tensor = queue.get()
-                    if filename is None: break
-                    imageio.imwrite(filename, tensor.numpy())
+    # def begin_background(self):
+    #     self.queue = Queue()
+
+    #     def bg_target(queue):
+    #         while True:
+    #             if not queue.empty():
+    #                 filename, tensor = queue.get()
+    #                 if filename is None: break
+    #                 imageio.imwrite(filename, tensor.numpy())
         
-        self.process = [
-            Process(target=bg_target, args=(self.queue,)) \
-            for _ in range(self.n_processes)
-        ]
+    #     self.process = [
+    #         Process(target=bg_target, args=(self.queue,)) \
+    #         for _ in range(self.n_processes)
+    #     ]
         
-        for p in self.process: p.start()'''
+    #     for p in self.process: p.start()
+
+    @staticmethod
+    def bg_target(queue):
+        while True:
+            if not queue.empty():
+                filename, tensor = queue.get()
+                if filename is None: break
+                imageio.imwrite(filename, tensor.numpy())
 
     def begin_background(self):
         self.queue = Queue()
-
+        
         self.process = [
-            Process(target=bg_target, args=(self.queue,)) \
+            Process(target=self.bg_target, args=(self.queue,)) \
             for _ in range(self.n_processes)
         ]
-
+        
         for p in self.process: p.start()
+
+        # 여기까지가 위에 주석처리된거 수정
 
     def end_background(self):
         for _ in range(self.n_processes): self.queue.put((None, None))
@@ -164,6 +169,8 @@ class checkpoint():
 
     def save_results(self, dataset, filename, save_list, scale):
         if self.args.save_results:
+            for d in self.args.data_test:
+                os.makedirs(self.get_path('results-{}'.format(d)), exist_ok=True)
             filename = self.get_path(
                 'results-{}'.format(dataset.dataset.name),
                 '{}_x{}_'.format(filename, scale)
@@ -181,7 +188,8 @@ def quantize(img, rgb_range):
 
 def calc_psnr(sr, hr, scale, rgb_range, dataset=None):
     if hr.nelement() == 1: return 0
-
+    # 0514 hr 추가
+    hr = hr[:, :3, :, :]
     diff = (sr - hr) / rgb_range
     if dataset and dataset.dataset.benchmark:
         shave = scale
@@ -197,20 +205,12 @@ def calc_psnr(sr, hr, scale, rgb_range, dataset=None):
 
     return -10 * math.log10(mse)
 
-# redefine lambda x: x.requires_grad
-def return_x(x):
-    return x.requires_grad
-
-#redefine lambda x: int(x)
-def return_y(y):
-    return int(y)
-
 def make_optimizer(args, target):
     '''
         make optimizer and scheduler together
     '''
     # optimizer
-    trainable = filter(return_x, target.parameters())
+    trainable = filter(lambda x: x.requires_grad, target.parameters())
     kwargs_optimizer = {'lr': args.lr, 'weight_decay': args.weight_decay}
 
     if args.optimizer == 'SGD':
@@ -225,7 +225,7 @@ def make_optimizer(args, target):
         kwargs_optimizer['eps'] = args.epsilon
 
     # scheduler
-    milestones = list(map(return_y, args.decay.split('-')))
+    milestones = list(map(lambda x: int(x), args.decay.split('-')))
     kwargs_scheduler = {'milestones': milestones, 'gamma': args.gamma}
     scheduler_class = lrs.MultiStepLR
 
@@ -259,3 +259,4 @@ def make_optimizer(args, target):
     optimizer = CustomOptimizer(trainable, **kwargs_optimizer)
     optimizer._register_scheduler(scheduler_class, **kwargs_scheduler)
     return optimizer
+

@@ -49,7 +49,11 @@ def set_channel(*args, n_channels=3):
 def np2Tensor(*args, rgb_range=255):
     def _np2Tensor(img):
         np_transpose = np.ascontiguousarray(img.transpose((2, 0, 1)))
-        tensor = torch.from_numpy(np_transpose).float()
+        # 5월 14일
+        # 원래 
+        #tensor = torch.from_numpy(np_transpose).float()
+        # 였는데 오류 메세지에 따라서 copy()를 뒤에 붙여줌.
+        tensor = torch.from_numpy(np_transpose.copy()).float()
         tensor.mul_(rgb_range / 255)
 
         return tensor

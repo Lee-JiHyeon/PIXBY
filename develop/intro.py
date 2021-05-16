@@ -16,7 +16,7 @@ from sqlite3.dbapi2 import connect
 
 # from pixby.newSR import Create_SR_Model, Learn_SR_Model
 # from pixby.compare import compareModel, resultModel
-from pixby.srtest.src.please import Go
+from pixby.srtest.src.main import main
 
 # from pixby.selectSR import Select_SR_Model
 # form_class = uic.loadUiType("intro.ui")[0]
@@ -283,28 +283,51 @@ new_sr_form = uic.loadUiType(new_sr_ui)[0]
 learn_ui_form = uic.loadUiType(learn_ui)[0]
 
 
+create_sr_data = {
+    'model_name': '',
+    'filename': '',
+    'batch_size': '',
+    'learning_rate': '',
+    'epoch': '',
+    'resblock': '16',
+    'feature_map': '32',
+    'scale': 'x2',
+    'data_dir': '',
+    'save_dir': ''
+}
 class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
 
     def run(self):
-        Go()
+        testing = {
+            'data_test' :  ['Demo'],
+            'test_only' : True,
+            'scale' : [2],
+            'pre_train' : './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+            # 'save_result' : True,
+            'save_results' : True,
+            'chop' : True 
+        },
+        learning = {
+            'model' : 'EDSR',
+            'scale' : [2],
+            'save' : 'EDSR_baseline_x2_transfer_cifar',
+            'pre_train' : './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+            'chop' : True,
+            'dir_data' : './test',
+            'data_train' : ['TESTDATA'],
+            'data_test' : ['TESTDATA'],
+            'data_range' : '1-8/9-10',
+            'epochs' : 3,
+            'ext' : 'img'
+
+        }
+        main(**learning)
 
 
 # 화면을 띄우는데 사용되는 Class 선언
-create_sr_data = {
-    'model_name': '',
-    'filename': '',
-    'batch_size': '',
-    'learning_rate': '',
-                'epoch': '',
-                'resblock': '16',
-                'feature_map': '32',
-                'scale': 'x2',
-                'data_dir': '',
-                'save_dir': ''
-}
 
 
 class Create_SR_Model(QMainWindow, new_sr_form):

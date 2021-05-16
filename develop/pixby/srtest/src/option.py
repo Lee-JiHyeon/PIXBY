@@ -1,5 +1,5 @@
 import argparse
-import template
+from pixby.srtest.src import template
 
 parser = argparse.ArgumentParser(description='EDSR and MDSR')
 
@@ -21,7 +21,7 @@ parser.add_argument('--seed', type=int, default=1,
 # Data specifications
 parser.add_argument('--dir_data', type=str, default='/home/team1/EDSR-PyTorch/dataset/DIV2K',
                     help='dataset directory')
-parser.add_argument('--dir_demo', type=str, default='../test',
+parser.add_argument('--dir_demo', type=str, default='./test',
                     help='demo image directory')
 parser.add_argument('--data_train', type=str, default='DIV2K',
                     help='train dataset name')
