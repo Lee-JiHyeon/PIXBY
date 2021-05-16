@@ -23,11 +23,9 @@
       <height>351</height>
      </rect>
     </property>
-    <column>
-     <property name="text">
-      <string>새 행</string>
-     </property>
-    </column>
+    <property name="dragEnabled">
+     <bool>true</bool>
+    </property>
     <column>
      <property name="text">
       <string>Model Name</string>
@@ -41,6 +39,11 @@
     <column>
      <property name="text">
       <string>Batch Size</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Learning Rate</string>
      </property>
     </column>
     <column>
@@ -62,7 +65,7 @@
      <string>이전 SR 모델</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="selectSRBtn">
     <property name="geometry">
      <rect>
       <x>570</x>
@@ -90,7 +93,7 @@
    </widget>
    <zorder>groupBox</zorder>
    <zorder>tableWidget</zorder>
-   <zorder>pushButton</zorder>
+   <zorder>selectSRBtn</zorder>
    <zorder>closeBtn</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
