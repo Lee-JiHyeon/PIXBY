@@ -446,7 +446,7 @@ class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.threadpool = QThreadPool()
+        # self.threadpool = QThreadPool()
 
 
     def run(self):
@@ -469,11 +469,12 @@ class Thread1(QThread):
             'data_train' : ['TESTDATA'],
             'data_test' : ['TESTDATA'],
             'data_range' : '1-8/9-10',
-            'epochs' : 3,
-            'ext' : 'img'
+            'epochs' : 2,
+            'ext' : 'img',
+            'save_results' : True,
 
         }
-        main(**testing)
+        main(learn_sr, **learning)
 
 
 # 화면을 띄우는데 사용되는 Class 선언

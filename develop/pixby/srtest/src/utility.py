@@ -6,7 +6,7 @@ from multiprocessing import Process
 from multiprocessing import Queue
 
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -53,9 +53,9 @@ class checkpoint():
         if not args.load:
             if not args.save:
                 args.save = now
-            self.dir = os.path.join('..', 'experiment', args.save)
+            self.dir = os.path.join('./test', 'experiment', args.save)
         else:
-            self.dir = os.path.join('..', 'experiment', args.load)
+            self.dir = os.path.join('./test', 'experiment', args.load)
             if os.path.exists(self.dir):
                 self.log = torch.load(self.get_path('psnr_log.pt'))
                 print('Continue from epoch {}...'.format(len(self.log)))
@@ -96,8 +96,9 @@ class checkpoint():
     def add_log(self, log):
         self.log = torch.cat([self.log, log])
 
-    def write_log(self, log, refresh=False):
+    def write_log(self, log, window, refresh=False):
         print(log)
+        window.textBox_terminal.append(log)
         self.log_file.write(log + '\n')
         if refresh:
             self.log_file.close()
@@ -107,6 +108,7 @@ class checkpoint():
         self.log_file.close()
 
     def plot_psnr(self, epoch):
+        # print(epoch, '!@#$@#$@#%!@$#@%$^@#%!@$#@%$^#@%#$@!#%@$')
         axis = np.linspace(1, epoch, epoch)
         for idx_data, d in enumerate(self.args.data_test):
             label = 'SR on {}'.format(d)
@@ -122,6 +124,7 @@ class checkpoint():
             plt.xlabel('Epochs')
             plt.ylabel('PSNR')
             plt.grid(True)
+            plt.show()
             plt.savefig(self.get_path('test_{}.pdf'.format(d)))
             plt.close(fig)
 

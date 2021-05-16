@@ -107,6 +107,9 @@ class SRData(data.Dataset):
     def __getitem__(self, idx):
         #print(idx, '##############IDX##################')
         lr, hr, filename = self._load_file(idx)
+        # print(lr, hr, 'lr hr #################################')
+        # lr = lr[:, :3, :]
+        # hr = hr[:, :3, :]
         pair = self.get_patch(lr, hr)
         pair = common.set_channel(*pair, n_channels=self.args.n_colors)
         pair_t = common.np2Tensor(*pair, rgb_range=self.args.rgb_range)
@@ -132,10 +135,12 @@ class SRData(data.Dataset):
         f_lr = self.images_lr[self.idx_scale][idx]
         #print(f_hr, 'hr이미지 ============')
         #print(f_lr, 'lr이미지=======================')
+        # print(type(f_hr), "123431341234542434")
         filename, _ = os.path.splitext(os.path.basename(f_hr))
         if self.args.ext == 'img' or self.benchmark:
-            hr = imageio.imread(f_hr)
-            lr = imageio.imread(f_lr)
+            hr = imageio.imread(f_hr, pilmode="RGB")
+            lr = imageio.imread(f_lr, pilmode="RGB")
+            # print(type(lr), type(hr), '#@@##$!@$#!@#$!')
         elif self.args.ext.find('sep') >= 0:
             with open(f_hr, 'rb') as _f:
                 hr = pickle.load(_f)
