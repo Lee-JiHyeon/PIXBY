@@ -11,7 +11,8 @@ from PyQt5 import uic
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
-
+from PyQt5.QtCore import Qt
+import math
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
 
@@ -96,7 +97,8 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
     def __init__(self) :
         super().__init__()
         self.setupUi(self)
-
+        self.train_dir.doubleClicked.connect(self.showImg1)
+        self.test_dir.doubleClicked.connect(self.showImg2)
         self.save_btn.clicked.connect(self.save)
         self.train_btn.clicked.connect(self.train_folder)
         self.test_btn.clicked.connect(self.test_folder)
@@ -116,6 +118,21 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             Create_CNN_Model.batch = 64
         print(Create_CNN_Model.batch)
 
+    
+    def showImg1(self,index):
+        self.mainImg = self.train_dir.model().filePath(index)
+        pixmap = QtGui.QPixmap(self.mainImg)
+        self.image_view.setPixmap(pixmap)
+        pixmap = pixmap.scaled(340, 350, Qt.IgnoreAspectRatio)
+        self.image_view.setPixmap(pixmap)
+        # self.image_view.adjustSize()
+
+    def showImg2(self,index):
+        self.mainImg = self.test_dir.model().filePath(index)
+        pixmap = QtGui.QPixmap(self.mainImg)
+        pixmap = pixmap.scaled(340, 350, Qt.IgnoreAspectRatio)
+        self.image_view.setPixmap(pixmap)
+        # self.image_view.adjustSize()
 
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
@@ -133,7 +150,15 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         Create_CNN_Model.tr_path = QFileDialog.getExistingDirectory(self,"select Directory")
         self.train_path.clear()
         self.train_path.append('경로: {}'.format(Create_CNN_Model.tr_path))
-  
+        treeModel = QFileSystemModel()
+        self.train_dir.setModel(treeModel)
+        treeModel.setRootPath(QDir.rootPath())
+        self.train_dir.setRootIndex(treeModel.index(Create_CNN_Model.tr_path))
+        self.train_dir.hideColumn(1)
+        self.train_dir.hideColumn(2)
+        self.train_dir.hideColumn(3)
+
+
     def test_folder(self):
         # global working_path2
         options = QFileDialog.Options()
@@ -141,6 +166,13 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         Create_CNN_Model.te_path = QFileDialog.getExistingDirectory(self,"select Directory")
         self.test_path.clear()
         self.test_path.append('경로: {}'.format(Create_CNN_Model.te_path))
+        treeModel = QFileSystemModel()
+        self.test_dir.setModel(treeModel)
+        treeModel.setRootPath(QDir.rootPath())
+        self.test_dir.setRootIndex(treeModel.index(Create_CNN_Model.te_path))
+        self.test_dir.hideColumn(1)
+        self.test_dir.hideColumn(2)
+        self.test_dir.hideColumn(3)
 
     # model 1
     def save(self):
@@ -169,11 +201,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             cnn_trainer.CNN_Train(Create_CNN_Model.tr_path, Create_CNN_Model.te_path,  Create_CNN_Model.sa_path, Create_CNN_Model.name ,Create_CNN_Model.learning_rate, Create_CNN_Model.epoch, Create_CNN_Model.batch)
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
-        # except:
-            # self.warningMSG("주의", "LEARNING RATE, epoch을 숫자로 입력해주셔야 합니다.")
-
         
-
 
 compare_ui = resource_path('pixby/ui/compare.ui')
 compare_form = uic.loadUiType(compare_ui)[0]
@@ -267,8 +295,8 @@ class Compare_Model(QMainWindow, compare_form ):
 
     def nextPage(self):
         if Compare_Model.working_path1 and Compare_Model.working_path2:
-            Inf.Infer(Compare_Model.working_path1, Compare_Model.model_1)
-            Inf.Infer(Compare_Model.working_path2, Compare_Model.model_2)
+            self.res1 = Inf.Infer(Compare_Model.working_path1, Compare_Model.model_1)
+            self.res2 = Inf.Infer(Compare_Model.working_path2, Compare_Model.model_2)
             Result_Model(self)
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
@@ -627,16 +655,27 @@ class Result_Model(QMainWindow,res_form):
         super(Result_Model,self).__init__(parent)
         self.setupUi(self) # for_class2 ui 셋
         # UI 
-        print(parent.working_path1)
+        self.res1_loss, self.res1_accuracy = parent.res1
+        self.res2_loss, self.res2_accuracy = parent.res2
+        self.res1_loss, self.res1_accuracy = round(self.res1_loss,4), round(self.res1_accuracy,2)
+        self.res2_loss, self.res2_accuracy = round(self.res2_loss,4), round(self.res2_accuracy,2)
         # 모델 경로 출력
-        self.info1.append(parent.working_path1)
-        self.info2.append(parent.working_path2)
         # uic.loadUi(form_class2,self)
-        self.te = QTextEdit()
-        self.lbl1 = QLabel('The number of words is 0')
-        self.save.setStyleSheet('image:url(img/save.png);border:0px;')
-        self.setGeometry(300, 300, 1000, 700)
+
+        # self.setGeometry(300, 300, 1000, 700)
+        self.compare_table.resize(300, 140)
+        self.compare_table.move(660, 610) # table 사이즈 위치 조정
+        self.setTableWidgetData()
+        self.setFixedWidth(1000)
+        self.setFixedHeight(800)
         self.show()
+
+    def setTableWidgetData(self):
+        self.compare_table.setItem(0, 0, QTableWidgetItem(str(self.res1_accuracy)))
+        self.compare_table.setItem(0, 1, QTableWidgetItem(str(self.res1_loss)))
+        self.compare_table.setItem(1, 0, QTableWidgetItem(str(self.res2_accuracy)))
+        self.compare_table.setItem(1, 1, QTableWidgetItem(str(self.res2_loss)))
+
 
 
 if __name__ == "__main__":

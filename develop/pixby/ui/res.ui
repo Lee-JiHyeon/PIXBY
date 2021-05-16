@@ -14,77 +14,38 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QTableWidget" name="compare_table">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>80</y>
-      <width>64</width>
-      <height>15</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>모델 1</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>80</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>모델2</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="info1">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>140</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="info2">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>140</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="save">
-    <property name="geometry">
-     <rect>
-      <x>760</x>
+      <x>662</x>
       <y>510</y>
-      <width>93</width>
-      <height>61</height>
+      <width>290</width>
+      <height>130</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(242, 242, 242);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../../img/save.png</normaloff>../../img/save.png</iconset>
-    </property>
+    <row>
+     <property name="text">
+      <string>모델1</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>모델2</string>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>Accuracy</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Loss</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -93,7 +54,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
