@@ -15,7 +15,7 @@ def get_patch(*args, patch_size=96, scale=2, multi=False, input_large=False):
     else:
         tp = patch_size
         ip = patch_size
-
+    # print(ih, iw, ip, 'ih iw ip')
     ix = random.randrange(0, iw - ip + 1)
     iy = random.randrange(0, ih - ip + 1)
 
