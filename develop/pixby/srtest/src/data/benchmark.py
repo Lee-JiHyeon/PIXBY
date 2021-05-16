@@ -1,7 +1,7 @@
 import os
 
-from data import common
-from data import srdata
+from pixby.srtest.src.data import common
+from pixby.srtest.src.data import srdata
 
 import numpy as np
 

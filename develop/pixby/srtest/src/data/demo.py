@@ -1,6 +1,6 @@
 import os
 
-from data import common
+from pixby.srtest.src.data import common
 
 import numpy as np
 import imageio

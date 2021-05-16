@@ -1,5 +1,5 @@
 import os
-from data import srdata
+from pixby.srtest.src.data import srdata
 
 class DIV2K(srdata.SRData):
     def __init__(self, args, name='DIV2K', train=True, benchmark=False):

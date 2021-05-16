@@ -20,9 +20,14 @@ class Data:
             datasets = []
             for d in args.data_train:
                 module_name = d if d.find('DIV2K-Q') < 0 else 'DIV2KJPEG'
-                m = import_module('data.' + module_name.lower())
+                m = import_module('pixby.srtest.src.data.' + module_name.lower())
                 datasets.append(getattr(m, module_name)(args, name=d))
-
+            
+            # print(datasets[0].__getitem__, '#########GETITEM###########')
+            # print(datasets[0].__len__, '########LEN##############')
+            # print(datasets[0], '##############DATASETS#####################')
+            # print(len(datasets), '######################**lendatasets**##################')
+            # print(MyConcatDataset(datasets), '#############**myconcatdataset###############')
             self.loader_train = dataloader.DataLoader(
                 MyConcatDataset(datasets),
                 batch_size=args.batch_size,
@@ -38,7 +43,7 @@ class Data:
                 testset = getattr(m, 'Benchmark')(args, train=False, name=d)
             else:
                 module_name = d if d.find('DIV2K-Q') < 0 else 'DIV2KJPEG'
-                m = import_module('data.' + module_name.lower())
+                m = import_module('pixby.srtest.src.data.' + module_name.lower())
                 testset = getattr(m, module_name)(args, train=False, name=d)
 
             self.loader_test.append(

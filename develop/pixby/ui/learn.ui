@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1280</width>
+    <height>960</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,8 +22,8 @@
   <widget class="QLabel" name="model">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>290</y>
+     <x>330</x>
+     <y>440</y>
      <width>101</width>
      <height>21</height>
     </rect>
@@ -40,8 +40,8 @@
   <widget class="QLabel" name="batch_size">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>290</y>
+     <x>450</x>
+     <y>440</y>
      <width>101</width>
      <height>21</height>
     </rect>
@@ -58,8 +58,8 @@
   <widget class="QLabel" name="learnig_rate">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>290</y>
+     <x>610</x>
+     <y>440</y>
      <width>131</width>
      <height>21</height>
     </rect>
@@ -76,8 +76,8 @@
   <widget class="QLabel" name="epoch">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>290</y>
+     <x>760</x>
+     <y>440</y>
      <width>101</width>
      <height>21</height>
     </rect>
@@ -94,8 +94,8 @@
   <widget class="QLabel" name="rate">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>290</y>
+     <x>860</x>
+     <y>440</y>
      <width>101</width>
      <height>21</height>
     </rect>
@@ -138,8 +138,8 @@
   <widget class="QLabel" name="terminal">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>420</y>
+     <x>60</x>
+     <y>670</y>
      <width>81</width>
      <height>31</height>
     </rect>
@@ -151,8 +151,8 @@
   <widget class="QPushButton" name="golearnbutton">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>280</y>
+     <x>920</x>
+     <y>430</y>
      <width>61</width>
      <height>41</height>
     </rect>
@@ -164,27 +164,40 @@
   <widget class="QPushButton" name="golearnbutton_2">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>540</y>
-     <width>91</width>
-     <height>41</height>
+     <x>810</x>
+     <y>720</y>
+     <width>191</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="text">
     <string>모델저장하기</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="golearnbutton_3">
+  <widget class="QPushButton" name="gotestbutton">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>540</y>
-     <width>91</width>
-     <height>41</height>
+     <x>1020</x>
+     <y>720</y>
+     <width>171</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="text">
     <string>테스트하기</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="textBox_terminal">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>500</y>
+     <width>971</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
   </widget>
  </widget>

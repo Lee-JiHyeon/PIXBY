@@ -14,7 +14,6 @@ class Select_SR_Model(QMainWindow):
     def __init__(self):
         super(Select_SR_Model, self).__init__()
         loadUi('./pixby/ui/select.ui', self)
-
         # sql 연동
         self.sqlConnect()
 

@@ -1,6 +1,7 @@
 import sys, os
 import pixby.cnn.inferencing as Inf # cnn 추론 
 import pixby.cnn.trainer as cnn_trainer
+import sqlite3
 # from PyQt5 import QtWidgets
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
@@ -16,12 +17,13 @@ from sqlite3.dbapi2 import connect
 
 # from pixby.newSR import Create_SR_Model, Learn_SR_Model
 # from pixby.compare import compareModel, resultModel
-from pixby.srtest.src.please import Go
+from pixby.srtest.src.main import main
 
 # from pixby.selectSR import Select_SR_Model
 # form_class = uic.loadUiType("intro.ui")[0]
 
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
+
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -33,13 +35,14 @@ def resource_path(relative_path):
 
 # db연결
 
-import sqlite3
+
 class WindowClass(QMainWindow):
     def __init__(self):
         super(WindowClass, self).__init__()
         loadUi('./pixby/ui/intro.ui', self)
-        # self.threadpool = QThreadPool()
-        # print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" %
+              self.threadpool.maxThreadCount())
         self.startBtn.clicked.connect(self.gotoChoice)
         self.compare.clicked.connect(self.gotoCompare)
 
@@ -55,17 +58,21 @@ class Choice(QMainWindow):
         super(Choice, self).__init__()
         loadUi('./pixby/ui/choice.ui', self)
 
-        self.gotoModelBtn.clicked.connect(self.gotoModel)
         self.goToCreateSR.clicked.connect(self.gotoCreateSR)
+        self.goToSelectSR.clicked.connect(self.gotoSelectSR)
+
         backbutton = QPushButton(self)
-        backbutton.move(0,10)
-        backbutton.resize(80,80)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
         backbutton.adjustSize()
-        backbutton.setStyleSheet('image:url(img/undo.png);border:0px;background-color:#FFFFFF')
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#FFFFFF')
         backbutton.clicked.connect(self.goToBack)
+
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
-    def gotoModel(self):
+
+    def gotoSelectSR(self):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def gotoCreateSR(self):
@@ -178,43 +185,40 @@ class Compare_Model(QMainWindow, compare_form ):
     working_path1 = ""
     working_path2 = ""
     send_valve_popup_signal = pyqtSignal(bool, name='sendValvePopupSignal')
-    def __init__(self) :
+
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.setStyleSheet("background-color: #F2F2F2;")
 
         # 위치 셋팅
-        self.groupBox1.move(300,100)
-        self.groupBox2.move(700,100)
+        self.groupBox1.move(300, 100)
+        self.groupBox2.move(700, 100)
         self.data_msg = QLabel("text", self)
         # self.groupBox1.addStrech(3)
-        
-        # backbutton 
-        backbutton = QPushButton(self)
-        backbutton.move(0,10)
-        backbutton.resize(80,80)
-        backbutton.adjustSize()
-        backbutton.setStyleSheet('image:url(img/undo.png);border:0px;background-color:#F2F2F2')
-        backbutton.clicked.connect(self.goToBack)
-    
 
-    
+        # backbutton
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+
         self.selectModel1.clicked.connect(self.choiceModel_1)
         self.selectModel2.clicked.connect(self.choiceModel_2)
         # 이미지 보여주기
         self.selectImage1.clicked.connect(self.folder_first)
         self.selectImage2.clicked.connect(self.folder_second)
-        
+
         self.nextButton.clicked.connect(self.nextPage)
 
-
-
     # 뒤로가기 -> classfication 설정 페이지
+
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
-        # widget.setCurrentIndex(widget.currentIndex()-4)
-    #경고 창 메서드...
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -223,8 +227,6 @@ class Compare_Model(QMainWindow, compare_form ):
         result = msg.exec_()
         if result == QMessageBox.Ok:
             self.send_valve_popup_signal.emit(True)
-
-
 
     def folder_first(self):
         # global working_path1
@@ -235,7 +237,6 @@ class Compare_Model(QMainWindow, compare_form ):
         # 비우고 경로 입력
         self.dir1.clear()
         self.dir1.append('경로: {}'.format(Compare_Model.working_path1))
-
 
     def folder_second(self):
         # global working_path2
@@ -254,7 +255,8 @@ class Compare_Model(QMainWindow, compare_form ):
             self.model_name1.append(name.split('/')[-1])
         except:
             self.warningMSG("주의", "모델 파일이 아닙니다.")
-    # model 2 
+    # model 2
+
     def choiceModel_2(self):
         name = QFileDialog.getOpenFileName(self, 'Open File')[0]
         Compare_Model.model_2 = name
@@ -272,119 +274,254 @@ class Compare_Model(QMainWindow, compare_form ):
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
 
 
+save_sr_model = {
+    'model_name': '',
+    'batch_size': '',
+    'learning_rate': '',
+    'epoch': '',
+    'resblock': '16',
+                'feature_map': '32',
+                'scale': 'x2',
+                'data_dir': '',
+                'save_dir': ''
+}
 
-# SR 이전 모델 선택 
-class Select_SR_Model(QMainWindow):
 
-    def __init__(self):
-        super(Select_SR_Model, self).__init__()
-        loadUi('./pixby/ui/select.ui', self)
+class ChoiceSR(QMainWindow):
 
-        # sql 연동
-        self.sqlConnect()
+    def __init__(self, parent):
+        super(ChoiceSR, self).__init__(parent)
+        loadUi('./pixby/ui/choiceSR.ui', self)
+        self.show()
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.closeBtn.clicked.connect(self.closeChoice)
+        self.selectSRBtn.clicked.connect(
+            self.selectSave)
+        self.select_SR_Model_Window = parent  # 상속받은 창 정의
 
-        # 이미지 열기 버튼
-        self.imageBtn.clicked.connect(self.openImage)
-        backbutton = QPushButton(self)
-        backbutton.move(0,10)
-        backbutton.resize(80,80)
-        backbutton.adjustSize()
-        backbutton.setStyleSheet('image:url(img/undo.png);border:0px;background-color:#F2F2F2')
-        backbutton.clicked.connect(self.goToBack)
-
-    def goToBack(self):
-        widget.setCurrentIndex(widget.currentIndex()-1)
-    def openImage(self):
-        imageOpen = QFileDialog.getOpenFileName(self, 'open file', './')
-
-    # DB) SQL 연결 및 테이블 생성
-    def sqlConnect(self):
-        # db파일 이름 설정
-        self.dbName = "db.sqlite3"
-
-        self.conn = sqlite3.connect(self.dbName, isolation_level=None)
-
-        # 커서 객체를 받아와서 execute 메서드로 CREATE TABLE 쿼리를 전송합니다.
-        self.cur = self.conn.cursor()
-        # 모델테이블 생성 임시로test라고 해놓음(모델이름있으면 오류남)
-        # self.cur.execute("CREATE TABLE Test(Model Name, Epoch);")
-        # 테이블에 값 넣기
-        self.cur.execute("INSERT INTO Test Values('ThirdSR', '8');")
-
-        # pyqt창에 표로 db데이터 보여주기 함수실행
+        # sql 표로보여주기
         self.getData()
 
-    # db값 가져오기 + 표로 보여주기
     def getData(self):
         connection = sqlite3.connect("db.sqlite3")
         self.cur = connection.cursor()
         sqlquery = 'SELECT * FROM Test'
 
-        # 표 행값구하기위해 fetchall로 [(), ()..] 형태 만들어줌
-        data_list = self.cur.execute(sqlquery).fetchall()
+        self.cur.execute("SELECT name from sqlite_master WHERE type='table'")
+        tables = self.cur.fetchall()
+        if len(tables) > 0:
+            # 표 행값구하기위해 fetchall로 [(), ()..] 형태 만들어줌
+            data_list = self.cur.execute(sqlquery).fetchall()
 
-        # 보여줄 행 갯수 설정
-        self.tableWidget.setRowCount(len(data_list))
-        # 행 전체 클릭하게 하는 코드
-        self.tableWidget.setSelectionBehavior(QTableWidget.SelectRows)
-        # 클릭한 행의 모델값 전달함수
-        self.tableWidget.cellClicked.connect(self.selectSR)
+            # 보여줄 행 갯수 설정
+            self.tableWidget.setRowCount(len(data_list))
+            # 표값 읽기모드
+            self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        tablerow = 0
-        for row in self.cur.execute(sqlquery):
-            # print(row)
-            # print(row[0])
-            self.tableWidget.setItem(tablerow, 0, QTableWidgetItem(row[0]))
-            self.tableWidget.setItem(tablerow, 1, QTableWidgetItem(row[1]))
-            tablerow += 1
+            # 행 전체 클릭하게 하는 코드
+            self.tableWidget.setSelectionBehavior(QTableWidget.SelectRows)
+            # 클릭한 행의 모델값 전달함수
+            self.tableWidget.cellClicked.connect(self.selectSR)
+
+            tablerow = 0
+            for row in self.cur.execute(sqlquery):
+                # print(row[2])
+                # print(row[0])
+                self.tableWidget.setItem(
+                    tablerow, 0, QTableWidgetItem(row[0]))
+                self.tableWidget.setItem(
+                    tablerow, 1, QTableWidgetItem(row[1]))
+                self.tableWidget.setItem(
+                    tablerow, 2, QTableWidgetItem(row[2]))
+                self.tableWidget.setItem(
+                    tablerow, 3, QTableWidgetItem(row[3]))
+                self.tableWidget.setItem(
+                    tablerow, 4, QTableWidgetItem(row[4]))
+                tablerow += 1
 
     def selectSR(self, row):
+
         # pyqt창 선택한 모델이름 표시
-        data = self.tableWidget.item(row, 0)
-        select_sr_modelname = data.text()
-        self.selectSRModelName.setText(select_sr_modelname)
+        select_sr_modelname = self.tableWidget.item(row, 0).text()
+        select_sr_scale = self.tableWidget.item(row, 1).text()
+        select_sr_batch_size = self.tableWidget.item(row, 2).text()
+        select_sr_learning_rate = self.tableWidget.item(row, 3).text()
+        select_sr_epoch = self.tableWidget.item(row, 4).text()
+
+        # self.selectSRModelName.setText(select_sr_modelname)
+        save_sr_model['model_name'] = select_sr_modelname
+
+    def closeChoice(self):
+        ChoiceSR.close(self)
+
+    def selectSave(self):
+        self.select_SR_Model_Window.selectSRModelName.append(
+            save_sr_model['model_name'])
+        ChoiceSR.close(self)
+        # SR 이전 모델 선택
 
 
+class Select_SR_Model(QMainWindow):
+    def __init__(self):
+        super(Select_SR_Model, self).__init__()
+        loadUi('./pixby/ui/select.ui', self)
 
+        # 이미지 열기 버튼
+        self.imageBtn.clicked.connect(self.openImage)
+        self.goToChoiceSR.clicked.connect(self.showChoice)
 
-# 1. ui 연결
-# 연결할 ui 파일의 경로 설정
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+
+    def goToBack(self):
+        widget.setCurrentIndex(widget.currentIndex()-1)
+
+    def openImage(self):
+        self.selectSRModelName.append('asddfdf')
+        # imageOpen = QFileDialog.getOpenFileName(self, 'open file', './')
+
+    def showChoice(self):
+        ChoiceSR(self)
+
+    def setModelName(self, msg):
+        self.selectSRModelName.append('msg')
+        print(msg)
+        print(type(msg))
+
+        # 1. ui 연결
+        # 연결할 ui 파일의 경로 설정
 new_sr_ui = resource_path('pixby/ui/newSR.ui')
 learn_ui = resource_path('pixby/ui/learn.ui')
-# ui 로드 
-new_sr_form  = uic.loadUiType(new_sr_ui )[0]
-learn_ui_form  = uic.loadUiType(learn_ui )[0]
+# ui 로드
+new_sr_form = uic.loadUiType(new_sr_ui)[0]
+learn_ui_form = uic.loadUiType(learn_ui)[0]
 
 
+create_sr_data = {
+    'model_name': '',
+    'filename': '',
+    'batch_size': '',
+    'learning_rate': '',
+    'epoch': '',
+    'resblock': '16',
+    'feature_map': '32',
+    'scale': 'x2',
+    'data_dir': '',
+    'save_dir': ''
+}
 class Thread1(QThread):
-    #parent = MainWidget을 상속 받음.
+    # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
         self.threadpool = QThreadPool()
 
+
     def run(self):
-        Go()
+        testing = {
+            'data_test' :  ['Demo'],
+            'test_only' : True,
+            'scale' : [2],
+            'pre_train' : './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+            # 'save_result' : True,
+            'save_results' : True,
+            'chop' : True 
+        }
+        learning = {
+            'model' : 'EDSR',
+            'scale' : [2],
+            'save' : 'EDSR_baseline_x2_transfer_cifar',
+            'pre_train' : './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+            'chop' : True,
+            'dir_data' : './test',
+            'data_train' : ['TESTDATA'],
+            'data_test' : ['TESTDATA'],
+            'data_range' : '1-8/9-10',
+            'epochs' : 3,
+            'ext' : 'img'
 
-#화면을 띄우는데 사용되는 Class 선언
-class Create_SR_Model(QMainWindow, new_sr_form) :
-    filename = ''
+        }
+        main(**testing)
 
+
+# 화면을 띄우는데 사용되는 Class 선언
+
+
+class Create_SR_Model(QMainWindow, new_sr_form):
+
+   # 보낼 시그널 데이터 타입 , 갯수 지정
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.pushButton.clicked.connect(self.dataLoadFn)
         backbutton = QPushButton(self)
-        backbutton.move(0,10)
-        backbutton.resize(80,80)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
         backbutton.adjustSize()
-        backbutton.setStyleSheet('image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
+
+        self.traindataButton.clicked.connect(self.data_dir_save)
+        self.modeldirButton.clicked.connect(self.save_dir_save)
+
+        # batch_box = self.batchtextEdit
+        self.batchtextEdit.textChanged.connect(self.batch_changed)
+        self.learningtextEdit.textChanged.connect(self.learning_changed)
+        self.epochtextEdit.textChanged.connect(self.epoch_changed)
+        self.modelnametextEdit.textChanged.connect(self.model_name_changed)
+
+        res_box = self.resblockcombobox
+        res_box.addItem('16')
+        res_box.addItem('32')
+        res_box.addItem('48')
+        res_box.addItem('64')
+
+        feature_box = self.featurecombobox
+        feature_box.addItem('32')
+        feature_box.addItem('64')
+        scale_box = self.scalecombobox
+        scale_box.addItem('x2')
+        scale_box.addItem('x4')
+
+        res_box.activated[str].connect(self.onRes)
+        feature_box.activated[str].connect(self.onFeature)
+        scale_box.activated[str].connect(self.onScale)
+
+    def data_dir_save(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ShowDirsOnly
+        create_sr_data['data_dir'] = QFileDialog.getExistingDirectory(
+            self, "select Directory")
+        # 비우고 경로 입력
+        self.traindatatextEdit.clear()
+        self.traindatatextEdit.append(
+            '경로: {}'.format(create_sr_data['data_dir']))
+    # model 2
+
+    def save_dir_save(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ShowDirsOnly
+        create_sr_data['save_dir'] = QFileDialog.getExistingDirectory(
+            self, "select Directory")
+        # 비우고 경로 입력
+        self.modeldirtextEdit.clear()
+        self.modeldirtextEdit.append(
+            '경로: {}'.format(create_sr_data['save_dir']))
 
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-2)
+
     def dataLoadFn(self):
-        x = Thread1(self)
-        x.start()
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        # Learn_SR_Model(self)
+        # self.close()
+        # x = Thread1(self)
+        # x.start()
         # Go()
         # filename = QFileDialog.getOpenFileName(self, 'Open File', './')
         # print(filename)
@@ -392,18 +529,84 @@ class Create_SR_Model(QMainWindow, new_sr_form) :
         #     self.label_34.setPixmap(QtGui.QPixmap("filename"))
         #     self.label_34.setGeometry(QtCore.QRect(100, 100))
 
+    def batch_changed(self):
+        create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
+        # print(self.batch_size)
+
+    def learning_changed(self):
+        create_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
+
+    def epoch_changed(self):
+        create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
+
+    def model_name_changed(self):
+        create_sr_data['model_name'] = self.modelnametextEdit.toPlainText()
+
+    def onRes(self, text):
+        create_sr_data['resblock'] = text
+
+    def onFeature(self, text):
+        create_sr_data['feature_map'] = text
+
+    def onScale(self, text):
+
+        create_sr_data['scale'] = text
+        print(create_sr_data['scale'])
 
 
-class Learn_SR_Model(QMainWindow, learn_ui_form) :
-    filename = ''
-
-    def __init__(self) :
+class Learn_SR_Model(QMainWindow, learn_ui_form):
+    # filename = ''
+    # def __init__(self, parent) :
+    # super(Learn_SR_Model, self).__init__(parent)
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
 
+        self.golearnbutton_2.clicked.connect(self.dataLoadFn)
+        self.gotestbutton.clicked.connect(self.goSR)
+
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+        # self.show()
+        # x = Thread1(self)
+        # x.start()
+
+    # 학습한 SR저장
+    def dataLoadFn(self):
+        self.textBox_terminal.append(create_sr_data['scale'])
+        print(create_sr_data)
+        # 모델이름 추후수정하기
+        model_name = create_sr_data['model_name']
+        scale = create_sr_data['scale']
+        batch_size = create_sr_data['batch_size']
+        learning_rate = create_sr_data['learning_rate']
+        epoch = create_sr_data['epoch']
+
+        self.dbName = "db.sqlite3"
+        self.conn = sqlite3.connect(self.dbName, isolation_level=None)
+        self.cur = self.conn.cursor()
+
+        self.cur.execute("SELECT name from sqlite_master WHERE type='table'")
+        tables = self.cur.fetchall()
+        if len(tables) > 0:
+            print('이미 테이블 있어')
+        else:
+            # 모델테이블 생성 임시로test라고 해놓음(모델이름있으면 오류남)
+            self.cur.execute(
+                "CREATE TABLE Test(model_name, 배율, batch_size, learning_rate, epoch);")
+
+        self.cur.execute(
+            f"INSERT INTO Test Values('{model_name}', '{scale}', '{batch_size}', '{learning_rate}', '{epoch}');")
+
+    def goToBack(self):
+        widget.setCurrentIndex(widget.currentIndex()-1)
     #     self.pushButton.clicked.connect(self.dataLoadFn)
 
-    
     # def dataLoadFn(self):
     #     filename = QFileDialog.getOpenFileName(self, 'Open File', './')
     #     print(filename)
@@ -411,6 +614,9 @@ class Learn_SR_Model(QMainWindow, learn_ui_form) :
     #         self.label_34.setPixmap(QtGui.QPixmap("filename"))
     #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
 
+    def goSR(self):
+        x = Thread1(self)
+        x.start()
 
 
 

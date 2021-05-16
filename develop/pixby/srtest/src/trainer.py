@@ -2,7 +2,7 @@ import os
 import math
 from decimal import Decimal
 
-import utility
+from pixby.srtest.src import utility
 
 import torch
 import torch.nn.utils as utils
@@ -39,7 +39,15 @@ class Trainer():
         timer_data, timer_model = utility.timer(), utility.timer()
         # TEMP
         self.loader_train.dataset.set_scale(0)
+        print(self.loader_train.num_workers, 'self.loader_tran===================')
+        print((self.loader_train), '갯수')
         for batch, (lr, hr, _,) in enumerate(self.loader_train):
+            # 0514 내가 추가한 곳 0515 자리 이동-------------------
+            lr = lr[:, :3, :, :]
+            hr = hr[:, :3, :, :]
+            print(lr, hr, 'lr hr')
+            # ---------------------------------------
+            #print(lr, hr, '================lr hr================')
             lr, hr = self.prepare(lr, hr)
             timer_data.hold()
             timer_model.tic()
@@ -82,6 +90,8 @@ class Trainer():
         self.model.eval()
 
         timer_test = utility.timer()
+        # 0514 multiprocessing 지우려고 주석처리-> 했다가 품
+        # issue 105확인
         if self.args.save_results: self.ckp.begin_background()
         for idx_data, d in enumerate(self.loader_test):
             with torch.no_grad():
@@ -118,6 +128,8 @@ class Trainer():
         self.ckp.write_log('Forward: {:.2f}s\n'.format(timer_test.toc()))
         self.ckp.write_log('Saving...')
 
+        # 0514 multiprocessing 지우려고 주석처리했다가 주석 품
+        # issue 105확인
         if self.args.save_results:
             self.ckp.end_background()
 
