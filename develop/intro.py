@@ -324,7 +324,7 @@ class Thread1(QThread):
             'ext' : 'img'
 
         }
-        main(**learning)
+        main(**testing)
 
 
 # 화면을 띄우는데 사용되는 Class 선언
