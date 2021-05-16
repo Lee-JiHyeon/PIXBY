@@ -181,14 +181,30 @@ class compareModel(QMainWindow, compare_form):
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
 
 
+save_sr_model = {
+    'model_name': '',
+    'batch_size': '',
+    'learning_rate': '',
+    'epoch': '',
+    'resblock': '16',
+                'feature_map': '32',
+                'scale': 'x2',
+                'data_dir': '',
+                'save_dir': ''
+}
+
+
 class ChoiceSR(QMainWindow):
+
     def __init__(self, parent):
         super(ChoiceSR, self).__init__(parent)
         loadUi('./pixby/ui/choiceSR.ui', self)
         self.show()
-
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.closeBtn.clicked.connect(self.closeChoice)
+        self.selectSRBtn.clicked.connect(
+            self.selectSave)
+        self.select_SR_Model_Window = parent  # 상속받은 창 정의
 
         # sql 표로보여주기
         self.getData()
@@ -231,6 +247,7 @@ class ChoiceSR(QMainWindow):
                 tablerow += 1
 
     def selectSR(self, row):
+
         # pyqt창 선택한 모델이름 표시
         select_sr_modelname = self.tableWidget.item(row, 0).text()
         select_sr_scale = self.tableWidget.item(row, 1).text()
@@ -239,12 +256,16 @@ class ChoiceSR(QMainWindow):
         select_sr_epoch = self.tableWidget.item(row, 4).text()
 
         # self.selectSRModelName.setText(select_sr_modelname)
-        print(select_sr_modelname, select_sr_scale, select_sr_batch_size,
-              select_sr_learning_rate, select_sr_epoch)
+        save_sr_model['model_name'] = select_sr_modelname
 
     def closeChoice(self):
         ChoiceSR.close(self)
-# SR 이전 모델 선택
+
+    def selectSave(self):
+        self.select_SR_Model_Window.selectSRModelName.append(
+            save_sr_model['model_name'])
+        ChoiceSR.close(self)
+        # SR 이전 모델 선택
 
 
 class Select_SR_Model(QMainWindow):
@@ -268,14 +289,19 @@ class Select_SR_Model(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()-1)
 
     def openImage(self):
-        imageOpen = QFileDialog.getOpenFileName(self, 'open file', './')
+        self.selectSRModelName.append('asddfdf')
+        # imageOpen = QFileDialog.getOpenFileName(self, 'open file', './')
 
     def showChoice(self):
         ChoiceSR(self)
 
+    def setModelName(self, msg):
+        self.selectSRModelName.append('msg')
+        print(msg)
+        print(type(msg))
 
-# 1. ui 연결
-# 연결할 ui 파일의 경로 설정
+        # 1. ui 연결
+        # 연결할 ui 파일의 경로 설정
 new_sr_ui = resource_path('pixby/ui/newSR.ui')
 learn_ui = resource_path('pixby/ui/learn.ui')
 # ui 로드
