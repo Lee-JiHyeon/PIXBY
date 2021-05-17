@@ -9,6 +9,7 @@ pip install torchvision
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+
 from numpy.core.fromnumeric import resize
 
 import torch
@@ -58,6 +59,8 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
   for (X_train, Y_train) in train_loader:
     print('X_train:', X_train.size(), 'type:', X_train.type())
     print('Y_train:', Y_train.size(), 'type:', Y_train.type())
+    window.textBox_terminal.append("X_train: {}, type: {}".format(X_train.size(), X_train.type()))
+    window.textBox_terminal.append("Y_train: {}, type: {}".format(Y_train.size(), Y_train.type()))
     break
     
   print(len(train_dataset))
@@ -177,7 +180,10 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
             Epoch, batch_idx * len(image),
             len(train_loader.dataset), 100. * batch_idx / len(train_loader),
             loss.item()))
-
+        window.textBox_terminal.append("Train Epoch: {} [{}/{}({:.0f}%)]\tTrain Loss: {:.6f}".format(
+            Epoch, batch_idx * len(image),
+            len(train_loader.dataset), 100. * batch_idx / len(train_loader),
+            loss.item()))
   ''' 9. 학습되는 과정 속에서 검증 데이터에 대한 모델 성능을 확인하는 함수 정의 '''
   def evaluate(model, test_loader):
     model.eval()
@@ -203,13 +209,17 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
     test_loss, test_accuracy = evaluate(model, test_loader)
     print("\n[EPOCH: {}], \tTest Loss: {:.4f}, \tTest Accuracy: {:.2f} %\n".
           format(Epoch, test_loss, test_accuracy))
-
+    window.textBox_terminal.append("\n[EPOCH: {}], \tTest Loss: {:.4f}, \tTest Accuracy: {:.2f} %\n".
+          format(Epoch, test_loss, test_accuracy))
   # train, loss 그래프 출력
   # plt.plot(range(1, EPOCHS + 1), accuracy)
 
   # learning rate 그래프 출력
+  ax = window.fig.add_subplot(111)
+
   plt.plot(range(1, EPOCHS + 1),lrs)
 
   print("성공")
+  window.textBox_terminal.append("성공")
   ''' 모델 저장 '''
   torch.save(model.state_dict(), save_path + f'/{name}.pth')

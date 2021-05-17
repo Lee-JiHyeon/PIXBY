@@ -153,7 +153,6 @@ def Infer(dataset_path, model_path):
   else:
     model = ResNet().to(DEVICE)
     model.load_state_dict(torch.load(model_path))
-    print('앙 승준띠')
   # print(model)
   model.eval()
 

@@ -7,12 +7,16 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
+from PIL import Image
+
 # from pixby.newSR import Create_SR_Model
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
 from PyQt5.QtCore import Qt
-import math
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
 
@@ -149,6 +153,14 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         self.image_view.setPixmap(pixmap)
         pixmap = pixmap.scaled(340, 350, Qt.IgnoreAspectRatio)
         self.image_view.setPixmap(pixmap)
+        img = Image.open(self.mainImg)
+        st = os.stat(self.mainImg)
+        self.file_name.setText(img.filename.split('/')[-1])
+        self.file_size.setText("{} X {}".format(str(img.width),str(img.height)))
+        self.fomat.setText(img.format)
+        self.class_name.setText(img.filename.split('/')[-2])
+
+
         # self.image_view.adjustSize()
 
     def showImg2(self,index):
@@ -157,6 +169,12 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         pixmap = pixmap.scaled(340, 350, Qt.IgnoreAspectRatio)
         self.image_view.setPixmap(pixmap)
         # self.image_view.adjustSize()
+        img = Image.open(self.mainImg)
+        st = os.stat(self.mainImg)
+        self.file_name.setText(img.filename.split('/')[-1])
+        self.file_size.setText("{} X {}".format(str(img.width),str(img.height)))
+        self.fomat.setText(img.format)
+        self.class_name.setText(img.filename.split('/')[-2])
 
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
@@ -222,8 +240,6 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         if Create_CNN_Model.lr >=0.1:
             self.warningMSG("주의", "learning rate는 0.1보다 작게 해주셔야 됩니다.")
         elif Create_CNN_Model.sa_path and Create_CNN_Model.tr_path and Create_CNN_Model.te_path:
-            # train_cnn = Train_CNN(self)
-            # widget.addWidget(train_cnn)
             widget.setCurrentWidget(train_cnn)
             train_cnn.model_name.setText(Create_CNN_Model.model_name)
             train_cnn.batch_size.setText(str(Create_CNN_Model.batch))
@@ -250,9 +266,9 @@ class Train_CNN(QMainWindow,train_form):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
-
-
-
+        self.fig = plt.Figure()
+        self.canvas1 = FigureCanvas(self.fig)
+        self.psnr.addWidget(self.canvas1)
 
     def goToBack(self):
         widget.setCurrentWidget(create_cnn)
