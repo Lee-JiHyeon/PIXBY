@@ -14,15 +14,11 @@ from PIL import Image
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
-<<<<<<< HEAD
 from PyQt5.QtCore import Qt
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-=======
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from PIL import Image
->>>>>>> 7b57bf433865fd959a47cfec2531d7619c14346f
+
+
 
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
@@ -65,10 +61,10 @@ class WindowClass(QMainWindow):
         self.compare.clicked.connect(self.gotoCompare)
 
     def gotoChoice(self):
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentWidget(choice)
 
     def gotoCompare(self):
-        widget.setCurrentIndex(widget.currentIndex()+5)
+        widget.setCurrentWidget(compare_model)
 
 
 class Choice(QMainWindow):
@@ -88,13 +84,13 @@ class Choice(QMainWindow):
         backbutton.clicked.connect(self.goToBack)
 
     def goToBack(self):
-        widget.setCurrentIndex(widget.currentIndex()-1)
+        widget.setCurrentWidget(windowclass)
 
     def gotoSelectSR(self):
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentWidget(select_sr_model)
 
     def gotoCreateSR(self):
-        widget.setCurrentIndex(widget.currentIndex()+2)
+        widget.setCurrentWidget(create_sr)
 
 
 
@@ -265,7 +261,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             train_cnn.batch_size.setText(str(Create_CNN_Model.batch))
             train_cnn.lr_rate.setText(str(Create_CNN_Model.lr))
             train_cnn.epoch.setText(str(Create_CNN_Model.ep))
-            # widget.setCurrentIndex(widget.currentIndex()+1)
+            # widget.setCurrentWidget(widget.currentIndex()+1)
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
         
@@ -514,7 +510,7 @@ class Select_SR_Model(QMainWindow):
         backbutton.clicked.connect(self.goToBack)
 
     def goToBack(self):
-        widget.setCurrentIndex(widget.currentIndex()-1)
+        widget.setCurrentWidget(choice)
 
     def openImage(self):
         options = QFileDialog.Options()
@@ -702,10 +698,10 @@ class Create_SR_Model(QMainWindow, new_sr_form):
             '경로: {}'.format(create_sr_data['save_dir']))
 
     def goToBack(self):
-        widget.setCurrentIndex(widget.currentIndex()-2)
+        widget.setCurrentWidget(choice)
 
     def dataLoadFn(self):
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentWidget(learn_sr)
         # Learn_SR_Model(self)
         # self.close()
         # x = Thread1(self)
@@ -829,7 +825,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
             f"INSERT INTO Test Values('{model_name}', '{scale}', '{batch_size}', '{learning_rate}', '{epoch}');")
 
     def goToBack(self):
-        widget.setCurrentIndex(widget.currentIndex()-1)
+        widget.setCurrentWidget(create_sr)
     #     self.pushButton.clicked.connect(self.dataLoadFn)
 
     # def dataLoadFn(self):
@@ -840,12 +836,12 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
 
     def goSR(self):
-        # widget.setCurrentIndex(widget.currentIndex()+1)
+        # widget.setCurrentWidget(widget.currentIndex()+1)
         x = Thread1(self)
         x.start()
 
     def goTest(self):
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentWidget(result_sr)
 
 
 res_ui = resource_path('pixby/ui/res.ui')
@@ -907,7 +903,7 @@ class Result_SR_Model(QMainWindow):
         self.testSRBtn.clicked.connect(self.testSR)
 
     def goToBack(self):
-        widget.setCurrentIndex(widget.currentIndex()-1)
+        widget.setCurrentWidget(learn_sr)
 
     def setImg(self):
         img_dir = QFileDialog.getOpenFileName(self, 'Open File')[0]
@@ -915,7 +911,7 @@ class Result_SR_Model(QMainWindow):
         self.testSRImg.setPixmap(pixmap)
 
     def goToChoiceUi(self):
-        widget.setCurrentIndex(widget.currentIndex()-4)
+        widget.setCurrentWidget(choice)
 
     def testSR(self):
         x = Thread2(self)
