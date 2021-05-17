@@ -166,7 +166,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         pixmap = pixmap.scaled(340, 350, Qt.IgnoreAspectRatio)
         self.image_view.setPixmap(pixmap)
         img = Image.open(self.mainImg)
-        st = os.stat(self.mainImg)
+        # st = os.stat(self.mainImg)
         self.file_name.setText(img.filename.split('/')[-1])
         self.file_size.setText("{} X {}".format(str(img.width),str(img.height)))
         self.fomat.setText(img.format)
@@ -282,9 +282,12 @@ class Train_CNN(QMainWindow,train_form):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
-        self.fig = plt.Figure()
-        self.canvas1 = FigureCanvas(self.fig)
-        self.psnr.addWidget(self.canvas1)
+        self.fig1 = plt.Figure()
+        self.canvas1 = FigureCanvas(self.fig1)
+        self.fig2 = plt.Figure()
+        self.canvas2 = FigureCanvas(self.fig2)
+        self.layout1.addWidget(self.canvas1)
+        self.layout2.addWidget(self.canvas2)
 
     def goToBack(self):
         widget.setCurrentWidget(create_cnn)
