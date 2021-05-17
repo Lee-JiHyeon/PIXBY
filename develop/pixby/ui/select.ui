@@ -150,7 +150,7 @@
       <rect>
        <x>390</x>
        <y>230</y>
-       <width>571</width>
+       <width>361</width>
        <height>351</height>
       </rect>
      </property>
@@ -158,6 +158,132 @@
       <string>TextLabel</string>
      </property>
     </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>830</x>
+       <y>390</y>
+       <width>321</width>
+       <height>271</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>이미지 정보</string>
+     </property>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>64</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>W x H : </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>100</y>
+        <width>64</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Filename:  : </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>180</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Classname:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>140</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Extension:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="imgWH">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>60</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="imgFN">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>100</y>
+        <width>64</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="imgCN">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>180</y>
+        <width>64</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="imgEX">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>140</y>
+        <width>64</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <zorder>groupBox_2</zorder>
+    <zorder>label_2</zorder>
+    <zorder>label_3</zorder>
+    <zorder>selectSRModelName</zorder>
+    <zorder>goToChoiceSR</zorder>
+    <zorder>textBrowser_2</zorder>
+    <zorder>imageBtn</zorder>
+    <zorder>treeView</zorder>
+    <zorder>selectSRDataImg</zorder>
    </widget>
    <zorder>groupBox</zorder>
    <zorder>pushButton_3</zorder>

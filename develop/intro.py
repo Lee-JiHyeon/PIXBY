@@ -14,6 +14,7 @@ from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from PIL import Image
 
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
@@ -421,6 +422,12 @@ class Select_SR_Model(QMainWindow):
             340, 350, Qt.IgnoreAspectRatio)
         self.selectSRDataImg.setPixmap(pixmap)
 
+        img = Image.open(self.mainImg)
+        self.imgCN.setText(img.filename.split('/')[-2])
+        self.imgWH.setText("{} X {}".format(str(img.width), str(img.height)))
+        self.imgFN.setText(img.filename.split('/')[-1])
+        self.imgEX.setText(img.format)
+
     def showChoice(self):
         ChoiceSR(self)
 
@@ -481,6 +488,25 @@ class Thread1(QThread):
         main(learn_sr, **learning)
 
 
+class Thread2(QThread):
+    # parent = MainWidget을 상속 받음.
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        # self.threadpool = QThreadPool()
+
+    def run(self):
+        testing = {
+            'data_test':  ['Demo'],
+            'test_only': True,
+            'scale': [2],
+            'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+            # 'save_result' : True,
+            'save_results': True,
+            'chop': True
+        }
+        main(learn_sr, **testing)
+
+
 # 화면을 띄우는데 사용되는 Class 선언
 
 
@@ -525,6 +551,8 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         feature_box.activated[str].connect(self.onFeature)
         scale_box.activated[str].connect(self.onScale)
 
+        self.treeView.doubleClicked.connect(self.showImg)
+
     def data_dir_save(self):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
@@ -534,6 +562,20 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         self.traindatatextEdit.clear()
         self.traindatatextEdit.append(
             '경로: {}'.format(create_sr_data['data_dir']))
+
+        treeModel = QFileSystemModel()
+        self.treeView.setModel(treeModel)
+        treeModel.setRootPath(QDir.rootPath())
+        self.treeView.setRootIndex(treeModel.index(create_sr_data['data_dir']))
+        self.treeView.hideColumn(1)
+        self.treeView.hideColumn(2)
+        self.treeView.hideColumn(3)
+
+    def showImg(self, index):
+        self.mainImg = self.treeView.model().filePath(index)
+        pixmap = QtGui.QPixmap(self.mainImg).scaled(
+            340, 350, Qt.IgnoreAspectRatio)
+        self.createSRDataImg.setPixmap(pixmap)
     # model 2
 
     def save_dir_save(self):
@@ -652,8 +694,9 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
 
     def goSR(self):
-        x = Thread1(self)
-        x.start()
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        # x = Thread1(self)
+        # x.start()
 
 
 res_ui = resource_path('pixby/ui/res.ui')
@@ -677,6 +720,48 @@ class Result_Model(QMainWindow, res_form):
         self.show()
 
 
+class Result_SR_Model(QMainWindow):
+    def __init__(self):
+        super(Result_SR_Model, self).__init__()
+        loadUi('./pixby/ui/resSR.ui', self)
+
+        #  뒤로가기버튼
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+
+        # choice.ui로 가는 버튼
+        self.goToChoice.clicked.connect(self.goToChoiceUi)
+
+        # 이미지가져오기버튼
+        self.setImgBtn.clicked.connect(self.setImg)
+
+        # 테이블 행 사이즈 맞추기
+        self.testSRTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        # testSR버튼
+        self.testSRBtn.clicked.connect(self.testSR)
+
+    def goToBack(self):
+        widget.setCurrentIndex(widget.currentIndex()-1)
+
+    def setImg(self):
+        img_dir = QFileDialog.getOpenFileName(self, 'Open File')[0]
+        pixmap = QtGui.QPixmap(img_dir).scaled(340, 350, Qt.IgnoreAspectRatio)
+        self.testSRImg.setPixmap(pixmap)
+
+    def goToChoiceUi(self):
+        widget.setCurrentIndex(widget.currentIndex()-4)
+
+    def testSR(self):
+        x = Thread2(self)
+        x.start()
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
@@ -686,6 +771,7 @@ if __name__ == "__main__":
     select_sr_model = Select_SR_Model()
     create_sr = Create_SR_Model()
     learn_sr = Learn_SR_Model()
+    result_sr = Result_SR_Model()
     compare_model = Compare_Model()
     create_cnn = Create_CNN_Model()
     widget.addWidget(windowclass)
@@ -693,6 +779,7 @@ if __name__ == "__main__":
     widget.addWidget(select_sr_model)
     widget.addWidget(create_sr)
     widget.addWidget(learn_sr)
+    widget.addWidget(result_sr)
     widget.addWidget(compare_model)
     widget.addWidget(create_cnn)
     widget.setFixedHeight(960)
