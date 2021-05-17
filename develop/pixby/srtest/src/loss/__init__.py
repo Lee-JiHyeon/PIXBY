@@ -106,8 +106,10 @@ class Loss(nn.modules.loss._Loss):
 
         return ''.join(log)
 
-    def plot_loss(self, apath, epoch):
+    def plot_loss(self, apath, epoch, window):
         axis = np.linspace(1, epoch, epoch)
+        # lfig = window.fig
+        # lfig.clear()
         for i, l in enumerate(self.loss):
             label = '{} Loss'.format(l['type'])
             fig = plt.figure()
@@ -117,6 +119,8 @@ class Loss(nn.modules.loss._Loss):
             plt.xlabel('Epochs')
             plt.ylabel('Loss')
             plt.grid(True)
+            # window.textBox_terminal.append('loss!@%@#$#$@!$@#%@$^')
+            window.psnr.draw()
             plt.savefig(os.path.join(apath, 'loss_{}.pdf'.format(l['type'])))
             plt.close(fig)
 

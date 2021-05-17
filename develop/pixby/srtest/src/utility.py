@@ -5,8 +5,8 @@ import datetime
 from multiprocessing import Process
 from multiprocessing import Queue
 
-import matplotlib
-matplotlib.use('TkAgg')
+# import matplotlib
+# matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -53,9 +53,9 @@ class checkpoint():
         if not args.load:
             if not args.save:
                 args.save = now
-            self.dir = os.path.join('./test', 'experiment', args.save)
+            self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.save)
         else:
-            self.dir = os.path.join('./test', 'experiment', args.load)
+            self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.load)
             if os.path.exists(self.dir):
                 self.log = torch.load(self.get_path('psnr_log.pt'))
                 print('Continue from epoch {}...'.format(len(self.log)))
@@ -87,7 +87,7 @@ class checkpoint():
     def save(self, trainer, epoch, window, is_best=False):
         trainer.model.save(self.get_path('model'), epoch, is_best=is_best)
         trainer.loss.save(self.dir)
-        trainer.loss.plot_loss(self.dir, epoch)
+        trainer.loss.plot_loss(self.dir, epoch, window)
 
         self.plot_psnr(epoch, window)
         trainer.optimizer.save(self.dir)
@@ -108,14 +108,14 @@ class checkpoint():
         self.log_file.close()
 
     def plot_psnr(self, epoch, window):
-        # print(epoch, '!@#$@#$@#%!@$#@%$^@#%!@$#@%$^#@%#$@!#%@$')
-        wfig = window.fig
-        wpsnr = window.psnr
+        self.wfig = window.fig
+        self.wpsnr = window.psnr
         
-        wfig.clear()
+        # wfig.clear()
         axis = np.linspace(1, epoch, epoch)
         for idx_data, d in enumerate(self.args.data_test):
             label = 'SR on {}'.format(d)
+            
             fig = plt.figure()
             plt.title(label)
             for idx_scale, scale in enumerate(self.args.scale):
@@ -126,21 +126,16 @@ class checkpoint():
                 )
 
             plt.legend()
-           
             plt.xlabel('Epochs')
-           
             plt.ylabel('PSNR')
-           
             plt.grid(True)
-           
             # plt.show()
             plt.savefig(self.get_path('test_{}.pdf'.format(d)))
-            wfig.savefig(self.get_path('test_{}.pdf'.format(d)))
-          
-            window.textBox_terminal.append('!@#$@#$%$')
-            wpsnr.draw()
-            window.psnr.draw()
+            # window.textBox_terminal.append('!@#$@#$%$')
+            # wpsnr.draw()
+            self.wpsnr.draw()
             plt.close(fig)
+
 
     # def begin_background(self):
     #     self.queue = Queue()
