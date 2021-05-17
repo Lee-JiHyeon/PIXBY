@@ -35,7 +35,7 @@ def main(window, **kwargs):
     else:
         DEVICE = torch.device('cpu')
 
-    print('Using PyTorch version:', torch.__version__, ' Device:', DEVICE)
+    # print('Using PyTorch version:', torch.__version__, ' Device:', DEVICE)
     window.textBox_terminal.append("Training Done!")
     for key, value in kwargs.items():
         vars(args)[key] = value
@@ -49,7 +49,7 @@ def main(window, **kwargs):
     #     print(args)
 
     # print(args.test_only, 'asddassdasaddasasd')
-    print(args.scale, 'asddassdasaddasasd')
+    # print(args.scale, 'asddassdasaddasasd')
 
     if args.data_test == ['video']:
         from videotester import VideoTester

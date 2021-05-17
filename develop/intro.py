@@ -11,6 +11,8 @@ from PyQt5 import uic
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
@@ -573,6 +575,10 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
+
+        self.fig = plt.Figure()
+        self.psnr = FigureCanvas(self.fig)
+        self.plotLayout.addWidget(self.psnr)
         # self.show()
         # x = Thread1(self)
         # x.start()
