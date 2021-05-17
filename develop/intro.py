@@ -80,19 +80,31 @@ class Choice(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+2)
 
 
+# cnn thread
+class Thread3(QThread):
+    # parent = MainWidget을 상속 받음.
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        # self.threadpool = QThreadPool()
+        # 학습 시작
+        # print(parent.tr_path, parent.te_path, parent.sa_path, parent.model_name,parent.lr, parent.ep, parent.batch)
+    def run(self):
+        cnn_trainer.CNN_Train(train_cnn, cnn_data[0], cnn_data[1], cnn_data[2], cnn_data[3],cnn_data[4], cnn_data[5], cnn_data[6])
+
+
 # ui 로드 
 new_cnn_ui = resource_path('pixby/ui/newCNN.ui')
 new_cnn_form = uic.loadUiType(new_cnn_ui)[0]
+cnn_data = [0,0,0,0,0,0,32]
 class Create_CNN_Model(QMainWindow, new_cnn_form):
     send_valve_popup_signal = pyqtSignal(bool, name='sendValvePopupSignal')
-
     # 인자 값
     tr_path = ""
     te_path = ""
     sa_path = ""
-    name = ""
-    learning_rate=""
-    epoch = ""
+    model_name = ""
+    lr=""
+    ep = ""
     batch = 32
     def __init__(self) :
         super().__init__()
@@ -108,6 +120,18 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         self.size16.clicked.connect(self.radioButtonClicked)
         self.size32.clicked.connect(self.radioButtonClicked)
         self.size64.clicked.connect(self.radioButtonClicked)
+
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+
+    def goToBack(self):
+        widget.setCurrentWidget(windowclass)
+
 
     def radioButtonClicked(self):
         if self.size16.isChecked():
@@ -149,7 +173,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         options |= QFileDialog.ShowDirsOnly
         Create_CNN_Model.tr_path = QFileDialog.getExistingDirectory(self,"select Directory")
         self.train_path.clear()
-        self.train_path.append('경로: {}'.format(Create_CNN_Model.tr_path))
+        self.train_path.append('{}'.format(Create_CNN_Model.tr_path.split('/')[-1]))
         treeModel = QFileSystemModel()
         self.train_dir.setModel(treeModel)
         treeModel.setRootPath(QDir.rootPath())
@@ -165,7 +189,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         options |= QFileDialog.ShowDirsOnly
         Create_CNN_Model.te_path = QFileDialog.getExistingDirectory(self,"select Directory")
         self.test_path.clear()
-        self.test_path.append('경로: {}'.format(Create_CNN_Model.te_path))
+        self.test_path.append('{}'.format(Create_CNN_Model.te_path.split('/')[-1]))
         treeModel = QFileSystemModel()
         self.test_dir.setModel(treeModel)
         treeModel.setRootPath(QDir.rootPath())
@@ -181,27 +205,63 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             options |= QFileDialog.ShowDirsOnly
             Create_CNN_Model.sa_path = QFileDialog.getExistingDirectory(self,"select Directory")
             self.save_path.clear()
-            self.save_path.append('경로: {}'.format(Create_CNN_Model.sa_path))
+            self.save_path.append('{}'.format(Create_CNN_Model.sa_path))
         except:
             self.warningMSG("주의", "경로 설정을 다시해주세요.")
 
     def goToCNN(self):
-        Create_CNN_Model.learning_rate = self.learning_rate.toPlainText()
-        Create_CNN_Model.epoch = self.epoch.toPlainText()
-        Create_CNN_Model.name = self.name.toPlainText()
-        Create_CNN_Model.learning_rate = float(Create_CNN_Model.learning_rate)
+        global cnn_data
+        Create_CNN_Model.lr = self.learning_rate.toPlainText()
+        Create_CNN_Model.ep = self.epoch.toPlainText()
+        Create_CNN_Model.model_name = self.name.toPlainText()
+        Create_CNN_Model.lr = float(Create_CNN_Model.lr)
+        Create_CNN_Model.ep = int(Create_CNN_Model.ep)
+        cnn_data = [Create_CNN_Model.tr_path, Create_CNN_Model.te_path, Create_CNN_Model.sa_path,Create_CNN_Model.model_name, Create_CNN_Model.lr, Create_CNN_Model.ep, Create_CNN_Model.batch]
         # print(Create_CNN_Model.learning_rate)
-        print("1")
-        Create_CNN_Model.epoch = int(Create_CNN_Model.epoch)
-        print("2")
-        if Create_CNN_Model.learning_rate >=0.1:
+
+        if Create_CNN_Model.lr >=0.1:
             self.warningMSG("주의", "learning rate는 0.1보다 작게 해주셔야 됩니다.")
         elif Create_CNN_Model.sa_path and Create_CNN_Model.tr_path and Create_CNN_Model.te_path:
-            print(Create_CNN_Model.tr_path, Create_CNN_Model.te_path,  Create_CNN_Model.sa_path, Create_CNN_Model.name ,Create_CNN_Model.learning_rate, Create_CNN_Model.epoch, Create_CNN_Model.batch)
-            cnn_trainer.CNN_Train(Create_CNN_Model.tr_path, Create_CNN_Model.te_path,  Create_CNN_Model.sa_path, Create_CNN_Model.name ,Create_CNN_Model.learning_rate, Create_CNN_Model.epoch, Create_CNN_Model.batch)
+            # train_cnn = Train_CNN(self)
+            # widget.addWidget(train_cnn)
+            widget.setCurrentWidget(train_cnn)
+            train_cnn.model_name.setText(Create_CNN_Model.model_name)
+            train_cnn.batch_size.setText(str(Create_CNN_Model.batch))
+            train_cnn.lr_rate.setText(str(Create_CNN_Model.lr))
+            train_cnn.epoch.setText(str(Create_CNN_Model.ep))
+            # widget.setCurrentIndex(widget.currentIndex()+1)
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
         
+
+# cnn 학습 뷰
+train_cnn_ui = resource_path('pixby/ui/trainCNN.ui')
+train_form = uic.loadUiType(train_cnn_ui)[0]
+class Train_CNN(QMainWindow,train_form):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        # print(self.cnn_train.name)
+        self.gotestbutton.clicked.connect(self.test)
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+
+
+
+
+    def goToBack(self):
+        widget.setCurrentWidget(create_cnn)
+        
+    def test(self):
+        t = Thread3(self)
+        t.start()
+
+
 
 compare_ui = resource_path('pixby/ui/compare.ui')
 compare_form = uic.loadUiType(compare_ui)[0]
@@ -245,7 +305,8 @@ class Compare_Model(QMainWindow, compare_form ):
     # 뒤로가기 -> classfication 설정 페이지
 
     def goToBack(self):
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentWidget(create_cnn)
+
 
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
@@ -656,7 +717,7 @@ class Result_Model(QMainWindow,res_form):
         super(Result_Model,self).__init__(parent)
         self.setupUi(self) # for_class2 ui 셋
         # UI 
-        self.res1_loss, self.res1_accuracy = parent.res1
+        self.res1_loss, self.res1_accuracy = parent.res1 
         self.res2_loss, self.res2_accuracy = parent.res2
         self.res1_loss, self.res1_accuracy = round(self.res1_loss,4), round(self.res1_accuracy,2)
         self.res2_loss, self.res2_accuracy = round(self.res2_loss,4), round(self.res2_accuracy,2)
@@ -690,6 +751,7 @@ if __name__ == "__main__":
     learn_sr = Learn_SR_Model()
     compare_model = Compare_Model()
     create_cnn = Create_CNN_Model()
+    train_cnn = Train_CNN()
     widget.addWidget(windowclass)
     widget.addWidget(choice)
     widget.addWidget(select_sr_model)
@@ -697,6 +759,7 @@ if __name__ == "__main__":
     widget.addWidget(learn_sr)
     widget.addWidget(compare_model)
     widget.addWidget(create_cnn)
+    widget.addWidget(train_cnn)
     widget.setFixedHeight(960)
     widget.setFixedWidth(1280)
     widget.show()

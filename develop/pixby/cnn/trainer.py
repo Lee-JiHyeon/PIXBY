@@ -17,15 +17,14 @@ import torch.nn.functional as F
 from torchvision import transforms, datasets
 
 # 추후 모델 선택 추가 할지도...?
-def CNN_Train(train_path, test_path, save_path, name, LR, EPOCHS, BATCH_SIZE):
+def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_SIZE):
   ''' 2. 장비 확인 '''
   if torch.cuda.is_available():
     DEVICE = torch.device('cuda')
   else:
     DEVICE = torch.device('cpu')
-
   print('Using PyTorch version:', torch.__version__, ' Device:', DEVICE)
-
+  window.textBox_terminal.append('Using PyTorch version: {} Device: {}'.format( torch.__version__, DEVICE))
   # learning rate decay(step) parameter
   STEP_SIZE = EPOCHS // 3
   GAMMA = 0.1
