@@ -6,7 +6,7 @@ from multiprocessing import Process
 from multiprocessing import Queue
 
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -53,9 +53,9 @@ class checkpoint():
         if not args.load:
             if not args.save:
                 args.save = now
-            self.dir = os.path.join('..', 'experiment', args.save)
+            self.dir = os.path.join('./test', 'experiment', args.save)
         else:
-            self.dir = os.path.join('..', 'experiment', args.load)
+            self.dir = os.path.join('./test', 'experiment', args.load)
             if os.path.exists(self.dir):
                 self.log = torch.load(self.get_path('psnr_log.pt'))
                 print('Continue from epoch {}...'.format(len(self.log)))
@@ -84,20 +84,21 @@ class checkpoint():
     def get_path(self, *subdir):
         return os.path.join(self.dir, *subdir)
 
-    def save(self, trainer, epoch, is_best=False):
+    def save(self, trainer, epoch, window, is_best=False):
         trainer.model.save(self.get_path('model'), epoch, is_best=is_best)
         trainer.loss.save(self.dir)
         trainer.loss.plot_loss(self.dir, epoch)
 
-        self.plot_psnr(epoch)
+        self.plot_psnr(epoch, window)
         trainer.optimizer.save(self.dir)
         torch.save(self.log, self.get_path('psnr_log.pt'))
 
     def add_log(self, log):
         self.log = torch.cat([self.log, log])
 
-    def write_log(self, log, refresh=False):
+    def write_log(self, log, window, refresh=False):
         print(log)
+        window.textBox_terminal.append(log)
         self.log_file.write(log + '\n')
         if refresh:
             self.log_file.close()
@@ -106,7 +107,12 @@ class checkpoint():
     def done(self):
         self.log_file.close()
 
-    def plot_psnr(self, epoch):
+    def plot_psnr(self, epoch, window):
+        # print(epoch, '!@#$@#$@#%!@$#@%$^@#%!@$#@%$^#@%#$@!#%@$')
+        wfig = window.fig
+        wpsnr = window.psnr
+        
+        wfig.clear()
         axis = np.linspace(1, epoch, epoch)
         for idx_data, d in enumerate(self.args.data_test):
             label = 'SR on {}'.format(d)
@@ -118,11 +124,22 @@ class checkpoint():
                     self.log[:, idx_data, idx_scale].numpy(),
                     label='Scale {}'.format(scale)
                 )
+
             plt.legend()
+           
             plt.xlabel('Epochs')
+           
             plt.ylabel('PSNR')
+           
             plt.grid(True)
+           
+            # plt.show()
             plt.savefig(self.get_path('test_{}.pdf'.format(d)))
+            wfig.savefig(self.get_path('test_{}.pdf'.format(d)))
+          
+            window.textBox_terminal.append('!@#$@#$%$')
+            wpsnr.draw()
+            window.psnr.draw()
             plt.close(fig)
 
     # def begin_background(self):

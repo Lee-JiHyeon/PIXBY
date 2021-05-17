@@ -12,6 +12,8 @@ from PyQt5 import uic
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
@@ -422,6 +424,7 @@ class Select_SR_Model(QMainWindow):
     def showChoice(self):
         ChoiceSR(self)
 
+
         # 1. ui 연결
         # 연결할 ui 파일의 경로 설정
 new_sr_ui = resource_path('pixby/ui/newSR.ui')
@@ -449,7 +452,7 @@ class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.threadpool = QThreadPool()
+        # self.threadpool = QThreadPool()
 
     def run(self):
         testing = {
@@ -471,11 +474,11 @@ class Thread1(QThread):
             'data_train': ['TESTDATA'],
             'data_test': ['TESTDATA'],
             'data_range': '1-8/9-10',
-            'epochs': 3,
-            'ext': 'img'
-
+            'epochs': 2,
+            'ext': 'img',
+            'save_results': True,
         }
-        main(**testing)
+        main(learn_sr, **learning)
 
 
 # 화면을 띄우는데 사용되는 Class 선언
@@ -602,6 +605,10 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
+
+        self.fig = plt.Figure()
+        self.psnr = FigureCanvas(self.fig)
+        self.plotLayout.addWidget(self.psnr)
         # self.show()
         # x = Thread1(self)
         # x.start()

@@ -9,9 +9,10 @@ import torch.nn.utils as utils
 from tqdm import tqdm
 
 class Trainer():
-    def __init__(self, args, loader, my_model, my_loss, ckp):
+    def __init__(self, args, loader, my_model, my_loss, ckp, window):
         self.args = args
         self.scale = args.scale
+        self.window = window
 
         self.ckp = ckp
         self.loader_train = loader.loader_train
@@ -31,7 +32,7 @@ class Trainer():
         lr = self.optimizer.get_lr()
 
         self.ckp.write_log(
-            '[Epoch {}]\tLearning rate: {:.2e}'.format(epoch, Decimal(lr))
+            '[Epoch {}]\tLearning rate: {:.2e}'.format(epoch, Decimal(lr)), self.window
         )
         self.loss.start_log()
         self.model.train()
@@ -39,13 +40,13 @@ class Trainer():
         timer_data, timer_model = utility.timer(), utility.timer()
         # TEMP
         self.loader_train.dataset.set_scale(0)
-        print(self.loader_train.num_workers, 'self.loader_tran===================')
-        print((self.loader_train), '갯수')
+        # print(self.loader_train.num_workers, 'self.loader_tran===================')
+        # print((self.loader_train), '갯수')
         for batch, (lr, hr, _,) in enumerate(self.loader_train):
             # 0514 내가 추가한 곳 0515 자리 이동-------------------
             lr = lr[:, :3, :, :]
             hr = hr[:, :3, :, :]
-            print(lr, hr, 'lr hr')
+            # print(lr, hr, 'lr hr')
             # ---------------------------------------
             #print(lr, hr, '================lr hr================')
             lr, hr = self.prepare(lr, hr)
@@ -71,7 +72,8 @@ class Trainer():
                     len(self.loader_train.dataset),
                     self.loss.display_loss(batch),
                     timer_model.release(),
-                    timer_data.release()))
+                    timer_data.release()),
+                    self.window)
 
             timer_data.tic()
 
@@ -83,7 +85,7 @@ class Trainer():
         torch.set_grad_enabled(False)
 
         epoch = self.optimizer.get_last_epoch()
-        self.ckp.write_log('\nEvaluation:')
+        self.ckp.write_log('\nEvaluation:', self.window)
         self.ckp.add_log(
             torch.zeros(1, len(self.loader_test), len(self.scale))
         )
@@ -122,11 +124,12 @@ class Trainer():
                             self.ckp.log[-1, idx_data, idx_scale],
                             best[0][idx_data, idx_scale],
                             best[1][idx_data, idx_scale] + 1
-                        )
+                        ),
+                        self.window
                     )
 
-        self.ckp.write_log('Forward: {:.2f}s\n'.format(timer_test.toc()))
-        self.ckp.write_log('Saving...')
+        self.ckp.write_log('Forward: {:.2f}s\n'.format(timer_test.toc()), self.window)
+        self.ckp.write_log('Saving...', self.window)
 
         # 0514 multiprocessing 지우려고 주석처리했다가 주석 품
         # issue 105확인
@@ -134,10 +137,10 @@ class Trainer():
             self.ckp.end_background()
 
         if not self.args.test_only:
-            self.ckp.save(self, epoch, is_best=(best[1][0, 0] + 1 == epoch))
+            self.ckp.save(self, epoch, self.window, is_best=(best[1][0, 0] + 1 == epoch))
 
         self.ckp.write_log(
-            'Total: {:.2f}s\n'.format(timer_test.toc()), refresh=True
+            'Total: {:.2f}s\n'.format(timer_test.toc()), self.window, refresh=True
         )
 
         torch.set_grad_enabled(True)

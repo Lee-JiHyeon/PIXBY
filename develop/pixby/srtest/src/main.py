@@ -1,3 +1,4 @@
+import os
 import torch
 
 from pixby.srtest.src import utility
@@ -11,7 +12,8 @@ from pixby.srtest.src.trainer import Trainer
 torch.manual_seed(args.seed)
 checkpoint = utility.checkpoint(args)
 
-def main(**kwargs):
+
+def main(window, **kwargs):
     global model
     # subprocess.call('--data_test Demo --scale 4 --pre_train ../experiment/edsr_baseline_x4/model/model_best.pt --test_only --ave_results --chop', shell=True)
     # print(args.data_test)
@@ -22,6 +24,19 @@ def main(**kwargs):
     # args.pre_train = '../experiment/edsr_baseline_x2/model/model_best.pt'
     # args.save_results = True
     # args.chop = True
+    os.makedirs('./SRimages', exist_ok=True)
+    os.makedirs('./SRimages/TESTDATA', exist_ok=True)
+    os.makedirs('./SRimages/TESTDATA/TESTDATA_train_HR', exist_ok=True)
+    os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic', exist_ok=True)
+
+    if torch.cuda.is_available(): 
+        DEVICE = torch.device('cuda')
+        
+    else:
+        DEVICE = torch.device('cpu')
+
+    # print('Using PyTorch version:', torch.__version__, ' Device:', DEVICE)
+    window.textBox_terminal.append("Training Done!")
     for key, value in kwargs.items():
         vars(args)[key] = value
         # parser.add_argument(f'--{key}', value)
@@ -34,7 +49,7 @@ def main(**kwargs):
     #     print(args)
 
     # print(args.test_only, 'asddassdasaddasasd')
-    print(args.scale, 'asddassdasaddasasd')
+    # print(args.scale, 'asddassdasaddasasd')
 
     if args.data_test == ['video']:
         from videotester import VideoTester
@@ -47,12 +62,14 @@ def main(**kwargs):
             loader = data.Data(args)
             _model = model.Model(args, checkpoint)
             _loss = loss.Loss(args, checkpoint) if not args.test_only else None
-            t = Trainer(args, loader, _model, _loss, checkpoint)
+            t = Trainer(args, loader, _model, _loss, checkpoint, window)
             while not t.terminate():
                 t.train()
                 t.test()
 
             checkpoint.done()
+    
+    return
 
 if __name__ == '__main__':
-    main(**kwargs)
+    main(window, **kwargs)
