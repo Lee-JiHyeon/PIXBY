@@ -40,8 +40,8 @@ class Trainer():
         timer_data, timer_model = utility.timer(), utility.timer()
         # TEMP
         self.loader_train.dataset.set_scale(0)
-        print(self.loader_train.num_workers, 'self.loader_tran===================')
-        print((self.loader_train), '갯수')
+        # print(self.loader_train.num_workers, 'self.loader_tran===================')
+        # print((self.loader_train), '갯수')
         for batch, (lr, hr, _,) in enumerate(self.loader_train):
             # 0514 내가 추가한 곳 0515 자리 이동-------------------
             lr = lr[:, :3, :, :]
@@ -137,7 +137,7 @@ class Trainer():
             self.ckp.end_background()
 
         if not self.args.test_only:
-            self.ckp.save(self, epoch, is_best=(best[1][0, 0] + 1 == epoch))
+            self.ckp.save(self, epoch, self.window, is_best=(best[1][0, 0] + 1 == epoch))
 
         self.ckp.write_log(
             'Total: {:.2f}s\n'.format(timer_test.toc()), self.window, refresh=True

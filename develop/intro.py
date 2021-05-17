@@ -1,5 +1,6 @@
-import sys, os
-import pixby.cnn.inferencing as Inf # cnn 추론 
+import sys
+import os
+import pixby.cnn.inferencing as Inf  # cnn 추론
 import pixby.cnn.trainer as cnn_trainer
 import sqlite3
 # from PyQt5 import QtWidgets
@@ -13,9 +14,15 @@ from PIL import Image
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
 from sqlite3.dbapi2 import connect
+<<<<<<< HEAD
 from PyQt5.QtCore import Qt
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+=======
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from PIL import Image
+>>>>>>> 7b57bf433865fd959a47cfec2531d7619c14346f
 
 # ResNet_Base
 # from pixby.cnn.ResNet_Base import
@@ -29,11 +36,17 @@ from pixby.srtest.src.main import main
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
+os.makedirs('./SRimages', exist_ok=True)
+os.makedirs('./SRimages/TESTDATA', exist_ok=True)
+os.makedirs('./SRimages/TESTDATA/TESTDATA_train_HR', exist_ok=True)
+os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic', exist_ok=True)
+
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
-        base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+        base_path = getattr(sys, '_MEIPASS', os.path.dirname(
+            os.path.abspath(__file__)))
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
@@ -84,6 +97,7 @@ class Choice(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+2)
 
 
+
 # cnn thread
 class Thread3(QThread):
     # parent = MainWidget을 상속 받음.
@@ -100,6 +114,7 @@ class Thread3(QThread):
 new_cnn_ui = resource_path('pixby/ui/newCNN.ui')
 new_cnn_form = uic.loadUiType(new_cnn_ui)[0]
 cnn_data = [0,0,0,0,0,0,32]
+
 class Create_CNN_Model(QMainWindow, new_cnn_form):
     send_valve_popup_signal = pyqtSignal(bool, name='sendValvePopupSignal')
     # 인자 값
@@ -110,7 +125,8 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
     lr=""
     ep = ""
     batch = 32
-    def __init__(self) :
+
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.train_dir.doubleClicked.connect(self.showImg1)
@@ -146,7 +162,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             Create_CNN_Model.batch = 64
         print(Create_CNN_Model.batch)
 
-    
+
     def showImg1(self,index):
         self.mainImg = self.train_dir.model().filePath(index)
         pixmap = QtGui.QPixmap(self.mainImg)
@@ -176,6 +192,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         self.fomat.setText(img.format)
         self.class_name.setText(img.filename.split('/')[-2])
 
+
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -189,7 +206,8 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         # global working_path2
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        Create_CNN_Model.tr_path = QFileDialog.getExistingDirectory(self,"select Directory")
+        Create_CNN_Model.tr_path = QFileDialog.getExistingDirectory(
+            self, "select Directory")
         self.train_path.clear()
         self.train_path.append('{}'.format(Create_CNN_Model.tr_path.split('/')[-1]))
         treeModel = QFileSystemModel()
@@ -205,7 +223,8 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         # global working_path2
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        Create_CNN_Model.te_path = QFileDialog.getExistingDirectory(self,"select Directory")
+        Create_CNN_Model.te_path = QFileDialog.getExistingDirectory(
+            self, "select Directory")
         self.test_path.clear()
         self.test_path.append('{}'.format(Create_CNN_Model.te_path.split('/')[-1]))
         treeModel = QFileSystemModel()
@@ -221,7 +240,8 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         try:
             options = QFileDialog.Options()
             options |= QFileDialog.ShowDirsOnly
-            Create_CNN_Model.sa_path = QFileDialog.getExistingDirectory(self,"select Directory")
+            Create_CNN_Model.sa_path = QFileDialog.getExistingDirectory(
+                self, "select Directory")
             self.save_path.clear()
             self.save_path.append('{}'.format(Create_CNN_Model.sa_path))
         except:
@@ -281,10 +301,12 @@ class Train_CNN(QMainWindow,train_form):
 
 compare_ui = resource_path('pixby/ui/compare.ui')
 compare_form = uic.loadUiType(compare_ui)[0]
-#화면을 띄우는데 사용되는 Class 선언
-class Compare_Model(QMainWindow, compare_form ):
-    command = QtCore.pyqtSignal(str) # 이미지 주소 전달
-    model_1= ""
+# 화면을 띄우는데 사용되는 Class 선언
+
+
+class Compare_Model(QMainWindow, compare_form):
+    command = QtCore.pyqtSignal(str)  # 이미지 주소 전달
+    model_1 = ""
     model_2 = ""
     working_path1 = ""
     working_path2 = ""
@@ -338,7 +360,8 @@ class Compare_Model(QMainWindow, compare_form ):
         # 폴더 구조 선택
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        Compare_Model.working_path1 = QFileDialog.getExistingDirectory(self,"select Directory")
+        Compare_Model.working_path1 = QFileDialog.getExistingDirectory(
+            self, "select Directory")
         # 비우고 경로 입력
         self.dir1.clear()
         self.dir1.append('경로: {}'.format(Compare_Model.working_path1))
@@ -347,7 +370,8 @@ class Compare_Model(QMainWindow, compare_form ):
         # global working_path2
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
-        Compare_Model.working_path2 = QFileDialog.getExistingDirectory(self,"select Directory")
+        Compare_Model.working_path2 = QFileDialog.getExistingDirectory(
+            self, "select Directory")
         self.dir2.clear()
         self.dir2.append('경로: {}'.format(Compare_Model.working_path2))
 
@@ -355,7 +379,7 @@ class Compare_Model(QMainWindow, compare_form ):
     def choiceModel_1(self):
         try:
             name = QFileDialog.getOpenFileName(self, 'Open File')[0]
-            Compare_Model.model_1 = name # 분류모델 경로
+            Compare_Model.model_1 = name  # 분류모델 경로
             self.model_name1.clear()
             self.model_name1.append(name.split('/')[-1])
         except:
@@ -467,6 +491,7 @@ class ChoiceSR(QMainWindow):
 
 
 class Select_SR_Model(QMainWindow):
+
     def __init__(self):
         super(Select_SR_Model, self).__init__()
         loadUi('./pixby/ui/select.ui', self)
@@ -474,6 +499,11 @@ class Select_SR_Model(QMainWindow):
         # 이미지 열기 버튼
         self.imageBtn.clicked.connect(self.openImage)
         self.goToChoiceSR.clicked.connect(self.showChoice)
+
+        # 트리뷰 파일구조 보여주기
+
+        # 트리뷰 파일 클릭
+        self.treeView.doubleClicked.connect(self.showImg)
 
         backbutton = QPushButton(self)
         backbutton.move(0, 10)
@@ -487,16 +517,35 @@ class Select_SR_Model(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()-1)
 
     def openImage(self):
-        self.selectSRModelName.append('asddfdf')
-        # imageOpen = QFileDialog.getOpenFileName(self, 'open file', './')
+        options = QFileDialog.Options()
+        options |= QFileDialog.ShowDirsOnly
+        save_sr_model['data_dir'] = QFileDialog.getExistingDirectory(self)
+
+        treeModel = QFileSystemModel()
+        self.treeView.setModel(treeModel)
+        treeModel.setRootPath(QDir.rootPath())
+        self.treeView.setRootIndex(
+            treeModel.index(save_sr_model['data_dir']))
+        self.treeView.hideColumn(1)
+        self.treeView.hideColumn(2)
+        self.treeView.hideColumn(3)
+
+    # 트리뷰 클릭시 이미지 보여주기
+    def showImg(self, index):
+        self.mainImg = self.treeView.model().filePath(index)
+        pixmap = QtGui.QPixmap(self.mainImg).scaled(
+            340, 350, Qt.IgnoreAspectRatio)
+        self.selectSRDataImg.setPixmap(pixmap)
+
+        img = Image.open(self.mainImg)
+        self.imgCN.setText(img.filename.split('/')[-2])
+        self.imgWH.setText("{} X {}".format(str(img.width), str(img.height)))
+        self.imgFN.setText(img.filename.split('/')[-1])
+        self.imgEX.setText(img.format)
 
     def showChoice(self):
         ChoiceSR(self)
 
-    def setModelName(self, msg):
-        self.selectSRModelName.append('msg')
-        print(msg)
-        print(type(msg))
 
         # 1. ui 연결
         # 연결할 ui 파일의 경로 설정
@@ -519,39 +568,55 @@ create_sr_data = {
     'data_dir': '',
     'save_dir': ''
 }
+
+learning = {
+    'model': 'EDSR',
+    'scale': [2],
+    'save': 'EDSR_baseline_x2_transfer_cifar',
+    'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+    'chop': True,
+    'dir_data': './test',
+    'data_train': ['TESTDATA'],
+    'data_test': ['TESTDATA'],
+    'data_range': '1-8/9-10',
+    'epochs': 2,
+    'ext': 'img',
+    'save_results': True,
+    'batch_size': 4,  # default 16
+    'lr': 0.0001,  # default 1e-4
+    'n_resblocks': 16,
+    'n_feats': 64
+}
+
+
 class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
         # self.threadpool = QThreadPool()
 
+    def run(self):
+
+        main(learn_sr, **learning)
+
+
+class Thread2(QThread):
+    # parent = MainWidget을 상속 받음.
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        # self.threadpool = QThreadPool()
 
     def run(self):
         testing = {
-            'data_test' :  ['Demo'],
-            'test_only' : True,
-            'scale' : [2],
-            'pre_train' : './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+            'data_test':  ['Demo'],
+            'test_only': True,
+            'scale': [2],
+            'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
             # 'save_result' : True,
-            'save_results' : True,
-            'chop' : True 
+            'save_results': True,
+            'chop': True
         }
-        learning = {
-            'model' : 'EDSR',
-            'scale' : [2],
-            'save' : 'EDSR_baseline_x2_transfer_cifar',
-            'pre_train' : './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
-            'chop' : True,
-            'dir_data' : './test',
-            'data_train' : ['TESTDATA'],
-            'data_test' : ['TESTDATA'],
-            'data_range' : '1-8/9-10',
-            'epochs' : 2,
-            'ext' : 'img',
-            'save_results' : True,
-
-        }
-        main(learn_sr, **learning)
+        main(learn_sr, **testing)
 
 
 # 화면을 띄우는데 사용되는 Class 선언
@@ -592,11 +657,14 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         feature_box.addItem('64')
         scale_box = self.scalecombobox
         scale_box.addItem('x2')
+        scale_box.addItem('x3')
         scale_box.addItem('x4')
 
         res_box.activated[str].connect(self.onRes)
         feature_box.activated[str].connect(self.onFeature)
         scale_box.activated[str].connect(self.onScale)
+
+        self.treeView.doubleClicked.connect(self.showImg)
 
     def data_dir_save(self):
         options = QFileDialog.Options()
@@ -607,6 +675,20 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         self.traindatatextEdit.clear()
         self.traindatatextEdit.append(
             '경로: {}'.format(create_sr_data['data_dir']))
+
+        treeModel = QFileSystemModel()
+        self.treeView.setModel(treeModel)
+        treeModel.setRootPath(QDir.rootPath())
+        self.treeView.setRootIndex(treeModel.index(create_sr_data['data_dir']))
+        self.treeView.hideColumn(1)
+        self.treeView.hideColumn(2)
+        self.treeView.hideColumn(3)
+
+    def showImg(self, index):
+        self.mainImg = self.treeView.model().filePath(index)
+        pixmap = QtGui.QPixmap(self.mainImg).scaled(
+            340, 350, Qt.IgnoreAspectRatio)
+        self.createSRDataImg.setPixmap(pixmap)
     # model 2
 
     def save_dir_save(self):
@@ -637,30 +719,62 @@ class Create_SR_Model(QMainWindow, new_sr_form):
 
     def batch_changed(self):
         create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
+        learning['batch_size'] = int(self.batchtextEdit.toPlainText())
+        learn_sr.batch_size.setText(
+            'Batch Size : {}'.format(self.batchtextEdit.toPlainText()))
         # print(self.batch_size)
 
     def learning_changed(self):
         create_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
+        learning['lr'] = float(self.learningtextEdit.toPlainText())
+        # print(self.learningtextEdit.toPlainText())
+        learn_sr.learnig_rate.setText('Learning Rate : {}'.format(
+            self.learningtextEdit.toPlainText()))
 
     def epoch_changed(self):
         create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
+        learning['epochs'] = int(self.epochtextEdit.toPlainText())
+        learn_sr.epoch.setText('Epoch : {}'.format(
+            self.epochtextEdit.toPlainText()))
 
     def model_name_changed(self):
         create_sr_data['model_name'] = self.modelnametextEdit.toPlainText()
+        learn_sr.model.setText('Model : {}'.format(
+            self.batchtextEdit.toPlainText()))
 
     def onRes(self, text):
         create_sr_data['resblock'] = text
+        learning['n_resblocks'] = int(text)
 
     def onFeature(self, text):
         create_sr_data['feature_map'] = text
+        learning['n_feats'] = int(text)
 
     def onScale(self, text):
 
         create_sr_data['scale'] = text
-        print(create_sr_data['scale'])
+        if text == 'x2':
+            learning['scale'] = [2]
+            learning['save'] = 'EDSR_baseline_x2_transfer_cifar'
+            learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt'
+            learn_sr.rate.setText('배율 : {}'.format(text))
+
+        elif text == 'x3':
+            learning['scale'] = [3]
+            learning['save'] = 'EDSR_baseline_x3_transfer_cifar'
+            learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x3/model/model_best.pt'
+            learn_sr.rate.setText('배율 : {}'.format(text))
+
+        elif text == 'x4':
+            learning['scale'] = [4]
+            learning['save'] = 'EDSR_baseline_x4_transfer_cifar'
+            learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x4/model/model_best.pt'
+            learn_sr.rate.setText('배율 : {}'.format(text))
+        # print(create_sr_data['scale'])
 
 
 class Learn_SR_Model(QMainWindow, learn_ui_form):
+
     # filename = ''
     # def __init__(self, parent) :
     # super(Learn_SR_Model, self).__init__(parent)
@@ -669,7 +783,8 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         self.setupUi(self)
 
         self.golearnbutton_2.clicked.connect(self.dataLoadFn)
-        self.gotestbutton.clicked.connect(self.goSR)
+        self.gotestbutton.clicked.connect(self.goTest)
+        self.golearnbutton.clicked.connect(self.goSR)
 
         backbutton = QPushButton(self)
         backbutton.move(0, 10)
@@ -678,6 +793,10 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
+
+        self.fig = plt.Figure()
+        self.psnr = FigureCanvas(self.fig)
+        self.plotLayout.addWidget(self.psnr)
         # self.show()
         # x = Thread1(self)
         # x.start()
@@ -721,14 +840,19 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
 
     def goSR(self):
+        # widget.setCurrentIndex(widget.currentIndex()+1)
         x = Thread1(self)
         x.start()
 
+    def goTest(self):
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
 
 res_ui = resource_path('pixby/ui/res.ui')
 res_form = uic.loadUiType(res_ui)[0]
-class Result_Model(QMainWindow,res_form):
+
+
+class Result_Model(QMainWindow, res_form):
     def __init__(self, parent):
         super(Result_Model,self).__init__(parent)
         self.setupUi(self) # for_class2 ui 셋
@@ -756,6 +880,48 @@ class Result_Model(QMainWindow,res_form):
 
 
 
+class Result_SR_Model(QMainWindow):
+    def __init__(self):
+        super(Result_SR_Model, self).__init__()
+        loadUi('./pixby/ui/resSR.ui', self)
+
+        #  뒤로가기버튼
+        backbutton = QPushButton(self)
+        backbutton.move(0, 10)
+        backbutton.resize(80, 80)
+        backbutton.adjustSize()
+        backbutton.setStyleSheet(
+            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+        backbutton.clicked.connect(self.goToBack)
+
+        # choice.ui로 가는 버튼
+        self.goToChoice.clicked.connect(self.goToChoiceUi)
+
+        # 이미지가져오기버튼
+        self.setImgBtn.clicked.connect(self.setImg)
+
+        # 테이블 행 사이즈 맞추기
+        self.testSRTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        # testSR버튼
+        self.testSRBtn.clicked.connect(self.testSR)
+
+    def goToBack(self):
+        widget.setCurrentIndex(widget.currentIndex()-1)
+
+    def setImg(self):
+        img_dir = QFileDialog.getOpenFileName(self, 'Open File')[0]
+        pixmap = QtGui.QPixmap(img_dir).scaled(340, 350, Qt.IgnoreAspectRatio)
+        self.testSRImg.setPixmap(pixmap)
+
+    def goToChoiceUi(self):
+        widget.setCurrentIndex(widget.currentIndex()-4)
+
+    def testSR(self):
+        x = Thread2(self)
+        x.start()
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
@@ -765,6 +931,7 @@ if __name__ == "__main__":
     select_sr_model = Select_SR_Model()
     create_sr = Create_SR_Model()
     learn_sr = Learn_SR_Model()
+    result_sr = Result_SR_Model()
     compare_model = Compare_Model()
     create_cnn = Create_CNN_Model()
     train_cnn = Train_CNN()
@@ -773,6 +940,7 @@ if __name__ == "__main__":
     widget.addWidget(select_sr_model)
     widget.addWidget(create_sr)
     widget.addWidget(learn_sr)
+    widget.addWidget(result_sr)
     widget.addWidget(compare_model)
     widget.addWidget(create_cnn)
     widget.addWidget(train_cnn)
