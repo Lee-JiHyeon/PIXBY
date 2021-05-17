@@ -185,6 +185,8 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
             len(train_loader.dataset), 100. * batch_idx / len(train_loader),
             loss.item()))
   ''' 9. 학습되는 과정 속에서 검증 데이터에 대한 모델 성능을 확인하는 함수 정의 '''
+  test_loss_lst = []
+  test_accuracy_lst = []
   def evaluate(model, test_loader):
     model.eval()
     test_loss = 0
@@ -199,11 +201,13 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
         correct += prediction.eq(label.view_as(prediction)).sum().item()
     test_loss /= len(test_loader.dataset)
     test_accuracy = 100. * correct / len(test_loader.dataset)
+    test_loss_lst.append(float(test_loss))
+    test_accuracy_lst.append(float(test_accuracy))
     return test_loss, test_accuracy
 
   ''' 10. ResNet 모델 학습을 실행하며 Train, Test set의 Loss 및 Test set Accuracy 확인하기 '''
   for Epoch in range(1, EPOCHS + 1):
-    train(model, train_loader, optimizer, log_interval=200)
+    train(model, train_loader, optimizer, log_interval=(len(train_dataset)//250 + 1))
     lrs.append(optimizer.param_groups[0]["lr"])
     scheduler.step()
     test_loss, test_accuracy = evaluate(model, test_loader)
@@ -215,8 +219,19 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
   # plt.plot(range(1, EPOCHS + 1), accuracy)
 
   # learning rate 그래프 출력
-  ax = window.fig.add_subplot(111)
+  window.fig1.clear()
+  window.fig2.clear()
+  ax1 = window.fig1.add_subplot(111)
+  ax1.plot(range(1, EPOCHS + 1), test_loss_lst, label="test loss")
+  ax1.legend()
+  ax1.set_title("Loss")
 
+  ax2 = window.fig2.add_subplot(111)
+  ax2.plot(range(1, EPOCHS + 1), test_accuracy_lst, label="test accuracy")
+  ax2.legend()
+  ax2.set_title("Accuracy")
+  window.canvas1.draw()
+  window.canvas2.draw()
   plt.plot(range(1, EPOCHS + 1),lrs)
 
   print("성공")
