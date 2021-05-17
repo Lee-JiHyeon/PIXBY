@@ -24,10 +24,7 @@ def main(window, **kwargs):
     # args.pre_train = '../experiment/edsr_baseline_x2/model/model_best.pt'
     # args.save_results = True
     # args.chop = True
-    os.makedirs('./SRimages', exist_ok=True)
-    os.makedirs('./SRimages/TESTDATA', exist_ok=True)
-    os.makedirs('./SRimages/TESTDATA/TESTDATA_train_HR', exist_ok=True)
-    os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic', exist_ok=True)
+    
 
     if torch.cuda.is_available(): 
         DEVICE = torch.device('cuda')
@@ -36,7 +33,7 @@ def main(window, **kwargs):
         DEVICE = torch.device('cpu')
 
     # print('Using PyTorch version:', torch.__version__, ' Device:', DEVICE)
-    window.textBox_terminal.append("Training Done!")
+    # window.textBox_terminal.append("Training Done!")
     for key, value in kwargs.items():
         vars(args)[key] = value
         # parser.add_argument(f'--{key}', value)

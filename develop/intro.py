@@ -28,6 +28,11 @@ from pixby.srtest.src.main import main
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
+os.makedirs('./SRimages', exist_ok=True)
+os.makedirs('./SRimages/TESTDATA', exist_ok=True)
+os.makedirs('./SRimages/TESTDATA/TESTDATA_train_HR', exist_ok=True)
+os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic', exist_ok=True)
+
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -454,6 +459,24 @@ create_sr_data = {
     'save_dir': ''
 }
 
+learning = {
+    'model' : 'EDSR',
+    'scale' : [2],
+    'save' : 'EDSR_baseline_x2_transfer_cifar',
+    'pre_train' : './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+    'chop' : True,
+    'dir_data' : './test',
+    'data_train' : ['TESTDATA'],
+    'data_test' : ['TESTDATA'],
+    'data_range' : '1-8/9-10',
+    'epochs' : 2,
+    'ext' : 'img',
+    'save_results' : True,
+    'batch_size' : 4, #default 16
+    'lr' : 0.0001, #default 1e-4
+    'n_resblocks' : 16,
+    'n_feats' : 64
+}
 
 class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
@@ -462,29 +485,7 @@ class Thread1(QThread):
         # self.threadpool = QThreadPool()
 
     def run(self):
-        testing = {
-            'data_test':  ['Demo'],
-            'test_only': True,
-            'scale': [2],
-            'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
-            # 'save_result' : True,
-            'save_results': True,
-            'chop': True
-        }
-        learning = {
-            'model': 'EDSR',
-            'scale': [2],
-            'save': 'EDSR_baseline_x2_transfer_cifar',
-            'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
-            'chop': True,
-            'dir_data': './test',
-            'data_train': ['TESTDATA'],
-            'data_test': ['TESTDATA'],
-            'data_range': '1-8/9-10',
-            'epochs': 2,
-            'ext': 'img',
-            'save_results': True,
-        }
+    
         main(learn_sr, **learning)
 
 
@@ -545,6 +546,7 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         feature_box.addItem('64')
         scale_box = self.scalecombobox
         scale_box.addItem('x2')
+        scale_box.addItem('x3')
         scale_box.addItem('x4')
 
         res_box.activated[str].connect(self.onRes)
@@ -604,32 +606,64 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         #     self.label_34.setPixmap(QtGui.QPixmap("filename"))
         #     self.label_34.setGeometry(QtCore.QRect(100, 100))
 
+    
+
+
     def batch_changed(self):
         create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
+        learning['batch_size'] = int(self.batchtextEdit.toPlainText())
+        learn_sr.batch_size.setText('Batch Size : {}'.format(self.batchtextEdit.toPlainText()))
         # print(self.batch_size)
 
     def learning_changed(self):
         create_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
+        learning['lr'] = float(self.learningtextEdit.toPlainText())
+        # print(self.learningtextEdit.toPlainText())
+        learn_sr.learnig_rate.setText('Learning Rate : {}'.format(self.learningtextEdit.toPlainText()))
 
     def epoch_changed(self):
         create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
+        learning['epochs'] = int(self.epochtextEdit.toPlainText())
+        learn_sr.epoch.setText('Epoch : {}'.format(self.epochtextEdit.toPlainText()))
 
     def model_name_changed(self):
         create_sr_data['model_name'] = self.modelnametextEdit.toPlainText()
+        learn_sr.model.setText('Model : {}'.format(self.batchtextEdit.toPlainText()))
 
     def onRes(self, text):
         create_sr_data['resblock'] = text
+        learning['n_resblocks'] = int(text)
 
     def onFeature(self, text):
         create_sr_data['feature_map'] = text
+        learning['n_feats'] = int(text)
 
     def onScale(self, text):
 
         create_sr_data['scale'] = text
-        print(create_sr_data['scale'])
+        if text == 'x2':
+           learning['scale'] = [2]
+           learning['save'] = 'EDSR_baseline_x2_transfer_cifar'
+           learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt'
+           learn_sr.rate.setText('배율 : {}'.format(text))
+
+        elif text == 'x3':
+           learning['scale'] = [3]
+           learning['save'] = 'EDSR_baseline_x3_transfer_cifar'
+           learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x3/model/model_best.pt'
+           learn_sr.rate.setText('배율 : {}'.format(text))
+
+        elif text == 'x4':
+           learning['scale'] = [4]
+           learning['save'] = 'EDSR_baseline_x4_transfer_cifar'
+           learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x4/model/model_best.pt'
+           learn_sr.rate.setText('배율 : {}'.format(text))
+        # print(create_sr_data['scale'])
+
 
 
 class Learn_SR_Model(QMainWindow, learn_ui_form):
+    
     # filename = ''
     # def __init__(self, parent) :
     # super(Learn_SR_Model, self).__init__(parent)
@@ -639,6 +673,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
 
         self.golearnbutton_2.clicked.connect(self.dataLoadFn)
         self.gotestbutton.clicked.connect(self.goSR)
+        self.golearnbutton.clicked.connect(self.goSR)
 
         backbutton = QPushButton(self)
         backbutton.move(0, 10)
@@ -681,6 +716,8 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
 
         self.cur.execute(
             f"INSERT INTO Test Values('{model_name}', '{scale}', '{batch_size}', '{learning_rate}', '{epoch}');")
+
+
 
     def goToBack(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
