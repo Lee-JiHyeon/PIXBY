@@ -135,17 +135,27 @@
       <string>열기</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QTreeView" name="treeView">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>380</y>
-       <width>151</width>
-       <height>16</height>
+       <x>50</x>
+       <y>180</y>
+       <width>256</width>
+       <height>481</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="selectSRDataImg">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>230</y>
+       <width>571</width>
+       <height>351</height>
       </rect>
      </property>
      <property name="text">
-      <string>이미지 보여주는 곳</string>
+      <string>TextLabel</string>
      </property>
     </widget>
    </widget>
