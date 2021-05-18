@@ -10,7 +10,6 @@ from pixby.srtest.src.trainer import Trainer
 # import subprocess
 
 torch.manual_seed(args.seed)
-checkpoint = utility.checkpoint(args)
 
 
 def main(window, **kwargs):
@@ -38,6 +37,7 @@ def main(window, **kwargs):
         vars(args)[key] = value
         # parser.add_argument(f'--{key}', value)
         # args_key = f'{key}'
+    checkpoint = utility.checkpoint(args)
         # args.args_key = value
         # print(key, value, 'key value')
         
@@ -46,6 +46,7 @@ def main(window, **kwargs):
     #     print(args)
 
     # print(args.test_only, 'asddassdasaddasasd')
+    print(args.save, '123133!@#@%$!$#%!$@@#%#$')
     # print(args.scale, 'asddassdasaddasasd')
 
     if args.data_test == ['video']:

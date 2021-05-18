@@ -8,7 +8,9 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
+import glob
 from PIL import Image
+import shutil
 
 # from pixby.newSR import Create_SR_Model
 # from pixby.compare import compareModel
@@ -34,8 +36,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 os.makedirs('./SRimages', exist_ok=True)
 os.makedirs('./SRimages/TESTDATA', exist_ok=True)
-os.makedirs('./SRimages/TESTDATA/TESTDATA_train_HR', exist_ok=True)
-os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic', exist_ok=True)
+
 
 
 def resource_path(relative_path):
@@ -405,10 +406,10 @@ save_sr_model = {
     'learning_rate': '',
     'epoch': '',
     'resblock': '16',
-                'feature_map': '32',
-                'scale': 'x2',
-                'data_dir': '',
-                'save_dir': ''
+    'feature_map': '32',
+    'scale': 'x2',
+    'data_dir': '',
+    'save_dir': ''
 }
 
 
@@ -553,13 +554,13 @@ learn_ui_form = uic.loadUiType(learn_ui)[0]
 
 
 create_sr_data = {
-    'model_name': '',
+    'model_name': 'asad',
     'filename': '',
-    'batch_size': '',
-    'learning_rate': '',
-    'epoch': '',
-    'resblock': '16',
-    'feature_map': '32',
+    'batch_size': 16,
+    'learning_rate': 0.0001,
+    'epoch': 5,
+    'resblock': 16,
+    'n_feats': 64,
     'scale': 'x2',
     'data_dir': '',
     'save_dir': ''
@@ -571,7 +572,7 @@ learning = {
     'save': 'EDSR_baseline_x2_transfer_cifar',
     'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
     'chop': True,
-    'dir_data': './test',
+    'dir_data': './SRimages',
     'data_train': ['TESTDATA'],
     'data_test': ['TESTDATA'],
     'data_range': '1-8/9-10',
@@ -581,38 +582,48 @@ learning = {
     'batch_size': 4,  # default 16
     'lr': 0.0001,  # default 1e-4
     'n_resblocks': 16,
-    'n_feats': 64
+    'n_feats': 64,
+    # 'n_threads' : 0
 }
 
 
 class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         # self.threadpool = QThreadPool()
+        # print(parent.m_name)
+        self.textBox_terminal = parent.textBox_terminal
 
     def run(self):
 
         main(learn_sr, **learning)
+        self.textBox_terminal.append('학습이 종료되었습니다.')
+        
 
 
+testing = {
+    'data_test':  ['Demo'],
+    'test_only': True,
+    'scale': [2],
+    'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+    # 'save_result' : True,
+    'save_results': True,
+    'chop': True,
+    'n_threads' : 0
+}
 class Thread2(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
+        # self.Mname = parent.m_name
         # self.threadpool = QThreadPool()
 
     def run(self):
-        testing = {
-            'data_test':  ['Demo'],
-            'test_only': True,
-            'scale': [2],
-            'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
-            # 'save_result' : True,
-            'save_results': True,
-            'chop': True
-        }
         main(learn_sr, **testing)
+        
+        
 
 
 # 화면을 띄우는데 사용되는 Class 선언
@@ -715,23 +726,26 @@ class Create_SR_Model(QMainWindow, new_sr_form):
 
     def batch_changed(self):
         create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
-        learning['batch_size'] = int(self.batchtextEdit.toPlainText())
-        learn_sr.batch_size.setText(
-            'Batch Size : {}'.format(self.batchtextEdit.toPlainText()))
+        if self.batchtextEdit.toPlainText():
+            learning['batch_size'] = int(self.batchtextEdit.toPlainText())
+            learn_sr.batch_size.setText(
+                'Batch Size : {}'.format(self.batchtextEdit.toPlainText()))
         # print(self.batch_size)
 
     def learning_changed(self):
         create_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
-        learning['lr'] = float(self.learningtextEdit.toPlainText())
-        # print(self.learningtextEdit.toPlainText())
-        learn_sr.learnig_rate.setText('Learning Rate : {}'.format(
-            self.learningtextEdit.toPlainText()))
+        if self.learningtextEdit.toPlainText():
+            learning['lr'] = float(self.learningtextEdit.toPlainText())
+            # print(self.learningtextEdit.toPlainText())
+            learn_sr.learnig_rate.setText('Learning Rate : {}'.format(
+                self.learningtextEdit.toPlainText()))
 
     def epoch_changed(self):
         create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
-        learning['epochs'] = int(self.epochtextEdit.toPlainText())
-        learn_sr.epoch.setText('Epoch : {}'.format(
-            self.epochtextEdit.toPlainText()))
+        if self.epochtextEdit.toPlainText():
+            learning['epochs'] = int(self.epochtextEdit.toPlainText())
+            learn_sr.epoch.setText('Epoch : {}'.format(
+                self.epochtextEdit.toPlainText()))
 
     def model_name_changed(self):
         create_sr_data['model_name'] = self.modelnametextEdit.toPlainText()
@@ -836,9 +850,68 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     #         self.label_34.setGeometry(QtCore.QRect(100, 100, width_size, height_size))
 
     def goSR(self):
+        self.textBox_terminal.append('데이터 전처리 시작')
+        
+        files = glob.glob(create_sr_data['data_dir'] + '/*')
+        f_nums = 1
+        save_area = './SRimages/TESTDATA'
+        _HR = './SRimages/TESTDATA/TESTDATA_train_HR'
+        _LR = './SRimages/TESTDATA/TESTDATA_train_LR_bicubic'
+        if os.path.isdir(_HR):
+            shutil.rmtree(_HR)
+        if os.path.isdir(_LR):
+            shutil.rmtree(_LR)
+        os.makedirs('./SRimages/TESTDATA/TESTDATA_train_HR', exist_ok=True)
+        os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic', exist_ok=True)
+        
+        for f in files:
+            if learning['scale'] == [2]:
+                try:
+                    img = Image.open(f)
+                    
+                    if (int(img.width / 2) > 99) and (int(img.height / 2) > 99):
+                        os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic/X2', exist_ok=True)
+                        title, ext = os.path.splitext(f)
+                        img.save(save_area + '/TESTDATA_train_HR/' + '{0:04d}'.format(f_nums) + ext)
+                        img_resize = img.resize((int(img.width / 2), int(img.height / 2)))
+                        img_resize.save(save_area + '/TESTDATA_train_LR_bicubic/X2/' + '{0:04d}'.format(f_nums) + 'x2' + ext)
+                        f_nums += 1
+                except OSError as e:
+                    pass
+
+            elif learning['scale'] == [3]:
+                try:
+                    img = Image.open(f)
+                    if (int(img.width / 3) > 99) and (int(img.height / 3) > 99):
+                        os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic/X3', exist_ok=True)
+                        title, ext = os.path.splitext(f)
+                        img.save(save_area + '/TESTDATA_train_HR/' + '{0:04d}'.format(f_nums) + ext)
+                        img_resize = img.resize((int(img.width / 3), int(img.height / 3)))
+                        img_resize.save(save_area + '/TESTDATA_train_LR_bicubic/X2/' + '{0:04d}'.format(f_nums) + 'x3' + ext)
+                        f_nums += 1
+                except OSError as e:
+                    pass
+
+            elif learning['scale'] == [4]:
+                try:
+                    img = Image.open(f)
+                    if (int(img.width / 4) > 99) and (int(img.height / 4) > 99):
+                        os.makedirs('./SRimages/TESTDATA/TESTDATA_train_LR_bicubic/X4', exist_ok=True)
+                        title, ext = os.path.splitext(f)
+                        img.save(save_area + '/TESTDATA_train_HR/' + '{0:04d}'.format(f_nums) + ext)
+                        img_resize = img.resize((int(img.width / 4), int(img.height / 4)))
+                        img_resize.save(save_area + '/TESTDATA_train_LR_bicubic/X4/' + '{0:04d}'.format(f_nums) + 'x4' + ext)
+                        f_nums += 1
+                except OSError as e:
+                    pass    
+       
+        # f_nums
+        self.textBox_terminal.append('전체 데이터 갯수는 {} 입니다'.format(f_nums -1))
+        # self.m_name = create_sr_data['model_name']
         # widget.setCurrentWidget(widget.currentIndex()+1)
         x = Thread1(self)
         x.start()
+        
 
     def goTest(self):
         widget.setCurrentWidget(result_sr)
