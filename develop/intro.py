@@ -294,7 +294,6 @@ class Train_CNN(QMainWindow, train_form):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
-        srbutton.clicked.connect(self.goToSR)
         self.fig1 = plt.Figure()
         self.canvas1 = FigureCanvas(self.fig1)
         self.fig2 = plt.Figure()
