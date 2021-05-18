@@ -23,7 +23,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>410</y>
+     <y>400</y>
      <width>311</width>
      <height>21</height>
     </rect>
@@ -52,7 +52,7 @@
     </font>
    </property>
    <property name="text">
-    <string>BATCH SIZE</string>
+    <string>BATCH SIZE : 16</string>
    </property>
   </widget>
   <widget class="QLabel" name="learnig_rate">
@@ -70,7 +70,7 @@
     </font>
    </property>
    <property name="text">
-    <string>LEARNING RATE</string>
+    <string>LEARNING RATE : 0.0001</string>
    </property>
   </widget>
   <widget class="QLabel" name="epoch">
@@ -88,7 +88,7 @@
     </font>
    </property>
    <property name="text">
-    <string>EPOCH</string>
+    <string>EPOCH : 4</string>
    </property>
   </widget>
   <widget class="QLabel" name="rate">
@@ -106,42 +106,29 @@
     </font>
    </property>
    <property name="text">
-    <string>배율</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="terminal">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>670</y>
-     <width>81</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>이미지</string>
+    <string>배율 : x2</string>
    </property>
   </widget>
   <widget class="QPushButton" name="golearnbutton">
    <property name="geometry">
     <rect>
-     <x>880</x>
+     <x>950</x>
      <y>450</y>
-     <width>61</width>
+     <width>151</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>정지</string>
+    <string>실행</string>
    </property>
   </widget>
   <widget class="QPushButton" name="golearnbutton_2">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>720</y>
-     <width>191</width>
-     <height>151</height>
+     <x>680</x>
+     <y>850</y>
+     <width>231</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
@@ -151,10 +138,10 @@
   <widget class="QPushButton" name="gotestbutton">
    <property name="geometry">
     <rect>
-     <x>880</x>
-     <y>720</y>
-     <width>171</width>
-     <height>151</height>
+     <x>960</x>
+     <y>850</y>
+     <width>211</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
@@ -164,10 +151,10 @@
   <widget class="QTextEdit" name="textBox_terminal">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>500</y>
+     <x>60</x>
+     <y>510</y>
      <width>1161</width>
-     <height>191</height>
+     <height>311</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -179,11 +166,22 @@
     <rect>
      <x>80</x>
      <y>40</y>
-     <width>1081</width>
+     <width>511</width>
      <height>341</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="plotLayout"/>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>40</y>
+     <width>511</width>
+     <height>341</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="plotLayout_2"/>
   </widget>
  </widget>
  <resources/>

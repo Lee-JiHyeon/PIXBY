@@ -560,7 +560,7 @@ create_sr_data = {
     'learning_rate': 0.0001,
     'epoch': 5,
     'resblock': 16,
-    'n_feats': 64,
+    'features': 32,
     'scale': 'x2',
     'data_dir': '',
     'save_dir': ''
@@ -585,7 +585,24 @@ learning = {
     'n_feats': 64,
     # 'n_threads' : 0
 }
+#  전이학습을 위한 데이터
 
+testing = {
+    'data_test':  ['Demo'],
+    'test_only': True,
+    'save_results': True,
+    'chop': True,
+    'n_threads' : 0,
+
+
+    'scale': [2],
+    'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+    'save': 'SRresults',
+   
+}
+
+
+#  sr을 하기위한 실제 이미지
 
 class Thread1(QThread):
     # parent = MainWidget을 상속 받음.
@@ -603,16 +620,6 @@ class Thread1(QThread):
         
 
 
-testing = {
-    'data_test':  ['Demo'],
-    'test_only': True,
-    'scale': [2],
-    'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
-    # 'save_result' : True,
-    'save_results': True,
-    'chop': True,
-    'n_threads' : 0
-}
 class Thread2(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
@@ -713,16 +720,7 @@ class Create_SR_Model(QMainWindow, new_sr_form):
 
     def dataLoadFn(self):
         widget.setCurrentWidget(learn_sr)
-        # Learn_SR_Model(self)
-        # self.close()
-        # x = Thread1(self)
-        # x.start()
-        # Go()
-        # filename = QFileDialog.getOpenFileName(self, 'Open File', './')
-        # print(filename)
-        # if filename:
-        #     self.label_34.setPixmap(QtGui.QPixmap("filename"))
-        #     self.label_34.setGeometry(QtCore.QRect(100, 100))
+
 
     def batch_changed(self):
         create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
