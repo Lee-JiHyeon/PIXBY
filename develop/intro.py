@@ -604,6 +604,7 @@ class Create_SR_Model(QMainWindow, new_sr_form):
 
     def model_name_changed(self):
         create_sr_data['model_name'] = self.modelnametextEdit.toPlainText()
+        learning['save'] = self.modelnametextEdit.toPlainText()
         learn_sr.model.setText('Model : {}'.format(
             self.batchtextEdit.toPlainText()))
 
@@ -620,20 +621,15 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         create_sr_data['scale'] = text
         if text == 'x2':
             learning['scale'] = [2]
-            learning['save'] = 'EDSR_baseline_x2_transfer_cifar'
-            learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt'
             learn_sr.rate.setText('배율 : {}'.format(text))
 
         elif text == 'x3':
             learning['scale'] = [3]
-            learning['save'] = 'EDSR_baseline_x3_transfer_cifar'
-            learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x3/model/model_best.pt'
             learn_sr.rate.setText('배율 : {}'.format(text))
 
         elif text == 'x4':
             learning['scale'] = [4]
-            learning['save'] = 'EDSR_baseline_x4_transfer_cifar'
-            learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x4/model/model_best.pt'
+            # learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x4/model/model_best.pt'
             learn_sr.rate.setText('배율 : {}'.format(text))
         # print(create_sr_data['scale'])
 
@@ -669,7 +665,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
     # 학습한 SR저장
     def dataLoadFn(self):
         self.textBox_terminal.append(create_sr_data['scale'])
-        print(create_sr_data)
+        # print(create_sr_data)
         # 모델이름 추후수정하기
         model_name = create_sr_data['model_name']
         scale = create_sr_data['scale']
