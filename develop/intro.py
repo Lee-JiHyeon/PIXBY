@@ -243,45 +243,55 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         except:
             self.warningMSG("주의", "경로 설정을 다시해주세요.")
 
+    # cnn 학습 페이지 이동
     def goToCNN(self):
         global cnn_data
         Create_CNN_Model.lr = self.learning_rate.toPlainText()
         Create_CNN_Model.ep = self.epoch.toPlainText()
         Create_CNN_Model.model_name = self.name.toPlainText()
-        Create_CNN_Model.lr = float(Create_CNN_Model.lr)
-        Create_CNN_Model.ep = int(Create_CNN_Model.ep)
-        cnn_data = [Create_CNN_Model.tr_path, Create_CNN_Model.te_path, Create_CNN_Model.sa_path,Create_CNN_Model.model_name, Create_CNN_Model.lr, Create_CNN_Model.ep, Create_CNN_Model.batch]
-        # print(Create_CNN_Model.learning_rate)
+        try:
+            Create_CNN_Model.lr = float(Create_CNN_Model.lr)
+            Create_CNN_Model.ep = int(Create_CNN_Model.ep)
+            cnn_data = [Create_CNN_Model.tr_path, Create_CNN_Model.te_path, Create_CNN_Model.sa_path,Create_CNN_Model.model_name, Create_CNN_Model.lr, Create_CNN_Model.ep, Create_CNN_Model.batch]
+            # print(Create_CNN_Model.learning_rate)
 
-        if Create_CNN_Model.lr >=0.1:
-            self.warningMSG("주의", "learning rate는 0.1보다 작게 해주셔야 됩니다.")
-        elif Create_CNN_Model.sa_path and Create_CNN_Model.tr_path and Create_CNN_Model.te_path:
-            widget.setCurrentWidget(train_cnn)
-            train_cnn.model_name.setText(Create_CNN_Model.model_name)
-            train_cnn.batch_size.setText(str(Create_CNN_Model.batch))
-            train_cnn.lr_rate.setText(str(Create_CNN_Model.lr))
-            train_cnn.epoch.setText(str(Create_CNN_Model.ep))
-            # widget.setCurrentWidget(widget.currentIndex()+1)
-        else:
-            self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
-        
+            if Create_CNN_Model.lr >=0.1:
+                self.warningMSG("주의", "learning rate는 0.1보다 작게 해주셔야 됩니다.")
+            elif Create_CNN_Model.sa_path and Create_CNN_Model.tr_path and Create_CNN_Model.te_path:
+                widget.setCurrentWidget(train_cnn)
+                train_cnn.model_name.setText(Create_CNN_Model.model_name)
+                train_cnn.batch_size.setText(str(Create_CNN_Model.batch))
+                train_cnn.lr_rate.setText(str(Create_CNN_Model.lr))
+                train_cnn.epoch.setText(str(Create_CNN_Model.ep))
+                # widget.setCurrentWidget(widget.currentIndex()+1)
+            else:
+                self.warningMSG("주의", "경로를 집어넣어주세요.")
+        except:
+            self.warningMSG("주의", "필요한 값을 모두 넣어주세요.")
+
 
 # cnn 학습 뷰
 train_cnn_ui = resource_path('pixby/ui/trainCNN.ui')
 train_form = uic.loadUiType(train_cnn_ui)[0]
 class Train_CNN(QMainWindow,train_form):
     def __init__(self):
-        super().__init__()
+        super().__init__() 
         self.setupUi(self)
         # print(self.cnn_train.name)
         self.gotestbutton.clicked.connect(self.test)
         backbutton = QPushButton(self)
+        srbutton = QPushButton(self)
         backbutton.move(0, 10)
+        srbutton.move(80, 20)
         backbutton.resize(80, 80)
+        srbutton.resize(80, 80)
         backbutton.adjustSize()
+        srbutton.adjustSize()
+        srbutton.setText("SR")
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
         backbutton.clicked.connect(self.goToBack)
+        srbutton.clicked.connect(self.goToSR)
         self.fig1 = plt.Figure()
         self.canvas1 = FigureCanvas(self.fig1)
         self.fig2 = plt.Figure()
@@ -295,8 +305,8 @@ class Train_CNN(QMainWindow,train_form):
     def test(self):
         t = Thread3(self)
         t.start()
-
-
+    def goToSR(self):
+        widget.setCurrentWidget(select_sr_model) 
 
 compare_ui = resource_path('pixby/ui/compare.ui')
 compare_form = uic.loadUiType(compare_ui)[0]
@@ -408,10 +418,10 @@ save_sr_model = {
     'learning_rate': '',
     'epoch': '',
     'resblock': '16',
-                'feature_map': '32',
-                'scale': 'x2',
-                'data_dir': '',
-                'save_dir': ''
+    'feature_map': '32',
+    'scale': 'x2',
+    'data_dir': '',
+    'save_dir': ''
 }
 
 
@@ -856,19 +866,22 @@ class Result_Model(QMainWindow, res_form):
         super(Result_Model,self).__init__(parent)
         self.setupUi(self) # for_class2 ui 셋
         # UI 
-        self.res1_loss, self.res1_accuracy = parent.res1 
-        self.res2_loss, self.res2_accuracy = parent.res2
+        self.res1_loss, self.res1_accuracy, self.res1_matrix = parent.res1 
+        self.res2_loss, self.res2_accuracy, self.res2_matrix = parent.res2
         self.res1_loss, self.res1_accuracy = round(self.res1_loss,4), round(self.res1_accuracy,2)
         self.res2_loss, self.res2_accuracy = round(self.res2_loss,4), round(self.res2_accuracy,2)
         # 모델 경로 출력
         # uic.loadUi(form_class2,self)
-
+        # 테이블 모델 이름 
+        self.name1.setText("모델이름 :"+ parent.model_1.split('/')[-1])
+        self.name2.setText("모델이름 :"+ parent.model_2.split('/')[-1])
         # self.setGeometry(300, 300, 1000, 700)
-        self.compare_table.resize(300, 140)
-        self.compare_table.move(660, 610) # table 사이즈 위치 조정
-        self.setTableWidgetData()
+        # self.compare_table.resize(300, 140)
+        # self.compare_table.move(660, 610) # table 사이즈 위치 조정
+        self.setTableWidgetData() # acc, loss
+        # 새창 크기 픽스
         self.setFixedWidth(1000)
-        self.setFixedHeight(800)
+        self.setFixedHeight(1000)
         self.show()
 
     def setTableWidgetData(self):
@@ -876,7 +889,19 @@ class Result_Model(QMainWindow, res_form):
         self.compare_table.setItem(0, 1, QTableWidgetItem(str(self.res1_loss)))
         self.compare_table.setItem(1, 0, QTableWidgetItem(str(self.res2_accuracy)))
         self.compare_table.setItem(1, 1, QTableWidgetItem(str(self.res2_loss)))
+        length = len(self.res1_matrix)
+        self.model1.setRowCount(length)
+        self.model2.setRowCount(length)
+        self.model1.setColumnCount(length)
+        self.model2.setColumnCount(length)
 
+        for i in range(length):
+            for j in range(length):
+                self.model1.setItem(i,j,QTableWidgetItem(str(self.res1_matrix[i][j])))
+
+        for i in range(length):
+            for j in range(length):
+                self.model2.setItem(i,j,QTableWidgetItem(str(self.res2_matrix[i][j])))
 
 
 class Result_SR_Model(QMainWindow):

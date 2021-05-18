@@ -7,45 +7,113 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>800</height>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="compare_table">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>580</y>
-      <width>301</width>
-      <height>141</height>
+      <x>20</x>
+      <y>40</y>
+      <width>611</width>
+      <height>421</height>
      </rect>
     </property>
-    <row>
-     <property name="text">
-      <string>모델1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>모델2</string>
-     </property>
-    </row>
-    <column>
-     <property name="text">
-      <string>Accuracy</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Loss</string>
-     </property>
-    </column>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QTableWidget" name="model1"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>800</y>
+      <width>311</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QTableWidget" name="compare_table">
+       <row>
+        <property name="text">
+         <string>모델1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>모델2</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>Accuracy</string>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Loss</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>510</y>
+      <width>611</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QTableWidget" name="model2"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="name1">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>601</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;배달의민족 한나는 열한살&quot;;</string>
+    </property>
+    <property name="text">
+     <string>모델 이름 : Model1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="name2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>480</y>
+      <width>611</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;배달의민족 한나는 열한살&quot;;</string>
+    </property>
+    <property name="text">
+     <string>모델 이름 : Model1</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -119,18 +119,19 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
   class ResNet(nn.Module):
     def __init__(self, num_classes = 10):
       super(ResNet, self).__init__()
-      self.in_planes = 16
+      self.in_planes = 64
 
-      self.conv1 = nn.Conv2d(3, 16,
+      self.conv1 = nn.Conv2d(3, 64,
                             kernel_size = 3,
                             stride = 1,
                             padding = 1,
                             bias = False)
-      self.bn1 = nn.BatchNorm2d(16)
-      self.layer1 = self._make_layer(16, 2, stride = 1)
-      self.layer2 = self._make_layer(32, 2, stride = 2)
-      self.layer3 = self._make_layer(64, 2, stride = 2)
-      self.linear = nn.Linear(64, num_classes)
+      self.bn1 = nn.BatchNorm2d(64)
+      self.layer1 = self._make_layer(64, 2, stride = 1)
+      self.layer2 = self._make_layer(128, 2, stride = 2)
+      self.layer3 = self._make_layer(256, 2, stride = 2)
+      self.layer4 = self._make_layer(512, 2, stride = 2)
+      self.linear = nn.Linear(512, num_classes)
 
     def _make_layer(self, planes, num_blocks, stride):
       strides = [stride] + [1] * (num_blocks - 1)
@@ -145,6 +146,7 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
       out = self.layer1(out)
       out = self.layer2(out)
       out = self.layer3(out)
+      out = self.layer4(out)
       out = F.adaptive_avg_pool2d(out, 1)
       out = out.view(out.size(0), -1)
       out = self.linear(out)
@@ -220,16 +222,7 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
     # plt.plot(range(1, EPOCHS + 1), accuracy)
 
   # learning rate 그래프 출력
-  ax1 = window.fig.add_subplot(111)
-  ax1.plot(range(1, EPOCHS + 1), test_accuracy_lst, label="test_accuracy")
-  ax1.legend()
-  ax1.set_title("Accuracy")
-
-  ax2 = window.fig.add_subplot(121)
-  ax2.plot(range(1, EPOCHS + 1), test_loss_lst, label="test_loss")
-  ax2.legend()
-  ax2.set_title("Loss")
-
+ 
   window.fig1.clear()
   window.fig2.clear()
   ax1 = window.fig1.add_subplot(111)

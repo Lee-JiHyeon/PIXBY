@@ -48,6 +48,9 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">font: 75 12pt &quot;나눔스퀘어 Bold&quot;;
 border: 0.75px solid black;</string>
@@ -183,6 +186,9 @@ p, li { white-space: pre-wrap; }
        <height>31</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">border: 0.75px solid black;</string>
      </property>
@@ -257,6 +263,9 @@ p, li { white-space: pre-wrap; }
        <height>31</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">border: 0.75px solid black;</string>
      </property>
@@ -272,6 +281,9 @@ p, li { white-space: pre-wrap; }
        <width>101</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">border: 0.75px solid black;</string>
@@ -526,6 +538,9 @@ p, li { white-space: pre-wrap; }
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QRadioButton" name="size16">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">font: 75 10pt &quot;맑은 고딕&quot;;
 border : 1px;</string>
@@ -537,6 +552,9 @@ border : 1px;</string>
       </item>
       <item>
        <widget class="QRadioButton" name="size32">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">font: 75 10pt &quot;맑은 고딕&quot;;
 border : none;</string>
@@ -548,6 +566,9 @@ border : none;</string>
       </item>
       <item>
        <widget class="QRadioButton" name="size64">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">font: 75 10pt &quot;맑은 고딕&quot;;border : none;</string>
         </property>

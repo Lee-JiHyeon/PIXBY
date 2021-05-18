@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>960</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>90</y>
+      <width>1191</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>모델 정보</string>
+    </property>
+    <widget class="QTableWidget" name="testSRTable">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>1151</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>Model Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Scale</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Batch Size</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Learning Rate</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Epoch</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="testSRImg">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>340</y>
+      <width>371</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>60</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SR모델 변경</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>240</y>
+      <width>1191</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>GroupBox</string>
+    </property>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>40</y>
+       <width>64</width>
+       <height>15</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Before</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setImgBtn">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>30</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image:url(img/folder.png)</string>
+     </property>
+     <property name="text">
+      <string>이미지 변경</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="testSRBtn">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>250</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SR!</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>920</x>
+       <y>40</y>
+       <width>64</width>
+       <height>15</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>After</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>100</y>
+       <width>321</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="goToChoice">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>820</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>홈으로</string>
+    </property>
+   </widget>
+   <zorder>groupBox_2</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>testSRImg</zorder>
+   <zorder>pushButton_3</zorder>
+   <zorder>goToChoice</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

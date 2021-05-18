@@ -10,6 +10,9 @@
     <height>960</height>
    </rect>
   </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>Pixby</string>
   </property>
@@ -17,11 +20,14 @@
    <widget class="QPushButton" name="nextButton">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>595</x>
       <y>640</y>
       <width>131</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(69, 149, 242);
@@ -37,7 +43,7 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
       <x>240</x>
       <y>60</y>
       <width>321</width>
-      <height>521</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="title">
@@ -90,6 +96,9 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
        <height>28</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
@@ -105,6 +114,9 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
        <width>130</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -154,7 +166,7 @@ p, li { white-space: pre-wrap; }
       <x>580</x>
       <y>60</y>
       <width>321</width>
-      <height>521</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="title">
@@ -168,6 +180,9 @@ p, li { white-space: pre-wrap; }
        <width>130</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>OpenHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -184,6 +199,9 @@ p, li { white-space: pre-wrap; }
        <width>130</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>

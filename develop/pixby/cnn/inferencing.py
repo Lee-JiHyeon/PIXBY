@@ -85,7 +85,7 @@ class ResNet(nn.Module):
 
 
 def Infer(dataset_path, model_path):
-
+  folders = os.listdir(dataset_path)
   # ''' 2. 딥러닝 모델을 설계할 때 활용하는 장비 확인 '''
   if torch.cuda.is_available(): 
     DEVICE = torch.device('cuda')
@@ -130,7 +130,7 @@ def Infer(dataset_path, model_path):
     print('Y_test:', Y_test.size(), 'type:', Y_test.type())
     break
 
-  print(len(test_dataset))
+  # print(len(test_dataset))
 
 
   ''' 5. 데이터 확인 (2) '''
@@ -146,10 +146,10 @@ def Infer(dataset_path, model_path):
 
 
   ''' 모델 불러오기 '''
-  print(type(torch.load(model_path)))
+  # print(type(torch.load(model_path)))
   if type(torch.load(model_path)) == 'dict':
     model = torch.load(model_path)
-    print("check")
+    # print("check")
   else:
     model = ResNet().to(DEVICE)
     model.load_state_dict(torch.load(model_path))
@@ -159,11 +159,17 @@ def Infer(dataset_path, model_path):
 
   ''' 7. Optimizer, Objective Fucntion 설정 '''
   criterion = nn.CrossEntropyLoss()
-  print(model)
+  # print(model)
+
+  ''' 8-(1). 평가행렬 함수 '''
+  test_matrix = [[0] * len(folders) for _ in range(len(folders))]
+  def eval_detail(pred, label):
+    for i in range(len(label)):
+      test_matrix[label[i]][pred[i][0]] += 1
 
 
   ''' 9. 학습되는 과정 속에서 검증 데이터에 대한 모델 성능을 확인하는 함수 정의 '''
-  def evaluate(model, test_loader):
+  def evaluate(model, test_loader, check=1):
     model.eval()
     test_loss = 0
     correct = 0
@@ -174,6 +180,8 @@ def Infer(dataset_path, model_path):
         output = model(image)
         test_loss += criterion(output, label).item()
         prediction = output.max(1, keepdim = True)[1]
+        if check:
+          eval_detail(prediction, label)
         correct += prediction.eq(label.view_as(prediction)).sum().item()
     test_loss /= len(test_loader.dataset)
     test_accuracy = 100. * correct / len(test_loader.dataset)
@@ -181,5 +189,12 @@ def Infer(dataset_path, model_path):
 
   test_loss, test_accuracy = evaluate(model, test_loader)
 
-  print(test_loss, test_accuracy)
-  return test_loss, test_accuracy
+  # print(test_loss, test_accuracy)
+  total = 0
+  for test in test_matrix:
+    total += sum(test)
+  for i in range(len(test_matrix)):
+      for j in range(len(test_matrix[i])):
+        test_matrix[i][j] = round(test_matrix[i][j]/total,3)
+  print(test_matrix)
+  return test_loss, test_accuracy, test_matrix 
