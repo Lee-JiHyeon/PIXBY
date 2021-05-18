@@ -142,6 +142,7 @@ class SRData(data.Dataset):
             lr = imageio.imread(f_lr, pilmode="RGB")
             # print(type(lr), type(hr), '#@@##$!@$#!@#$!')
         elif self.args.ext.find('sep') >= 0:
+            print('ext is sep!@%!#@$%%&%#!##$@#~#$@')
             with open(f_hr, 'rb') as _f:
                 hr = pickle.load(_f)
             with open(f_lr, 'rb') as _f:
