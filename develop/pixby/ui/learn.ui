@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>975</height>
+    <height>960</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -59,7 +59,7 @@
    <property name="geometry">
     <rect>
      <x>410</x>
-     <y>400</y>
+     <y>410</y>
      <width>441</width>
      <height>21</height>
     </rect>
@@ -95,7 +95,7 @@
    <property name="geometry">
     <rect>
      <x>830</x>
-     <y>400</y>
+     <y>410</y>
      <width>281</width>
      <height>21</height>
     </rect>
@@ -109,10 +109,23 @@
     <string>배율 : x2</string>
    </property>
   </widget>
+  <widget class="QLabel" name="terminal">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>720</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>이미지</string>
+   </property>
+  </widget>
   <widget class="QPushButton" name="golearnbutton">
    <property name="geometry">
     <rect>
-     <x>950</x>
+     <x>830</x>
      <y>450</y>
      <width>151</width>
      <height>41</height>
@@ -125,10 +138,10 @@
   <widget class="QPushButton" name="golearnbutton_2">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>850</y>
-     <width>231</width>
-     <height>61</height>
+     <x>810</x>
+     <y>720</y>
+     <width>191</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="text">
@@ -138,10 +151,10 @@
   <widget class="QPushButton" name="gotestbutton">
    <property name="geometry">
     <rect>
-     <x>960</x>
-     <y>850</y>
-     <width>211</width>
-     <height>61</height>
+     <x>1040</x>
+     <y>720</y>
+     <width>171</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="text">
@@ -151,10 +164,10 @@
   <widget class="QTextEdit" name="textBox_terminal">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>70</x>
      <y>510</y>
-     <width>1161</width>
-     <height>311</height>
+     <width>1141</width>
+     <height>191</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -164,9 +177,9 @@
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>70</x>
      <y>40</y>
-     <width>511</width>
+     <width>1141</width>
      <height>341</height>
     </rect>
    </property>
