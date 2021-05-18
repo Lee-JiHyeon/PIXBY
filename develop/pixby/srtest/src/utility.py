@@ -53,6 +53,7 @@ class checkpoint():
         if not args.load:
             if not args.save:
                 args.save = now
+            print(args.save, '1324653412235463235143524!@#%$!#@#%^#$@#%!$@#%$^#@#%!@$#%@$')
             self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.save)
         else:
             self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.load)
@@ -99,7 +100,10 @@ class checkpoint():
     def write_log(self, log, window, refresh=False):
         print(log)
         window.textBox_terminal.append(log)
-        self.log_file.write(log + '\n')
+        try:
+            self.log_file.write(log + '\n')
+        except:
+            pass
         if refresh:
             self.log_file.close()
             self.log_file = open(self.get_path('log.txt'), 'a')
@@ -108,10 +112,7 @@ class checkpoint():
         self.log_file.close()
 
     def plot_psnr(self, epoch, window):
-        self.wfig = window.fig
-        self.wpsnr = window.psnr
         
-        # wfig.clear()
         axis = np.linspace(1, epoch, epoch)
         for idx_data, d in enumerate(self.args.data_test):
             label = 'SR on {}'.format(d)
@@ -129,11 +130,9 @@ class checkpoint():
             plt.xlabel('Epochs')
             plt.ylabel('PSNR')
             plt.grid(True)
-            # plt.show()
+          
             plt.savefig(self.get_path('test_{}.pdf'.format(d)))
-            # window.textBox_terminal.append('!@#$@#$%$')
-            # wpsnr.draw()
-            self.wpsnr.draw()
+          
             plt.close(fig)
 
 

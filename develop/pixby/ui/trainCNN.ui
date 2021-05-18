@@ -20,7 +20,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">font: 75 12pt &quot;맑은 고딕&quot;;</string>
+   <string notr="true">font: 75 12pt &quot;맑은 고딕&quot;;
+background-color:#fdfaf6</string>
   </property>
   <widget class="QPushButton" name="golearnbutton">
    <property name="geometry">
@@ -34,6 +35,10 @@
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #f7a440;
+color: #f6dcbf</string>
+   </property>
    <property name="text">
     <string>정지</string>
    </property>
@@ -42,32 +47,40 @@
    <property name="geometry">
     <rect>
      <x>680</x>
-     <y>760</y>
+     <y>790</y>
      <width>170</width>
-     <height>101</height>
+     <height>71</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #f7a440;
+color: #f6dcbf</string>
+   </property>
    <property name="text">
-    <string>모델저장하기</string>
+    <string>모델저장</string>
    </property>
   </widget>
   <widget class="QPushButton" name="gotestbutton">
    <property name="geometry">
     <rect>
      <x>880</x>
-     <y>760</y>
+     <y>790</y>
      <width>171</width>
-     <height>101</height>
+     <height>71</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #f7a440;
+color: #f6dcbf</string>
+   </property>
    <property name="text">
-    <string>테스트하기</string>
+    <string>학습</string>
    </property>
   </widget>
   <widget class="QTextEdit" name="textBox_terminal">
@@ -100,7 +113,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>130</y>
+     <y>140</y>
      <width>201</width>
      <height>301</height>
     </rect>
@@ -266,7 +279,7 @@
    <property name="geometry">
     <rect>
      <x>380</x>
-     <y>130</y>
+     <y>140</y>
      <width>321</width>
      <height>301</height>
     </rect>
@@ -277,7 +290,7 @@
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>130</y>
+     <y>140</y>
      <width>321</width>
      <height>301</height>
     </rect>

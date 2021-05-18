@@ -22,6 +22,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:#fdfaf6</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_7">
     <property name="geometry">
@@ -53,7 +56,9 @@
     </property>
     <property name="styleSheet">
      <string notr="true">font: 75 12pt &quot;나눔스퀘어 Bold&quot;;
-border: 0.75px solid black;</string>
+
+background-color: #f7a440;
+color: #f6dcbf</string>
     </property>
     <property name="text">
      <string>학습하기</string>
@@ -94,7 +99,10 @@ font: 75 12pt &quot;나눔스퀘어 Bold&quot;;</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border:none;font: 12pt &quot;Agency FB&quot;;</string>
+      <string notr="true">border:none;font: 12pt &quot;Agency FB&quot;;
+
+border:none;
+background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -123,7 +131,8 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border:none;</string>
+      <string notr="true">border:none;
+background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -190,7 +199,8 @@ p, li { white-space: pre-wrap; }
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: 0.75px solid black;</string>
+      <string notr="true">background-color: #f7a440;
+color: #f6dcbf</string>
      </property>
      <property name="text">
       <string>저장경로</string>
@@ -215,7 +225,8 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border:none;</string>
+      <string notr="true">border:none;
+background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -244,7 +255,8 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border:none;</string>
+      <string notr="true">border:none;
+background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -267,7 +279,9 @@ p, li { white-space: pre-wrap; }
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: 0.75px solid black;</string>
+      <string notr="true">
+background-color: #f7a440;
+color: #f6dcbf</string>
      </property>
      <property name="text">
       <string>폴더 선택</string>
@@ -286,7 +300,9 @@ p, li { white-space: pre-wrap; }
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: 0.75px solid black;</string>
+      <string notr="true">
+background-color: #f7a440;
+color: #f6dcbf</string>
      </property>
      <property name="text">
       <string>폴더 선택</string>
@@ -361,7 +377,9 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: none;</string>
+      <string notr="true">
+background-color: #f7a440;
+color: #f6dcbf</string>
      </property>
      <property name="text">
       <string>저장 이름</string>
@@ -480,7 +498,8 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: none;</string>
+      <string notr="true">border:none;
+background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -509,7 +528,9 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: none;</string>
+      <string notr="true">border: none;
+border:none;
+background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;

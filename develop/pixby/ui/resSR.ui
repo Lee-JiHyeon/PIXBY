@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #e7e6e1;
+font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
@@ -34,6 +38,9 @@
        <width>1151</width>
        <height>71</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #f7f6e7</string>
      </property>
      <column>
       <property name="text">
@@ -62,27 +69,19 @@
      </column>
     </widget>
    </widget>
-   <widget class="QLabel" name="testSRImg">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>340</y>
-      <width>371</width>
-      <height>361</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>1140</x>
-      <y>60</y>
-      <width>93</width>
-      <height>28</height>
+      <x>1130</x>
+      <y>50</y>
+      <width>100</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #f2a154;
+color:rgb(255, 255, 255);
+font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     </property>
     <property name="text">
      <string>SR모델 변경</string>
@@ -116,30 +115,19 @@
     <widget class="QPushButton" name="setImgBtn">
      <property name="geometry">
       <rect>
-       <x>320</x>
-       <y>30</y>
-       <width>93</width>
-       <height>28</height>
+       <x>20</x>
+       <y>40</y>
+       <width>101</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image:url(img/folder.png)</string>
+      <string notr="true">background-color: #f2a154;
+color:rgb(255, 255, 255);
+font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      </property>
      <property name="text">
       <string>이미지 변경</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="testSRBtn">
-     <property name="geometry">
-      <rect>
-       <x>580</x>
-       <y>250</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>SR!</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -158,35 +146,77 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>780</x>
-       <y>100</y>
+       <x>880</x>
+       <y>90</y>
        <width>321</width>
-       <height>371</height>
+       <height>411</height>
       </rect>
      </property>
      <property name="text">
       <string>TextLabel</string>
      </property>
     </widget>
+    <widget class="QLabel" name="testSRImg">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>90</y>
+       <width>321</width>
+       <height>411</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QTreeView" name="treeView">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>181</width>
+       <height>441</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #f7f6e7</string>
+     </property>
+    </widget>
+    <widget class="QTreeView" name="treeView_2">
+     <property name="geometry">
+      <rect>
+       <x>650</x>
+       <y>80</y>
+       <width>181</width>
+       <height>441</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #f7f6e7</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QPushButton" name="goToChoice">
+   <widget class="QPushButton" name="testSRBtn">
     <property name="geometry">
      <rect>
-      <x>1140</x>
+      <x>1130</x>
       <y>820</y>
-      <width>93</width>
-      <height>28</height>
+      <width>101</width>
+      <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #f2a154;
+color:rgb(255, 255, 255)</string>
+    </property>
     <property name="text">
-     <string>홈으로</string>
+     <string>SR</string>
     </property>
    </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
-   <zorder>testSRImg</zorder>
    <zorder>pushButton_3</zorder>
-   <zorder>goToChoice</zorder>
+   <zorder>testSRBtn</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -194,7 +224,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>26</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>
