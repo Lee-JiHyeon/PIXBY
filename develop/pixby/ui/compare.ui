@@ -18,16 +18,16 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(231, 230, 225);
-font: 75 12pt &quot;나눔스퀘어 Bold&quot;;</string>
+font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox1">
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>50</y>
+      <y>60</y>
       <width>1201</width>
-      <height>271</height>
+      <height>340</height>
      </rect>
     </property>
     <property name="title">
@@ -37,7 +37,7 @@ font: 75 12pt &quot;나눔스퀘어 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>30</y>
+       <y>70</y>
        <width>101</width>
        <height>28</height>
       </rect>
@@ -56,7 +56,7 @@ font: 75 12pt &quot;나눔스퀘어 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>140</y>
+       <y>200</y>
        <width>100</width>
        <height>28</height>
       </rect>
@@ -75,7 +75,7 @@ font: 75 12pt &quot;나눔스퀘어 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>30</y>
+       <y>70</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -85,7 +85,7 @@ font: 75 12pt &quot;나눔스퀘어 Bold&quot;;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
@@ -96,7 +96,7 @@ background-color: rgb(242, 161, 84);</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>140</y>
+       <y>200</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -106,7 +106,7 @@ background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
@@ -117,9 +117,9 @@ background-color: rgb(242, 161, 84);</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>180</y>
+       <y>240</y>
        <width>1000</width>
-       <height>31</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -129,17 +129,20 @@ background-color: rgb(242, 161, 84);</string>
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:11pt; font-weight:600;&quot;&gt;경로를 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어라운드 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="placeholderText">
+      <string>경로를 선택해주세요.</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="model_name1">
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>70</y>
+       <y>110</y>
        <width>1000</width>
-       <height>31</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -149,8 +152,11 @@ p, li { white-space: pre-wrap; }
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:11pt; font-weight:600;&quot;&gt;모델을 선택해주세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어라운드 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="placeholderText">
+      <string>모델을 선택해주세요.</string>
      </property>
     </widget>
    </widget>
@@ -158,9 +164,9 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>400</y>
+      <y>450</y>
       <width>1201</width>
-      <height>271</height>
+      <height>340</height>
      </rect>
     </property>
     <property name="title">
@@ -169,8 +175,8 @@ p, li { white-space: pre-wrap; }
     <widget class="QPushButton" name="selectImage2">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>150</y>
+       <x>160</x>
+       <y>200</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -180,7 +186,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
@@ -190,8 +196,8 @@ background-color: rgb(242, 161, 84);</string>
     <widget class="QPushButton" name="selectModel2">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>40</y>
+       <x>160</x>
+       <y>70</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -201,7 +207,7 @@ background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
@@ -212,7 +218,7 @@ background-color: rgb(242, 161, 84);</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>40</y>
+       <y>70</y>
        <width>100</width>
        <height>28</height>
       </rect>
@@ -231,7 +237,7 @@ background-color: rgb(242, 161, 84);</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>150</y>
+       <y>200</y>
        <width>101</width>
        <height>28</height>
       </rect>
@@ -250,9 +256,9 @@ background-color: rgb(242, 161, 84);</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>190</y>
+       <y>240</y>
        <width>1000</width>
-       <height>31</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -262,17 +268,20 @@ background-color: rgb(242, 161, 84);</string>
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-weight:600;&quot;&gt;경로를 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어라운드 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="placeholderText">
+      <string>경로를 선택해주세요.</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="model_name2">
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>90</y>
+       <y>110</y>
        <width>1000</width>
-       <height>31</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -282,18 +291,21 @@ p, li { white-space: pre-wrap; }
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:11pt; font-weight:600;&quot;&gt;모델을 선택해주세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어라운드 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="placeholderText">
+      <string>모델을 선택해주세요.</string>
      </property>
     </widget>
    </widget>
    <widget class="QPushButton" name="nextButton">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>720</y>
-      <width>131</width>
-      <height>41</height>
+      <x>1090</x>
+      <y>810</y>
+      <width>151</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="cursor">
@@ -301,7 +313,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 255, 255);
-font: 75 12pt &quot;나눔스퀘어 Bold&quot;;
+font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
     </property>
     <property name="text">
@@ -315,7 +327,7 @@ background-color: rgb(242, 161, 84);</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>24</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>

@@ -20,7 +20,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;
+   <string notr="true">font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color:  #e7e6e1</string>
   </property>
   <widget class="QPushButton" name="golearnbutton">
@@ -113,7 +113,7 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <property name="font">
      <font>
       <family>나눔스퀘어라운드 Bold</family>
-      <pointsize>11</pointsize>
+      <pointsize>12</pointsize>
       <weight>9</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -135,7 +135,7 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <property name="font">
      <font>
       <family>나눔스퀘어라운드 Bold</family>
-      <pointsize>11</pointsize>
+      <pointsize>12</pointsize>
       <weight>9</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -157,7 +157,7 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <property name="font">
      <font>
       <family>나눔스퀘어라운드 Bold</family>
-      <pointsize>11</pointsize>
+      <pointsize>12</pointsize>
       <weight>9</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -179,7 +179,7 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <property name="font">
      <font>
       <family>나눔스퀘어라운드 Bold</family>
-      <pointsize>11</pointsize>
+      <pointsize>12</pointsize>
       <weight>9</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -201,7 +201,7 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <property name="font">
      <font>
       <family>나눔스퀘어라운드 Bold</family>
-      <pointsize>11</pointsize>
+      <pointsize>12</pointsize>
       <weight>9</weight>
       <italic>false</italic>
       <bold>false</bold>
