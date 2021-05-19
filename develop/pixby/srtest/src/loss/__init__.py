@@ -1,22 +1,21 @@
+import torch.nn.functional as F
+import torch.nn as nn
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
 import os
 from importlib import import_module
 
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 
-import numpy as np
-
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 
 class Loss(nn.modules.loss._Loss):
     def __init__(self, args, ckp):
-        # 5월 4일 추가      
+        # 5월 4일 추가
         self.epoch = len(ckp.log)
         # ---------
-        
+
         super(Loss, self).__init__()
         print('Preparing loss function:')
 
@@ -48,7 +47,8 @@ class Loss(nn.modules.loss._Loss):
                 'function': loss_function}
             )
             if loss_type.find('GAN') >= 0:
-                self.loss.append({'type': 'DIS', 'weight': 1, 'function': None})
+                self.loss.append(
+                    {'type': 'DIS', 'weight': 1, 'function': None})
 
         if len(self.loss) > 1:
             self.loss.append({'type': 'Total', 'weight': 0, 'function': None})
@@ -62,13 +62,15 @@ class Loss(nn.modules.loss._Loss):
 
         device = torch.device('cpu' if args.cpu else 'cuda')
         self.loss_module.to(device)
-        if args.precision == 'half': self.loss_module.half()
+        if args.precision == 'half':
+            self.loss_module.half()
         if not args.cpu and args.n_GPUs > 1:
             self.loss_module = nn.DataParallel(
                 self.loss_module, range(args.n_GPUs)
             )
 
-        if args.load != '': self.load(ckp.dir, cpu=args.cpu)
+        if args.load != '':
+            self.load(ckp.dir, cpu=args.cpu)
 
     def forward(self, sr, hr):
         losses = []
@@ -107,6 +109,8 @@ class Loss(nn.modules.loss._Loss):
         return ''.join(log)
 
     def plot_loss(self, apath, epoch, window):
+        window.fig_2.clear()
+        ax2 = window.fig_2.add_subplot(111)
         axis = np.linspace(1, epoch, epoch)
         # lfig = window.fig
         # lfig.clear()
@@ -115,12 +119,14 @@ class Loss(nn.modules.loss._Loss):
             fig = plt.figure()
             plt.title(label)
             plt.plot(axis, self.log[:, i].numpy(), label=label)
+            ax2.plot(range(1, epoch+1), self.log[:, i].numpy(), label=label)
             plt.legend()
             plt.xlabel('Epochs')
             plt.ylabel('Loss')
             plt.grid(True)
-            # window.textBox_terminal.append('loss!@%@#$#$@!$@#%@$^')
-            window.psnr.draw()
+            ax2.legend()
+            ax2.set_title("Loss")
+            window.canvas_2.draw()
             plt.savefig(os.path.join(apath, 'loss_{}.pdf'.format(l['type'])))
             plt.close(fig)
 
@@ -142,14 +148,14 @@ class Loss(nn.modules.loss._Loss):
         # 5월 4일 추가
         i = 0
         for l in self.loss_module:
-          if (hasattr(l, "optimizer")):
-            l.optimizer.load_state_dict(opt_d[i])
-            if self.epoch > 1:
-              for _ in range(self.epoch):
-                l.optimizer.scheduler.step()
-                i += 1
+            if (hasattr(l, "optimizer")):
+                l.optimizer.load_state_dict(opt_d[i])
+                if self.epoch > 1:
+                    for _ in range(self.epoch):
+                        l.optimizer.scheduler.step()
+                        i += 1
         # -------------
-            
+
         if cpu:
             kwargs = {'map_location': lambda storage, loc: storage}
         else:
@@ -162,5 +168,5 @@ class Loss(nn.modules.loss._Loss):
         self.log = torch.load(os.path.join(apath, 'loss_log.pt'))
         for l in self.get_loss_module():
             if hasattr(l, 'scheduler'):
-                for _ in range(len(self.log)): l.scheduler.step()
-
+                for _ in range(len(self.log)):
+                    l.scheduler.step()
