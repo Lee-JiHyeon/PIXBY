@@ -438,7 +438,7 @@ create_sr_data = {
 learning = {
     'model': 'EDSR',
     'scale': [2],
-    'save': 'EDSR_baseline_x2_transfer_cifar',
+    'save': 'test',
     'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
     'chop': True,
     'dir_data': './SRimages',
@@ -461,12 +461,13 @@ testing = {
     'test_only': True,
     'save_results': True,
     'chop': True,
-    'n_threads' : 0,
-
-
+    # 'n_threads' : 0,
     'scale': [2],
+    'n_resblocks': 16,
+    'n_feats': 64,
     'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
     'save': 'SRresults',
+    'dir_demo' : './SRimages'
    
 }
 
@@ -498,6 +499,11 @@ class Thread2(QThread):
 
     def run(self):
         main(learn_sr, **testing)
+
+        print('다돌음')
+        # Result_SR_Model.setResImg(Result_SR_Model())
+
+        print('학습이 종료되었습니다.')
         
         
 
@@ -547,6 +553,17 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         scale_box.activated[str].connect(self.onScale)
 
         self.treeView.doubleClicked.connect(self.showImg)
+
+
+    def warningMSG(self, title: str, content: str):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(content)
+        msg.setStandardButtons(QMessageBox.Ok)
+        result = msg.exec_()
+        if result == QMessageBox.Ok:
+            self.send_valve_popup_signal.emit(True)
+
 
     def data_dir_save(self):
         options = QFileDialog.Options()
@@ -600,11 +617,15 @@ class Create_SR_Model(QMainWindow, new_sr_form):
 
     def learning_changed(self):
         create_sr_data['learning_rate'] = self.learningtextEdit.toPlainText()
-        if self.learningtextEdit.toPlainText():
-            learning['lr'] = float(self.learningtextEdit.toPlainText())
-            # print(self.learningtextEdit.toPlainText())
-            learn_sr.learnig_rate.setText('Learning Rate : {}'.format(
-                self.learningtextEdit.toPlainText()))
+        try: 
+            if self.learningtextEdit.toPlainText():
+                learning['lr'] = float(self.learningtextEdit.toPlainText())
+                # print(self.learningtextEdit.toPlainText())
+                learn_sr.learnig_rate.setText('Learning Rate : {}'.format(
+                    self.learningtextEdit.toPlainText()))
+        except:
+            self.warningMSG("주의", "숫자를 입력해주세여.")
+        
 
     def epoch_changed(self):
         create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
@@ -621,11 +642,17 @@ class Create_SR_Model(QMainWindow, new_sr_form):
 
     def onRes(self, text):
         create_sr_data['resblock'] = text
-        learning['n_resblocks'] = int(text)
+        try: 
+            learning['n_resblocks'] = int(text)
+        except:
+            self.warningMSG("주의", "숫자를 입력해주세여.")
 
     def onFeature(self, text):
         create_sr_data['feature_map'] = text
-        learning['n_feats'] = int(text)
+        try: 
+            learning['n_feats'] = int(text)
+        except:
+            self.warningMSG("주의", "숫자를 입력해주세여.")
 
     def onScale(self, text):
 
@@ -830,10 +857,12 @@ class Result_Model(QMainWindow, res_form):
                 self.model2.setItem(i,j,QTableWidgetItem(str(self.res2_matrix[i][j])))
 
 class Result_SR_Model(QMainWindow):
+
+    send_valve_popup_signal = pyqtSignal(bool, name='sendValvePopupSignal')
+
     def __init__(self):
         super(Result_SR_Model, self).__init__()
         loadUi('./pixby/ui/resSR.ui', self)
-
         #  뒤로가기버튼
         backbutton = QPushButton(self)
         backbutton.move(0, 10)
@@ -852,7 +881,66 @@ class Result_SR_Model(QMainWindow):
         # testSR버튼
         self.testSRBtn.clicked.connect(self.testSR)
 
+        self.srmodelchangeBtn.clicked.connect(self.changeSR)
+
         self.treeView.doubleClicked.connect(self.showImg)
+        self.treeView_2.doubleClicked.connect(self.showResImg)
+
+        self.pushButton.clicked.connect(self.setResImg)        
+
+    def warningMSG(self, title: str, content: str):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(content)
+        msg.setStandardButtons(QMessageBox.Ok)
+        result = msg.exec_()
+        if result == QMessageBox.Ok:
+            self.send_valve_popup_signal.emit(True)
+
+
+    def changeSR(self):
+        self.testSRTable.setRowCount(1)
+        model_dir = QFileDialog.getExistingDirectory(self, "select Directory")
+        model_name = os.path.basename(model_dir)
+        try:
+                # test['pre_train'] = model_dir + '/model/model_best.pt'
+            path = model_dir + '/model'
+            file_list = os.listdir(path)
+            file_list_py = [file for file in file_list if file.startswith("model_best")]
+            
+            s = os.path.split(file_list_py[0])[1]
+            scale = s[10:12]
+            resblock = s[12:14]
+            features = s[14:16]
+            # print(scale, resblock, features)
+
+            testing['pre_train'] = model_dir + '/model/' + s
+            testing['scale'] = [int(scale)]
+            testing['n_resblocks'] = int(resblock)
+            testing['n_feats'] = int(features)
+
+            
+            self.testSRTable.setItem(0, 0, QTableWidgetItem(model_name))
+            self.testSRTable.setItem(0, 1, QTableWidgetItem('x' + scale[-1]))
+            self.testSRTable.setItem(0, 2, QTableWidgetItem(resblock))
+            self.testSRTable.setItem(0, 3, QTableWidgetItem(features))
+
+            # else:
+            #     self.warningMSG("주의", "정확한 경로를 확인해주세요.")
+                
+            # 분류모델 경로
+            # s = os.path.split(model_dir + '/model/')
+            
+            # title, ext = os.path.splitext(s[1])
+            # print(ext)
+            # if ext == '.pt':
+            #     print('저장')
+            # else:
+            #     print('왜 안되지?')
+            
+        except:
+            self.warningMSG("주의", "모델 파일이 아닙니다.")
+
 
     def goToBack(self):
         widget.setCurrentWidget(choice)
@@ -861,6 +949,7 @@ class Result_SR_Model(QMainWindow):
         options = QFileDialog.Options()
         options |= QFileDialog.ShowDirsOnly
         img_dir = QFileDialog.getExistingDirectory(self)
+        testing['dir_demo'] = img_dir
 
         treeModel = QFileSystemModel()
         self.treeView.setModel(treeModel)
@@ -878,19 +967,30 @@ class Result_SR_Model(QMainWindow):
         self.testSRImg.setPixmap(pixmap)
 
     def setResImg(self):
-        set_dir = 'C:/Users/multicampus/Desktop/Pixby/develop/img'
+        set_dir = './SRimages/CHANGEDDATA/SRresults/results-Demo'
         treeModel2 = QFileSystemModel()
         self.treeView_2.setModel(treeModel2)
         treeModel2.setRootPath(QDir.rootPath())
-        self.treeView_2.setRootIndex(treeModel2.index(0))
+        self.treeView_2.setRootIndex(treeModel2.index(set_dir))
         self.treeView_2.hideColumn(1)
         self.treeView_2.hideColumn(2)
         self.treeView_2.hideColumn(3)
 
+    def showResImg(self, index):
+        self.mainImg = self.treeView_2.model().filePath(index)
+        pixmap = QtGui.QPixmap(self.mainImg).scaled(300, 300, Qt.IgnoreAspectRatio)
+        self.resSRImg.setPixmap(pixmap)
+
+
     def testSR(self):
+        _data_dir = './SRimages/CHANGEDDATA/SRresults/results-Demo'
+        if os.path.isdir(_data_dir):
+            shutil.rmtree(_data_dir)
+
         x = Thread2(self)
         x.start()
 
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

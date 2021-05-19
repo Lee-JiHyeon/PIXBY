@@ -54,22 +54,17 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      </column>
      <column>
       <property name="text">
-       <string>Batch Size</string>
+       <string>Res Blocks</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Learning Rate</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Epoch</string>
+       <string>Feature Maps</string>
       </property>
      </column>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="srmodelchangeBtn">
     <property name="geometry">
      <rect>
       <x>1130</x>
@@ -143,7 +138,7 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
       <string>After</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="resSRImg">
      <property name="geometry">
       <rect>
        <x>880</x>
@@ -195,6 +190,19 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
       <string notr="true">background-color: #f7f6e7</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>1010</x>
+       <y>30</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="testSRBtn">
     <property name="geometry">
@@ -215,7 +223,7 @@ color:rgb(255, 255, 255)</string>
    </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
-   <zorder>pushButton_3</zorder>
+   <zorder>srmodelchangeBtn</zorder>
    <zorder>testSRBtn</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -224,7 +232,7 @@ color:rgb(255, 255, 255)</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>28</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

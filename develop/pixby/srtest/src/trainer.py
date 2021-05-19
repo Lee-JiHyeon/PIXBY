@@ -95,11 +95,20 @@ class Trainer():
         # 0514 multiprocessing 지우려고 주석처리-> 했다가 품
         # issue 105확인
         if self.args.save_results: self.ckp.begin_background()
-        for idx_data, d in enumerate(self.loader_test):
+        for idx_data, d in enumerate(self.loader_test):     
             with torch.no_grad():
-                for idx_scale, scale in enumerate(self.scale):
+                for idx_scale, scale in enumerate(self.scale): 
                     d.dataset.set_scale(idx_scale)
+                    _nums = len(d.dataset)
+                    _cnt = 1
                     for lr, hr, filename in tqdm(d, ncols=80):
+                        _per = _cnt * 100 // _nums
+                        _tpm = str(filename) + ' 변환중입니다...   : ' + str(_per) +  '/  100  %'
+
+                        self.window.textBox_terminal.append(_tpm)
+                        _cnt += 1
+                        
+                        
                         lr, hr = self.prepare(lr, hr)
                         lr = lr[:, :3, :, :]
                         sr = self.model(lr, idx_scale)
@@ -109,11 +118,15 @@ class Trainer():
                         self.ckp.log[-1, idx_data, idx_scale] += utility.calc_psnr(
                             sr, hr, scale, self.args.rgb_range, dataset=d
                         )
+                        
                         if self.args.save_gt:
                             save_list.extend([lr, hr])
 
                         if self.args.save_results:
                             self.ckp.save_results(d, filename[0], save_list, scale)
+
+                        # 2번째 찍는곳 찾는중
+                        # print("두번쨰")
 
                     self.ckp.log[-1, idx_data, idx_scale] /= len(d)
                     best = self.ckp.log.max(0)
@@ -127,6 +140,9 @@ class Trainer():
                         ),
                         self.window
                     )
+                    #  여기에 완료창 표시해주기
+                    
+
 
         self.ckp.write_log('Forward: {:.2f}s\n'.format(timer_test.toc()), self.window)
         self.ckp.write_log('Saving...', self.window)
