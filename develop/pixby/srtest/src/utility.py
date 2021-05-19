@@ -16,6 +16,7 @@ import torch
 import torch.optim as optim
 import torch.optim.lr_scheduler as lrs
 
+
 class timer():
     def __init__(self):
         self.acc = 0
@@ -26,7 +27,8 @@ class timer():
 
     def toc(self, restart=False):
         diff = time.time() - self.t0
-        if restart: self.t0 = time.time()
+        if restart:
+            self.t0 = time.time()
         return diff
 
     def hold(self):
@@ -41,6 +43,7 @@ class timer():
     def reset(self):
         self.acc = 0
 
+
 class checkpoint():
     def __init__(self, args):
         # 0514 queue 추가해봄 -> 했다가 다시 주석 처리함(내가 쓴 코드임)
@@ -53,7 +56,12 @@ class checkpoint():
         if not args.load:
             if not args.save:
                 args.save = now
+<<<<<<< HEAD
             # print(args.save, '1324653412235463235143524!@#%$!#@#%^#$@#%!$@#%$^#@#%!@$#%@$')
+=======
+            print(
+                args.save, '1324653412235463235143524!@#%$!#@#%^#$@#%!$@#%$^#@#%!@$#%@$')
+>>>>>>> 8f27c0c814aedc445e74f2816cd94009d2aebf1b
             self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.save)
         else:
             self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.load)
@@ -112,11 +120,13 @@ class checkpoint():
         self.log_file.close()
 
     def plot_psnr(self, epoch, window):
-        
+
+        window.fig.clear()
+        ax1 = window.fig.add_subplot(111)
         axis = np.linspace(1, epoch, epoch)
         for idx_data, d in enumerate(self.args.data_test):
             label = 'SR on {}'.format(d)
-            
+
             fig = plt.figure()
             plt.title(label)
             for idx_scale, scale in enumerate(self.args.scale):
@@ -125,16 +135,23 @@ class checkpoint():
                     self.log[:, idx_data, idx_scale].numpy(),
                     label='Scale {}'.format(scale)
                 )
+                ax1.plot(
+                    range(1, epoch+1),
+                    self.log[:, idx_data, idx_scale].numpy(),
+                    label='Scale {}'.format(scale)
+                )
 
             plt.legend()
             plt.xlabel('Epochs')
             plt.ylabel('PSNR')
             plt.grid(True)
-          
-            plt.savefig(self.get_path('test_{}.pdf'.format(d)))
-          
-            plt.close(fig)
 
+            ax1.legend()
+            ax1.set_title("PSNR")
+            window.canvas.draw()
+
+            plt.savefig(self.get_path('test_{}.pdf'.format(d)))
+            plt.close(fig)
 
     # def begin_background(self):
     #     self.queue = Queue()
@@ -145,12 +162,12 @@ class checkpoint():
     #                 filename, tensor = queue.get()
     #                 if filename is None: break
     #                 imageio.imwrite(filename, tensor.numpy())
-        
+
     #     self.process = [
     #         Process(target=bg_target, args=(self.queue,)) \
     #         for _ in range(self.n_processes)
     #     ]
-        
+
     #     for p in self.process: p.start()
 
     @staticmethod
@@ -158,30 +175,36 @@ class checkpoint():
         while True:
             if not queue.empty():
                 filename, tensor = queue.get()
-                if filename is None: break
+                if filename is None:
+                    break
                 imageio.imwrite(filename, tensor.numpy())
 
     def begin_background(self):
         self.queue = Queue()
-        
+
         self.process = [
-            Process(target=self.bg_target, args=(self.queue,)) \
+            Process(target=self.bg_target, args=(self.queue,))
             for _ in range(self.n_processes)
         ]
-        
-        for p in self.process: p.start()
+
+        for p in self.process:
+            p.start()
 
         # 여기까지가 위에 주석처리된거 수정
 
     def end_background(self):
-        for _ in range(self.n_processes): self.queue.put((None, None))
-        while not self.queue.empty(): time.sleep(1)
-        for p in self.process: p.join()
+        for _ in range(self.n_processes):
+            self.queue.put((None, None))
+        while not self.queue.empty():
+            time.sleep(1)
+        for p in self.process:
+            p.join()
 
     def save_results(self, dataset, filename, save_list, scale):
         if self.args.save_results:
             for d in self.args.data_test:
-                os.makedirs(self.get_path('results-{}'.format(d)), exist_ok=True)
+                os.makedirs(self.get_path(
+                    'results-{}'.format(d)), exist_ok=True)
             filename = self.get_path(
                 'results-{}'.format(dataset.dataset.name),
                 '{}_x{}_'.format(filename, scale)
@@ -193,12 +216,15 @@ class checkpoint():
                 self.queue.put(('{}{}.png'.format(filename, p), tensor_cpu))
                 
 
+
 def quantize(img, rgb_range):
     pixel_range = 255 / rgb_range
     return img.mul(pixel_range).clamp(0, 255).round().div(pixel_range)
 
+
 def calc_psnr(sr, hr, scale, rgb_range, dataset=None):
-    if hr.nelement() == 1: return 0
+    if hr.nelement() == 1:
+        return 0
     # 0514 hr 추가
     hr = hr[:, :3, :, :]
     diff = (sr - hr) / rgb_range
@@ -215,6 +241,7 @@ def calc_psnr(sr, hr, scale, rgb_range, dataset=None):
     mse = valid.pow(2).mean()
 
     return -10 * math.log10(mse)
+
 
 def make_optimizer(args, target):
     '''
@@ -253,7 +280,8 @@ def make_optimizer(args, target):
         def load(self, load_dir, epoch=1):
             self.load_state_dict(torch.load(self.get_dir(load_dir)))
             if epoch > 1:
-                for _ in range(epoch): self.scheduler.step()
+                for _ in range(epoch):
+                    self.scheduler.step()
 
         def get_dir(self, dir_path):
             return os.path.join(dir_path, 'optimizer.pt')
@@ -266,8 +294,7 @@ def make_optimizer(args, target):
 
         def get_last_epoch(self):
             return self.scheduler.last_epoch
-    
+
     optimizer = CustomOptimizer(trainable, **kwargs_optimizer)
     optimizer._register_scheduler(scheduler_class, **kwargs_scheduler)
     return optimizer
-

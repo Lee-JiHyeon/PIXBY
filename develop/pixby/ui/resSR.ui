@@ -67,16 +67,16 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
    <widget class="QPushButton" name="srmodelchangeBtn">
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>1109</x>
       <y>50</y>
-      <width>100</width>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #f2a154;
 color:rgb(255, 255, 255);
-font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
+font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     </property>
     <property name="text">
      <string>SR모델 변경</string>
@@ -98,9 +98,9 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>40</y>
+       <y>35</y>
        <width>64</width>
-       <height>15</height>
+       <height>20</height>
       </rect>
      </property>
      <property name="text">
@@ -112,14 +112,14 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
       <rect>
        <x>20</x>
        <y>40</y>
-       <width>101</width>
+       <width>111</width>
        <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #f2a154;
 color:rgb(255, 255, 255);
-font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
+font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      </property>
      <property name="text">
       <string>이미지 변경</string>
@@ -129,9 +129,9 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>920</x>
-       <y>40</y>
+       <y>34</y>
        <width>64</width>
-       <height>15</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="text">
@@ -141,27 +141,27 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <widget class="QLabel" name="resSRImg">
      <property name="geometry">
       <rect>
-       <x>880</x>
+       <x>820</x>
        <y>90</y>
-       <width>321</width>
-       <height>411</height>
+       <width>340</width>
+       <height>410</height>
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="testSRImg">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>230</x>
        <y>90</y>
-       <width>321</width>
-       <height>411</height>
+       <width>340</width>
+       <height>410</height>
       </rect>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QTreeView" name="treeView">
@@ -169,8 +169,8 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
       <rect>
        <x>20</x>
        <y>80</y>
-       <width>181</width>
-       <height>441</height>
+       <width>180</width>
+       <height>440</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -180,10 +180,10 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <widget class="QTreeView" name="treeView_2">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>610</x>
        <y>80</y>
-       <width>181</width>
-       <height>441</height>
+       <width>180</width>
+       <height>440</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -207,10 +207,10 @@ font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
    <widget class="QPushButton" name="testSRBtn">
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>1070</x>
       <y>820</y>
-      <width>101</width>
-      <height>41</height>
+      <width>150</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -221,10 +221,24 @@ color:rgb(255, 255, 255)</string>
      <string>SR</string>
     </property>
    </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>830</y>
+      <width>118</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
    <zorder>srmodelchangeBtn</zorder>
    <zorder>testSRBtn</zorder>
+   <zorder>progressBar</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
