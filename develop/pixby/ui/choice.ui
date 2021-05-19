@@ -22,9 +22,9 @@ background-color:  #e7e6e1</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>40</y>
+      <y>50</y>
       <width>1191</width>
-      <height>601</height>
+      <height>621</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -43,9 +43,9 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>700</y>
+      <y>720</y>
       <width>1191</width>
-      <height>181</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -60,7 +60,7 @@ font: 75 30pt &quot;나눔스퀘어라운드 Bold&quot;;
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>새로운 SR만들기</string>
+        <string>SR모델 만들기</string>
        </property>
       </widget>
      </item>
@@ -75,7 +75,49 @@ font: 75 30pt &quot;나눔스퀘어라운드 Bold&quot;;
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>SR 이용하기</string>
+        <string>이미지 SR하기</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>800</y>
+      <width>1191</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="goToCreateCNN">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:  #f2a154;
+font: 75 30pt &quot;나눔스퀘어라운드 Bold&quot;;
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Classification 모델 만들기</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="goToCompare">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:  #f2a154;
+font: 75 30pt &quot;나눔스퀘어라운드 Bold&quot;;
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Classification 비교하기</string>
        </property>
       </widget>
      </item>

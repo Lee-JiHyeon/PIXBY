@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>1121</height>
+    <height>960</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -47,10 +47,10 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
    <widget class="QPushButton" name="start_button">
     <property name="geometry">
      <rect>
-      <x>1070</x>
-      <y>850</y>
-      <width>131</width>
-      <height>61</height>
+      <x>990</x>
+      <y>860</y>
+      <width>210</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="cursor">
@@ -203,7 +203,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
-      <string>저장경로</string>
+      <string>열기</string>
      </property>
     </widget>
     <widget class="QTextEdit" name="train_path">
@@ -284,7 +284,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
-      <string>폴더 선택</string>
+      <string>열기</string>
      </property>
     </widget>
     <widget class="QPushButton" name="test_btn">
@@ -305,7 +305,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
 background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
-      <string>폴더 선택</string>
+      <string>열기</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -537,10 +537,10 @@ p, li { white-space: pre-wrap; }
     <widget class="QGroupBox" name="batc_group">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>10</x>
        <y>200</y>
-       <width>191</width>
-       <height>171</height>
+       <width>361</width>
+       <height>191</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -599,8 +599,8 @@ border : none;</string>
      <rect>
       <x>440</x>
       <y>560</y>
-      <width>341</width>
-      <height>351</height>
+      <width>371</width>
+      <height>361</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -614,7 +614,7 @@ border : none;</string>
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>80</y>
+      <y>60</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -639,7 +639,7 @@ border : none;</string>
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>520</y>
+      <y>510</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -664,9 +664,9 @@ border : none;</string>
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>120</y>
+      <y>99</y>
       <width>290</width>
-      <height>350</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -679,7 +679,7 @@ border : none;</string>
       <x>80</x>
       <y>560</y>
       <width>290</width>
-      <height>350</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -689,8 +689,8 @@ border : none;</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>560</y>
+      <x>820</x>
+      <y>550</y>
       <width>281</width>
       <height>231</height>
      </rect>
@@ -743,9 +743,9 @@ border : none;</string>
     <widget class="QLabel" name="file_name">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>120</x>
        <y>40</y>
-       <width>64</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -758,7 +758,7 @@ border : none;</string>
       <rect>
        <x>130</x>
        <y>80</y>
-       <width>64</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -771,7 +771,7 @@ border : none;</string>
       <rect>
        <x>100</x>
        <y>120</y>
-       <width>64</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -784,7 +784,7 @@ border : none;</string>
       <rect>
        <x>100</x>
        <y>160</y>
-       <width>64</width>
+       <width>161</width>
        <height>31</height>
       </rect>
      </property>
