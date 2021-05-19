@@ -492,16 +492,17 @@ class Thread2(QThread):
     # parent = MainWidget을 상속 받음.
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.textBox_terminal = parent.textBox_terminal
         # self.Mname = parent.m_name
         # self.threadpool = QThreadPool()
 
     def run(self):
-        main(learn_sr, **testing)
-
-        print('다돌음')
+        main(result_sr, **testing)
         # Result_SR_Model.setResImg(Result_SR_Model())
 
-        print('학습이 종료되었습니다.')
+        self.textBox_terminal.append('SR 과정이 끝났습니다.')
+        self.textBox_terminal.append('결과보기 버튼을 클릭하여 결과를 확인하세요.')
         
         
 
@@ -510,6 +511,7 @@ class Thread2(QThread):
 
 
 class Create_SR_Model(QMainWindow, new_sr_form):
+    send_valve_popup_signal = pyqtSignal(bool, name='sendValvePopupSignal')
 
    # 보낼 시그널 데이터 타입 , 갯수 지정
     def __init__(self):
@@ -608,9 +610,6 @@ class Create_SR_Model(QMainWindow, new_sr_form):
     def goToBack(self):
         widget.setCurrentWidget(choice)
 
-    # createSR 학습하기 버튼
-    def dataLoadFn(self):
-        widget.setCurrentWidget(learn_sr)
 
     def batch_changed(self):
         create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
@@ -675,6 +674,98 @@ class Create_SR_Model(QMainWindow, new_sr_form):
             # learning['pre_train'] = './pixby/srtest/experiment/edsr_baseline_x4/model/model_best.pt'
             learn_sr.rate.setText('배율 : {}'.format(text))
         # print(create_sr_data['scale'])
+
+    # createSR 학습하기 버튼
+    def dataLoadFn(self):
+        if learning['scale'] == [2]:
+            if learning['n_resblocks'] == 16:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_16_feats_32/model/model_best021632.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_16_feats_64/model/model_best021664.pt'
+            
+            if learning['n_resblocks'] == 32:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_32_feats_32/model/model_best023232.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_32_feats_64/model/model_best023264.pt'
+            
+            if learning['n_resblocks'] == 48:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_48_feats_32/model/model_best024832.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_48_feats_64/model/model_best024864.pt'
+
+            if learning['n_resblocks'] == 64:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_64_feats_32/model/model_best026432.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_64_feats_64/model/model_best026464.pt'
+
+        elif learning['scale'] == [3]:
+            if learning['n_resblocks'] == 16:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_16_feats_32/model/model_best031632.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_16_feats_64/model/model_best031664.pt'
+            
+            if learning['n_resblocks'] == 32:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_32_feats_32/model/model_best033232.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_32_feats_64/model/model_best033264.pt'
+            
+            if learning['n_resblocks'] == 48:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_48_feats_32/model/model_best034832.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_48_feats_64/model/model_best034864.pt'
+
+            if learning['n_resblocks'] == 64:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_64_feats_32/model/model_best036432.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_64_feats_64/model/model_best036464.pt'
+        
+        elif learning['scale'] == [4]:
+            if learning['n_resblocks'] == 16:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_16_feats_32/model/model_best041632.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_16_feats_64/model/model_best041664.pt'
+            
+            if learning['n_resblocks'] == 32:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_32_feats_32/model/model_best043232.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_32_feats_64/model/model_best043264.pt'
+            
+            if learning['n_resblocks'] == 48:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_48_feats_32/model/model_best044832.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_48_feats_64/model/model_best044864.pt'
+
+            if learning['n_resblocks'] == 64:
+                if learning['n_feats'] == 32:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_64_feats_32/model/model_best046432.pt'
+                
+                elif learning['n_feats'] == 64:
+                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_64_feats_64/model/model_best046464.pt'
+
+        widget.setCurrentWidget(learn_sr)
+
 
 
 class Learn_SR_Model(QMainWindow, learn_ui_form):
@@ -792,7 +883,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
                         img_resize = img.resize(
                             (int(img.width / 3), int(img.height / 3)))
                         img_resize.save(
-                            save_area + '/TESTDATA_train_LR_bicubic/X2/' + '{0:04d}'.format(f_nums) + 'x3' + ext)
+                            save_area + '/TESTDATA_train_LR_bicubic/X3/' + '{0:04d}'.format(f_nums) + 'x3' + ext)
                         f_nums += 1
                 except OSError as e:
                     pass

@@ -102,12 +102,6 @@ class Trainer():
                     _nums = len(d.dataset)
                     _cnt = 1
                     for lr, hr, filename in tqdm(d, ncols=80):
-                        _per = _cnt * 100 // _nums
-                        _tpm = str(filename) + ' 변환중입니다...   : ' + str(_per) +  '/  100  %'
-
-                        self.window.textBox_terminal.append(_tpm)
-                        _cnt += 1
-                        
                         
                         lr, hr = self.prepare(lr, hr)
                         lr = lr[:, :3, :, :]
@@ -125,6 +119,11 @@ class Trainer():
                         if self.args.save_results:
                             self.ckp.save_results(d, filename[0], save_list, scale)
 
+                        _per = _cnt * 100 // _nums
+                        _tpm = str(filename) + ' 변환중입니다...   : ' + str(_per) +  '/  100  %'
+
+                        self.window.textBox_terminal.append(_tpm)
+                        _cnt += 1
                         # 2번째 찍는곳 찾는중
                         # print("두번쨰")
 
