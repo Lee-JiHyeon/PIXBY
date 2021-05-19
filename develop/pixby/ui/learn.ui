@@ -26,10 +26,10 @@ background-color:  #e7e6e1</string>
   <widget class="QPushButton" name="golearnbutton">
    <property name="geometry">
     <rect>
-     <x>890</x>
-     <y>830</y>
-     <width>151</width>
-     <height>41</height>
+     <x>770</x>
+     <y>870</y>
+     <width>210</width>
+     <height>50</height>
     </rect>
    </property>
    <property name="cursor">
@@ -40,16 +40,16 @@ background-color:  #e7e6e1</string>
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>실행</string>
+    <string>전이학습 실행</string>
    </property>
   </widget>
   <widget class="QPushButton" name="gotestbutton">
    <property name="geometry">
     <rect>
-     <x>1060</x>
-     <y>830</y>
-     <width>151</width>
-     <height>41</height>
+     <x>1000</x>
+     <y>870</y>
+     <width>210</width>
+     <height>50</height>
     </rect>
    </property>
    <property name="cursor">
@@ -60,15 +60,15 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>테스트하기</string>
+    <string>이미지 SR하기</string>
    </property>
   </widget>
   <widget class="QTextEdit" name="textBox_terminal">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>440</y>
-     <width>801</width>
+     <x>390</x>
+     <y>500</y>
+     <width>821</width>
      <height>331</height>
     </rect>
    </property>
@@ -82,9 +82,9 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>70</y>
+     <y>100</y>
      <width>561</width>
-     <height>341</height>
+     <height>351</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="plotLayout"/>
@@ -92,8 +92,8 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>430</y>
+     <x>50</x>
+     <y>490</y>
      <width>311</width>
      <height>341</height>
     </rect>
@@ -216,13 +216,33 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
    <property name="geometry">
     <rect>
      <x>650</x>
-     <y>70</y>
-     <width>561</width>
-     <height>341</height>
+     <y>100</y>
+     <width>551</width>
+     <height>351</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="plotLayout_2"/>
   </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>60</y>
+     <width>1171</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>그래프</string>
+   </property>
+  </widget>
+  <zorder>groupBox_2</zorder>
+  <zorder>golearnbutton</zorder>
+  <zorder>gotestbutton</zorder>
+  <zorder>textBox_terminal</zorder>
+  <zorder>formLayoutWidget</zorder>
+  <zorder>groupBox</zorder>
+  <zorder>formLayoutWidget_2</zorder>
  </widget>
  <resources/>
  <connections/>
