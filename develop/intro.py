@@ -143,7 +143,7 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         backbutton.resize(80, 80)
         backbutton.adjustSize()
         backbutton.setStyleSheet(
-            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+            'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
 
     def goToBack(self):
@@ -325,11 +325,9 @@ class Compare_Model(QMainWindow, compare_form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setStyleSheet("background-color: #F2F2F2;")
+        # self.setStyleSheet("background-color: #F2F2F2;")
 
         # 위치 셋팅
-        self.groupBox1.move(300, 100)
-        self.groupBox2.move(700, 100)
         self.data_msg = QLabel("text", self)
         # self.groupBox1.addStrech(3)
 
@@ -339,7 +337,7 @@ class Compare_Model(QMainWindow, compare_form):
         backbutton.resize(80, 80)
         backbutton.adjustSize()
         backbutton.setStyleSheet(
-            'image:url(img/undo.png);border:0px;background-color:#F2F2F2')
+            'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
 
         self.selectModel1.clicked.connect(self.choiceModel_1)
