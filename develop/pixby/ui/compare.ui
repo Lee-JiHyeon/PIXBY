@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1280</width>
     <height>960</height>
    </rect>
   </property>
@@ -16,34 +16,18 @@
   <property name="windowTitle">
    <string>Pixby</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(231, 230, 225);
+font: 75 12pt &quot;나눔스퀘어 Bold&quot;;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="nextButton">
-    <property name="geometry">
-     <rect>
-      <x>595</x>
-      <y>640</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(69, 149, 242);
-font: 75 14pt &quot;Agency FB&quot;;</string>
-    </property>
-    <property name="text">
-     <string>비교하기</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox1">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>60</y>
-      <width>321</width>
-      <height>471</height>
+      <x>40</x>
+      <y>50</y>
+      <width>1201</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="title">
@@ -52,14 +36,14 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>2</x>
-       <y>20</y>
-       <width>135</width>
+       <x>40</x>
+       <y>30</y>
+       <width>101</width>
        <height>28</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 75 12pt &quot;Agency FB&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>모델1</string>
@@ -71,14 +55,14 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>2</x>
-       <y>130</y>
-       <width>135</width>
+       <x>40</x>
+       <y>140</y>
+       <width>100</width>
        <height>28</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 75 12pt &quot;Agency FB&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>이미지</string>
@@ -90,8 +74,8 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
     <widget class="QPushButton" name="selectModel1">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>20</y>
+       <x>160</x>
+       <y>30</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -100,17 +84,19 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">color: rgb(255, 255, 255);
+font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
-      <string>import</string>
+      <string>불러오기</string>
      </property>
     </widget>
     <widget class="QPushButton" name="selectImage1">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>130</y>
+       <x>160</x>
+       <y>140</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -119,54 +105,62 @@ font: 75 14pt &quot;Agency FB&quot;;</string>
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">color: rgb(255, 255, 255);
+font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
-      <string>import</string>
+      <string>불러오기</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="dir1">
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>170</y>
-       <width>241</width>
-       <height>61</height>
+       <y>180</y>
+       <width>1000</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(247, 246, 231);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Gulim'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;경로를 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:11pt; font-weight:600;&quot;&gt;경로를 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="model_name1">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>40</x>
        <y>70</y>
-       <width>251</width>
-       <height>41</height>
+       <width>1000</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(247, 246, 231);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Gulim'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;모델을 선택해주세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:11pt; font-weight:600;&quot;&gt;모델을 선택해주세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox2">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>60</y>
-      <width>321</width>
-      <height>471</height>
+      <x>40</x>
+      <y>400</y>
+      <width>1201</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="title">
@@ -176,7 +170,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>130</y>
+       <y>150</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -185,17 +179,19 @@ p, li { white-space: pre-wrap; }
       <cursorShape>OpenHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">color: rgb(255, 255, 255);
+font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
-      <string>import</string>
+      <string>불러오기</string>
      </property>
     </widget>
     <widget class="QPushButton" name="selectModel2">
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>20</y>
+       <y>40</y>
        <width>130</width>
        <height>28</height>
       </rect>
@@ -204,39 +200,25 @@ p, li { white-space: pre-wrap; }
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">color: rgb(255, 255, 255);
+font: 75 10pt &quot;나눔스퀘어 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
      </property>
      <property name="text">
-      <string>import</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="comeImage2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>200</y>
-       <width>261</width>
-       <height>220</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>불러오기</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>2</x>
-       <y>20</y>
-       <width>135</width>
+       <x>40</x>
+       <y>40</y>
+       <width>100</width>
        <height>28</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 75 12pt &quot;Agency FB&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>모델2</string>
@@ -248,14 +230,14 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>2</x>
-       <y>130</y>
-       <width>135</width>
+       <x>40</x>
+       <y>150</y>
+       <width>101</width>
        <height>28</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 75 12pt &quot;Agency FB&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>이미지</string>
@@ -268,36 +250,63 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>170</y>
-       <width>241</width>
-       <height>61</height>
+       <y>190</y>
+       <width>1000</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(247, 246, 231);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Gulim'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;경로를 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-weight:600;&quot;&gt;경로를 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="model_name2">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>70</y>
-       <width>251</width>
-       <height>41</height>
+       <x>40</x>
+       <y>90</y>
+       <width>1000</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(247, 246, 231);</string>
      </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Gulim'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;모델을 선택해주세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:11pt; font-weight:600;&quot;&gt;모델을 선택해주세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="nextButton">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>720</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;나눔스퀘어 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
+    </property>
+    <property name="text">
+     <string>비교하기</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -305,25 +314,11 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
-     <height>26</height>
+     <width>1280</width>
+     <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>비교하기</string>
-    </property>
-    <addaction name="separator"/>
-   </widget>
-   <widget class="QMenu" name="menuSR">
-    <property name="title">
-     <string>SR</string>
-    </property>
-   </widget>
-   <addaction name="menu"/>
-   <addaction name="menuSR"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

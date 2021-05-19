@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(231, 230, 225);
+font: 75 12pt &quot;나눔스퀘어 Bold&quot;;
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
@@ -25,7 +30,11 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QTableWidget" name="model1"/>
+      <widget class="QTableWidget" name="model1">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -41,6 +50,9 @@
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QTableWidget" name="compare_table">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(247, 246, 231);</string>
+       </property>
        <row>
         <property name="text">
          <string>모델1</string>
@@ -79,7 +91,11 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QTableWidget" name="model2"/>
+      <widget class="QTableWidget" name="model2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -93,7 +109,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;배달의민족 한나는 열한살&quot;;</string>
+     <string notr="true">font: 14pt</string>
     </property>
     <property name="text">
      <string>모델 이름 : Model1</string>
@@ -109,7 +125,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;배달의민족 한나는 열한살&quot;;</string>
+     <string notr="true">font: 14pt</string>
     </property>
     <property name="text">
      <string>모델 이름 : Model1</string>
@@ -122,7 +138,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

@@ -20,8 +20,9 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">font: 75 12pt &quot;맑은 고딕&quot;;
-background-color:#fdfaf6</string>
+   <string notr="true">background-color: rgb(231, 230, 225);
+font: 75 12pt &quot;나눔스퀘어 Bold&quot;;
+</string>
   </property>
   <widget class="QPushButton" name="golearnbutton">
    <property name="geometry">
@@ -36,31 +37,13 @@ background-color:#fdfaf6</string>
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #f7a440;
-color: #f6dcbf</string>
+    <string notr="true">
+color: rgb(255, 255, 255);
+font: 75 14pt &quot;나눔스퀘어 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
    </property>
    <property name="text">
     <string>정지</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="golearnbutton_2">
-   <property name="geometry">
-    <rect>
-     <x>680</x>
-     <y>790</y>
-     <width>170</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: #f7a440;
-color: #f6dcbf</string>
-   </property>
-   <property name="text">
-    <string>모델저장</string>
    </property>
   </widget>
   <widget class="QPushButton" name="gotestbutton">
@@ -76,8 +59,10 @@ color: #f6dcbf</string>
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #f7a440;
-color: #f6dcbf</string>
+    <string notr="true">
+color: rgb(255, 255, 255);
+font: 75 20pt &quot;나눔스퀘어 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
    </property>
    <property name="text">
     <string>학습</string>
@@ -93,7 +78,16 @@ color: #f6dcbf</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color: #314e52;
+font: 63 14pt &quot;Yu Gothic UI Semibold&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Yu Gothic UI Semibold'; font-size:14pt; font-weight:56; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="model_name_2">
@@ -119,8 +113,8 @@ color: #f6dcbf</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-</string>
+    <string notr="true">border:none;
+background-color: #f7f6e7;</string>
    </property>
    <widget class="QLabel" name="epoch">
     <property name="geometry">
@@ -146,7 +140,7 @@ color: #f6dcbf</string>
     </property>
     <property name="font">
      <font>
-      <family>배달의민족 한나는 열한살</family>
+      <family>나눔스퀘어 Bold</family>
       <pointsize>14</pointsize>
       <weight>50</weight>
       <italic>false</italic>
@@ -154,7 +148,7 @@ color: #f6dcbf</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;배달의민족 한나는 열한살&quot;;</string>
+     <string notr="true">font: 14pt</string>
     </property>
     <property name="text">
      <string>EPOCH</string>
@@ -171,7 +165,7 @@ color: #f6dcbf</string>
     </property>
     <property name="font">
      <font>
-      <family>배달의민족 한나는 열한살</family>
+      <family>나눔스퀘어 Bold</family>
       <pointsize>14</pointsize>
       <weight>50</weight>
       <italic>false</italic>
@@ -179,7 +173,7 @@ color: #f6dcbf</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;배달의민족 한나는 열한살&quot;;</string>
+     <string notr="true">font: 14pt </string>
     </property>
     <property name="text">
      <string>LEARNING RATE</string>
@@ -196,7 +190,7 @@ color: #f6dcbf</string>
     </property>
     <property name="font">
      <font>
-      <family>배달의민족 한나는 열한살</family>
+      <family>나눔스퀘어 Bold</family>
       <pointsize>14</pointsize>
       <weight>50</weight>
       <italic>false</italic>
@@ -204,7 +198,7 @@ color: #f6dcbf</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;배달의민족 한나는 열한살&quot;;</string>
+     <string notr="true">font: 14pt </string>
     </property>
     <property name="text">
      <string>BATCH SIZE</string>
@@ -260,7 +254,7 @@ color: #f6dcbf</string>
     </property>
     <property name="font">
      <font>
-      <family>배달의민족 한나는 열한살</family>
+      <family>나눔스퀘어 Bold</family>
       <pointsize>14</pointsize>
       <weight>50</weight>
       <italic>false</italic>
@@ -268,7 +262,7 @@ color: #f6dcbf</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;배달의민족 한나는 열한살&quot;;</string>
+     <string notr="true">font: 14pt </string>
     </property>
     <property name="text">
      <string>MODEL_NAME</string>
