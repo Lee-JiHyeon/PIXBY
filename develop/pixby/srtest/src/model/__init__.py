@@ -149,19 +149,28 @@ class Model(nn.Module):
 
         h *= scale
         w *= scale
+        # if (w // 2 == 0):
         top = slice(0, h//2)
         bottom = slice(h - h//2, h)
         bottom_r = slice(h//2 - h, None)
         left = slice(0, w//2)
         right = slice(w - w//2, w)
         right_r = slice(w//2 - w, None)
+        # print(right, right_r ,"!@$%%#%#$!%#%!$@@#%!$@#%@#%!")
+        # else:
+        #     top = slice(0, h//2)
+        #     bottom = slice(h - h//2, h)
+        #     bottom_r = slice(h//2 - h, None)
+        #     left = slice(0, w//2)
+        #     right = slice(w - w//2, w)
+        #     right_r = slice(w//2 - w -1, None)
 
         # batch size, number of color channels
         b, c = y_chops[0][0].size()[:-2]
         y = [y_chop[0].new(b, c, h, w) for y_chop in y_chops]
-        for y_chop, _y in zip(y_chops, y):
+        for y_chop, _y in zip(y_chops, y):          
             _y[..., top, left] = y_chop[0][..., top, left]
-            _y[..., top, right] = y_chop[1][..., top, right_r]
+            _y[..., top, right] = y_chop[1][..., top, right_r]        
             _y[..., bottom, left] = y_chop[2][..., bottom_r, left]
             _y[..., bottom, right] = y_chop[3][..., bottom_r, right_r]
 
