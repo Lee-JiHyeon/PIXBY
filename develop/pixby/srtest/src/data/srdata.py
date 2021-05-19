@@ -3,7 +3,7 @@ import glob
 import random
 import pickle
 
-from data import common
+from pixby.srtest.src.data import common
 
 import numpy as np
 import imageio
@@ -20,9 +20,17 @@ class SRData(data.Dataset):
         self.benchmark = benchmark
         self.input_large = (args.model == 'VDSR')
         self.scale = args.scale
+        #print(self.scale, 'self.scale이 0인가요')
+        #print(type(self.scale), 'type 스케일')
+        #print('===========================')
         self.idx_scale = 0
         
         self._set_filesystem(args.dir_data)
+        #print('$$$$$$$$$$$$$$$$$$$$$$$')
+        #print(args.dir_data, 'args.dir_data')
+        #print(args.ext, 'args.ext')
+        #print(args.ext.find('img'), args.ext.find('sep'), sep="\n")
+        #print('$$$$$$$$$$$$$$$$$$$$$$$')
         if args.ext.find('img') < 0:
             path_bin = os.path.join(self.apath, 'bin')
             os.makedirs(path_bin, exist_ok=True)
@@ -63,6 +71,7 @@ class SRData(data.Dataset):
                 self.repeat = 0
             else:
                 self.repeat = max(n_patches // n_images, 1)
+                # self.repeat = 1
 
     # Below functions as used to prepare images
     def _scan(self):
@@ -96,7 +105,11 @@ class SRData(data.Dataset):
                 pickle.dump(imageio.imread(img), _f)
 
     def __getitem__(self, idx):
+        #print(idx, '##############IDX##################')
         lr, hr, filename = self._load_file(idx)
+        # print(lr, hr, 'lr hr #################################')
+        # lr = lr[:, :3, :]
+        # hr = hr[:, :3, :]
         pair = self.get_patch(lr, hr)
         pair = common.set_channel(*pair, n_channels=self.args.n_colors)
         pair_t = common.np2Tensor(*pair, rgb_range=self.args.rgb_range)
@@ -104,6 +117,7 @@ class SRData(data.Dataset):
         return pair_t[0], pair_t[1], filename
 
     def __len__(self):
+        print(self.images_hr, '여기는 len을 체크하는 곳')
         if self.train:
             return len(self.images_hr) * self.repeat
         else:
@@ -119,16 +133,23 @@ class SRData(data.Dataset):
         idx = self._get_index(idx)
         f_hr = self.images_hr[idx]
         f_lr = self.images_lr[self.idx_scale][idx]
-
+        #print(f_hr, 'hr이미지 ============')
+        #print(f_lr, 'lr이미지=======================')
+        # print(type(f_hr), "123431341234542434")
         filename, _ = os.path.splitext(os.path.basename(f_hr))
         if self.args.ext == 'img' or self.benchmark:
-            hr = imageio.imread(f_hr)
-            lr = imageio.imread(f_lr)
+            hr = imageio.imread(f_hr, pilmode="RGB")
+            lr = imageio.imread(f_lr, pilmode="RGB")
+            # print(type(lr), type(hr), '#@@##$!@$#!@#$!')
         elif self.args.ext.find('sep') >= 0:
+            print('ext is sep!@%!#@$%%&%#!##$@#~#$@')
             with open(f_hr, 'rb') as _f:
                 hr = pickle.load(_f)
             with open(f_lr, 'rb') as _f:
-                lr = pickle.load(_f)
+                try:
+                    lr = pickle.load(_f)
+                except EOFError:
+                    print('EOFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')
 
         return lr, hr, filename
 

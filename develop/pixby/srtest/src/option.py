@@ -1,5 +1,5 @@
 import argparse
-import template
+from pixby.srtest.src import template
 
 parser = argparse.ArgumentParser(description='EDSR and MDSR')
 
@@ -21,7 +21,7 @@ parser.add_argument('--seed', type=int, default=1,
 # Data specifications
 parser.add_argument('--dir_data', type=str, default='/home/team1/EDSR-PyTorch/dataset/DIV2K',
                     help='dataset directory')
-parser.add_argument('--dir_demo', type=str, default='../test',
+parser.add_argument('--dir_demo', type=str, default='./SRimages',
                     help='demo image directory')
 parser.add_argument('--data_train', type=str, default='DIV2K',
                     help='train dataset name')
@@ -128,7 +128,7 @@ parser.add_argument('--skip_threshold', type=float, default='1e8',
                     help='skipping batch that has large error')
 
 # Log specifications
-parser.add_argument('--save', type=str, default='test',
+parser.add_argument('--save', type=str, default='SRimages',
                     help='file name to save')
 parser.add_argument('--load', type=str, default='',
                     help='file name to load')
