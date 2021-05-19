@@ -460,24 +460,14 @@ testing = {
     'test_only': True,
     'save_results': True,
     'chop': True,
-<<<<<<< HEAD
     # 'n_threads' : 0,
-=======
-    'n_threads': 0,
-
-
->>>>>>> 8f27c0c814aedc445e74f2816cd94009d2aebf1b
     'scale': [2],
     'n_resblocks': 16,
     'n_feats': 64,
     'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
     'save': 'SRresults',
-<<<<<<< HEAD
     'dir_demo' : './SRimages'
    
-=======
-
->>>>>>> 8f27c0c814aedc445e74f2816cd94009d2aebf1b
 }
 
 
@@ -507,7 +497,6 @@ class Thread2(QThread):
 
     def run(self):
         main(learn_sr, **testing)
-<<<<<<< HEAD
 
         print('다돌음')
         # Result_SR_Model.setResImg(Result_SR_Model())
@@ -515,8 +504,6 @@ class Thread2(QThread):
         print('학습이 종료되었습니다.')
         
         
-=======
->>>>>>> 8f27c0c814aedc445e74f2816cd94009d2aebf1b
 
 
 # 화면을 띄우는데 사용되는 Class 선언

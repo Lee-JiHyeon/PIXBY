@@ -56,12 +56,7 @@ class checkpoint():
         if not args.load:
             if not args.save:
                 args.save = now
-<<<<<<< HEAD
             # print(args.save, '1324653412235463235143524!@#%$!#@#%^#$@#%!$@#%$^#@#%!@$#%@$')
-=======
-            print(
-                args.save, '1324653412235463235143524!@#%$!#@#%^#$@#%!$@#%$^#@#%!@$#%@$')
->>>>>>> 8f27c0c814aedc445e74f2816cd94009d2aebf1b
             self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.save)
         else:
             self.dir = os.path.join('./SRimages', 'CHANGEDDATA', args.load)
