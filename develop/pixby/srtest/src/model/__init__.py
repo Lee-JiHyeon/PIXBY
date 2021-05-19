@@ -12,6 +12,8 @@ class Model(nn.Module):
         print('Making model...')
 
         self.scale = args.scale
+        self.resblock = args.n_resblocks
+        self.features = args.n_feats
         self.idx_scale = 0
         self.input_large = (args.model == 'VDSR')
         self.self_ensemble = args.self_ensemble
@@ -57,10 +59,10 @@ class Model(nn.Module):
                 return forward_function(x)
 
     def save(self, apath, epoch, is_best=False):
-        save_dirs = [os.path.join(apath, 'model_latest.pt')]
+        save_dirs = [os.path.join(apath, 'model_best0{}{}{}.pt'.format(self.scale[0], self.resblock, self.features))]
 
         if is_best:
-            save_dirs.append(os.path.join(apath, 'model_best.pt'))
+            save_dirs.append(os.path.join(apath, 'model_best0{}{}{}.pt'.format(self.scale[0], self.resblock, self.features)))
         if self.save_models:
             save_dirs.append(
                 os.path.join(apath, 'model_{}.pt'.format(epoch))

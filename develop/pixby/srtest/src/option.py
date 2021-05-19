@@ -128,7 +128,7 @@ parser.add_argument('--skip_threshold', type=float, default='1e8',
                     help='skipping batch that has large error')
 
 # Log specifications
-parser.add_argument('--save', type=str, default='test',
+parser.add_argument('--save', type=str, default='SRimages',
                     help='file name to save')
 parser.add_argument('--load', type=str, default='',
                     help='file name to load')
