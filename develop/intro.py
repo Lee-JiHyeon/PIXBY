@@ -617,7 +617,7 @@ class Create_SR_Model(QMainWindow, new_sr_form):
         res_box.addItem('16')
         res_box.addItem('32')
         res_box.addItem('48')
-        res_box.addItem('64')
+        # res_box.addItem('64')
 
         feature_box = self.featurecombobox
         feature_box.addItem('32')
@@ -710,7 +710,7 @@ class Create_SR_Model(QMainWindow, new_sr_form):
     def epoch_changed(self):
         create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
         if self.epochtextEdit.toPlainText():
-            learning['epochs'] = int(self.epochtextEdit.toPlainText())
+            learning['epochs'] = int(self.epochtextEdit.toPlainText()) +1
             learn_sr.epoch.setText('Epoch : {}'.format(
                 self.epochtextEdit.toPlainText()))
 
@@ -762,26 +762,20 @@ class Create_SR_Model(QMainWindow, new_sr_form):
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_16_feats_64/model/model_best021664.pt'
             
-            if learning['n_resblocks'] == 32:
+            elif learning['n_resblocks'] == 32:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_32_feats_32/model/model_best023232.pt'
                 
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_32_feats_64/model/model_best023264.pt'
             
-            if learning['n_resblocks'] == 48:
+            elif learning['n_resblocks'] == 48:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_48_feats_32/model/model_best024832.pt'
                 
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_48_feats_64/model/model_best024864.pt'
 
-            if learning['n_resblocks'] == 64:
-                if learning['n_feats'] == 32:
-                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_64_feats_32/model/model_best026432.pt'
-                
-                elif learning['n_feats'] == 64:
-                    learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_64_feats_64/model/model_best026464.pt'
 
         elif learning['scale'] == [3]:
             if learning['n_resblocks'] == 16:
@@ -791,26 +785,21 @@ class Create_SR_Model(QMainWindow, new_sr_form):
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_16_feats_64/model/model_best031664.pt'
             
-            if learning['n_resblocks'] == 32:
+            elif learning['n_resblocks'] == 32:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_32_feats_32/model/model_best033232.pt'
                 
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_32_feats_64/model/model_best033264.pt'
             
-            if learning['n_resblocks'] == 48:
+            elif learning['n_resblocks'] == 48:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_48_feats_32/model/model_best034832.pt'
                 
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_48_feats_64/model/model_best034864.pt'
 
-            if learning['n_resblocks'] == 64:
-                if learning['n_feats'] == 32:
-                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_64_feats_32/model/model_best036432.pt'
-                
-                elif learning['n_feats'] == 64:
-                    learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_64_feats_64/model/model_best036464.pt'
+        
         
         elif learning['scale'] == [4]:
             if learning['n_resblocks'] == 16:
@@ -820,26 +809,20 @@ class Create_SR_Model(QMainWindow, new_sr_form):
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_16_feats_64/model/model_best041664.pt'
             
-            if learning['n_resblocks'] == 32:
+            elif learning['n_resblocks'] == 32:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_32_feats_32/model/model_best043232.pt'
                 
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_32_feats_64/model/model_best043264.pt'
             
-            if learning['n_resblocks'] == 48:
+            elif learning['n_resblocks'] == 48:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_48_feats_32/model/model_best044832.pt'
                 
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_48_feats_64/model/model_best044864.pt'
 
-            if learning['n_resblocks'] == 64:
-                if learning['n_feats'] == 32:
-                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_64_feats_32/model/model_best046432.pt'
-                
-                elif learning['n_feats'] == 64:
-                    learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_64_feats_64/model/model_best046464.pt'
 
         widget.setCurrentWidget(learn_sr)
 
@@ -1000,7 +983,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
                     pass
 
         f_nums -= 1
-        _number = f_nums * 3 // 4
+        _number = f_nums * 4 // 5
         learning['data_range'] = '1-{}/{}-{}'.format(_number, _number+1, f_nums)
         # f_nums
         self.textBox_terminal.append('전체 데이터 갯수는 {} 입니다'.format(f_nums))
