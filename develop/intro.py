@@ -158,7 +158,11 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             'image:url(img/house.png);border:0px;background-color:#e7e6e1')
         backbutton2.clicked.connect(self.goToHome)
 
-
+        speaker = QLabel(self)
+        speaker.move(10,900)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
     def goToHome(self):
         widget.setCurrentWidget(choice)
 
@@ -315,7 +319,11 @@ class Train_CNN(QMainWindow, train_form):
         self.layout1.addWidget(self.canvas1)
         self.layout2.addWidget(self.canvas2)
         self.gotoInf.clicked.connect(self.goToNext)
-
+        speaker = QLabel(self)
+        speaker.move(10,900)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
     def goToBack(self):
         widget.setCurrentWidget(create_cnn)
 
@@ -412,7 +420,11 @@ class Compare_Model(QMainWindow, compare_form):
             'image:url(img/house.png);border:0px;background-color:#e7e6e1')
         backbutton2.clicked.connect(self.goToHome)
 
-
+        speaker = QLabel(self)
+        speaker.move(10,890)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
         
         self.selectModel1.clicked.connect(self.choiceModel_1)
         self.selectModel2.clicked.connect(self.choiceModel_2)
@@ -1076,15 +1088,12 @@ class Result_SR_Model(QMainWindow):
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
         
-        backbutton2 = QPushButton(self)
-        backbutton2.move(60, 10)
-        backbutton2.resize(150, 150)
-        backbutton2.adjustSize()
-        backbutton2.setStyleSheet(
-            'image:url(img/house.png);border:0px;background-color:#e7e6e1')
-        backbutton2.clicked.connect(self.goToHome)
 
-        
+        speaker = QLabel(self)
+        speaker.move(10,890)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
 
 
         # 이미지가져오기버튼

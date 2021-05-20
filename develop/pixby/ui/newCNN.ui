@@ -32,7 +32,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>510</y>
+      <y>470</y>
       <width>221</width>
       <height>31</height>
      </rect>
@@ -48,7 +48,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
     <property name="geometry">
      <rect>
       <x>990</x>
-      <y>860</y>
+      <y>820</y>
       <width>210</width>
       <height>50</height>
      </rect>
@@ -598,7 +598,7 @@ border : none;</string>
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>560</y>
+      <y>520</y>
       <width>371</width>
       <height>361</height>
      </rect>
@@ -639,7 +639,7 @@ border : none;</string>
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>510</y>
+      <y>470</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -677,7 +677,7 @@ border : none;</string>
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>560</y>
+      <y>520</y>
       <width>290</width>
       <height>361</height>
      </rect>
@@ -690,7 +690,7 @@ border : none;</string>
     <property name="geometry">
      <rect>
       <x>820</x>
-      <y>550</y>
+      <y>510</y>
       <width>281</width>
       <height>231</height>
      </rect>
@@ -805,6 +805,41 @@ border : none;</string>
       <string>확장자 : </string>
      </property>
     </widget>
+   </widget>
+   <widget class="QTextEdit" name="description">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>900</y>
+      <width>1291</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔스퀘어라운드 Bold</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #f7f6e7; border: none;</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어라운드 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;       CNN학습에 필요한 정보를 입력해주세요. 기입란에 정보를 모두 입력해주세요. 임포트한 이미지도 확인 가능합니다.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

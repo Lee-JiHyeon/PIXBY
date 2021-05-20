@@ -573,7 +573,7 @@ color: rgb(255, 255, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #f7f6e7</string>
+     <string notr="true">background-color: #f7f6e7; border: none;</string>
     </property>
     <property name="readOnly">
      <bool>true</bool>
