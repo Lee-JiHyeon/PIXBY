@@ -21,8 +21,8 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>60</y>
+      <x>40</x>
+      <y>50</y>
       <width>1191</width>
       <height>121</height>
      </rect>
@@ -67,10 +67,13 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>30</y>
-       <width>121</width>
-       <height>31</height>
+       <y>60</y>
+       <width>131</width>
+       <height>41</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #f2a154;
@@ -85,8 +88,8 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>190</y>
+      <x>40</x>
+      <y>180</y>
       <width>1191</width>
       <height>721</height>
      </rect>
@@ -98,23 +101,29 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>350</x>
-       <y>50</y>
-       <width>64</width>
-       <height>20</height>
+       <y>40</y>
+       <width>111</width>
+       <height>31</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
+     </property>
      <property name="text">
-      <string>Before</string>
+      <string>SR 하기 전</string>
      </property>
     </widget>
     <widget class="QPushButton" name="setImgBtn">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>40</y>
-       <width>111</width>
-       <height>31</height>
+       <y>30</y>
+       <width>121</width>
+       <height>41</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #f2a154;
@@ -128,14 +137,17 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>930</x>
-       <y>40</y>
-       <width>64</width>
-       <height>21</height>
+       <x>950</x>
+       <y>30</y>
+       <width>111</width>
+       <height>51</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
+     </property>
      <property name="text">
-      <string>After</string>
+      <string>SR 한 후</string>
      </property>
     </widget>
     <widget class="QLabel" name="resSRImg">
@@ -204,32 +216,41 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
 color: rgb(255, 255, 255);
 font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QPushButton" name="testSRBtn">
      <property name="geometry">
       <rect>
-       <x>830</x>
-       <y>610</y>
+       <x>820</x>
+       <y>670</y>
        <width>150</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #f2a154;
 color:rgb(255, 255, 255)</string>
      </property>
      <property name="text">
-      <string>SR!</string>
+      <string>SR 적용하기</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
        <x>1010</x>
-       <y>610</y>
+       <y>670</y>
        <width>141</width>
        <height>51</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #f2a154;
@@ -250,7 +271,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

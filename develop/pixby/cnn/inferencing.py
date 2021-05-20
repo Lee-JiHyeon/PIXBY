@@ -190,11 +190,10 @@ def Infer(dataset_path, model_path):
   test_loss, test_accuracy = evaluate(model, test_loader)
 
   # print(test_loss, test_accuracy)
-  total = 0
-  for test in test_matrix:
-    total += sum(test)
+  
   for i in range(len(test_matrix)):
-      for j in range(len(test_matrix[i])):
-        test_matrix[i][j] = round(test_matrix[i][j]/total,3)
+    _tmpsum = sum(test_matrix[i])
+    for j in range(len(test_matrix[i])):
+      test_matrix[i][j] = round(test_matrix[i][j]/_tmpsum,3)
   print(test_matrix)
   return test_loss, test_accuracy, test_matrix 

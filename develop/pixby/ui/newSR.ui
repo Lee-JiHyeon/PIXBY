@@ -307,7 +307,7 @@ background-color:  #e7e6e1</string>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>420</y>
       <width>1181</width>
       <height>451</height>
@@ -477,7 +477,7 @@ color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="text">
-       <string>클래스 : </string>
+       <string>폴더명 : </string>
       </property>
      </widget>
      <widget class="QLabel" name="imgWH">

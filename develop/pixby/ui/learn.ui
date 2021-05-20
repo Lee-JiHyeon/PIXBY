@@ -77,6 +77,9 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);
 font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
    </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">

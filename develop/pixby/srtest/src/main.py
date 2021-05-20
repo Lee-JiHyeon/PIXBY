@@ -46,7 +46,7 @@ def main(window, **kwargs):
     #     print(args)
 
     # print(args.test_only, 'asddassdasaddasasd')
-    print(args.save, '123133!@#@%$!$#%!$@@#%#$')
+
     # print(args.scale, 'asddassdasaddasasd')
 
     if args.data_test == ['video']:
@@ -56,7 +56,6 @@ def main(window, **kwargs):
         t.test() 
     else:
         if checkpoint.ok:
-            print('1111111111111111')
             loader = data.Data(args)
             _model = model.Model(args, checkpoint)
             _loss = loss.Loss(args, checkpoint) if not args.test_only else None
