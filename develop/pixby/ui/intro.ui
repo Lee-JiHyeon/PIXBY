@@ -14,20 +14,22 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(255, 255, 255)</string>
+   <string notr="true">background-color:  #e7e6e1</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>430</x>
       <y>240</y>
-      <width>297</width>
+      <width>401</width>
       <height>132</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 72pt &quot;삼성긴고딕OTF Regular&quot;;</string>
+     <string notr="true">font: 75 72pt &quot;나눔스퀘어라운드 Bold&quot;;
+
+</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:72pt; font-weight:600;&quot;&gt;Pixby&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -46,9 +48,9 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-font: 57 24pt &quot;삼성긴고딕OTF Medium&quot;;
-background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.0113636, stop:0 rgba(113, 243, 197, 255), stop:1 rgba(72, 116, 216, 255))</string>
+     <string notr="true">background-color:  #f2a154;
+font: 75 30pt &quot;나눔스퀘어라운드 Bold&quot;;
+color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>시작하기</string>
