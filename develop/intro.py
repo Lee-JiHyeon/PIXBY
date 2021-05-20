@@ -431,9 +431,8 @@ class Compare_Model(QMainWindow, compare_form):
     # 뒤로가기
 
     def goToBack(self):
-        widget.setCurrentWidget(train_cnn)
-    # 홈버튼
-
+        widget.setCurrentWidget(create_cnn)
+    #홈버튼
     def goToHome(self):
         widget.setCurrentWidget(choice)
     # 경고문 함수
@@ -610,6 +609,11 @@ class Create_SR_Model(QMainWindow, new_sr_form):
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
 
+        speaker = QLabel(self)
+        speaker.move(10,900)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
         self.traindataButton.clicked.connect(self.data_dir_save)
 
         # batch_box = self.batchtextEdit
@@ -713,10 +717,13 @@ class Create_SR_Model(QMainWindow, new_sr_form):
 
     def epoch_changed(self):
         create_sr_data['epoch'] = self.epochtextEdit.toPlainText()
-        if self.epochtextEdit.toPlainText():
-            learning['epochs'] = int(self.epochtextEdit.toPlainText()) + 1
-            learn_sr.epoch.setText('Epoch : {}'.format(
-                self.epochtextEdit.toPlainText()))
+        try:
+            if self.epochtextEdit.toPlainText():
+                learning['epochs'] = int(self.epochtextEdit.toPlainText()) +1
+                learn_sr.epoch.setText('Epoch : {}'.format(
+                    self.epochtextEdit.toPlainText()))
+        except:
+            self.warningMSG("주의", "숫자를 입력해주세여.")
 
     def model_name_changed(self):
         # print(self.modelnametextEdit.toPlainText())
