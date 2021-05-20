@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>960</height>
+    <height>962</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -88,7 +88,7 @@ color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>800</y>
+      <y>820</y>
       <width>1191</width>
       <height>91</height>
      </rect>
@@ -105,7 +105,7 @@ font: 75 30pt &quot;나눔스퀘어라운드 Bold&quot;;
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>Classification 모델 만들기</string>
+        <string>Classification 모델생성</string>
        </property>
       </widget>
      </item>
@@ -133,7 +133,7 @@ color: rgb(255, 255, 255);</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

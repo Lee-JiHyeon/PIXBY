@@ -150,6 +150,19 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
 
+        backbutton2 = QPushButton(self)
+        backbutton2.move(60, 10)
+        backbutton2.resize(150, 150)
+        backbutton2.adjustSize()
+        backbutton2.setStyleSheet(
+            'image:url(img/house.png);border:0px;background-color:#e7e6e1')
+        backbutton2.clicked.connect(self.goToHome)
+
+
+    def goToHome(self):
+        widget.setCurrentWidget(choice)
+
+
     def goToBack(self):
         widget.setCurrentWidget(choice)
 
@@ -344,6 +357,18 @@ class Compare_Model(QMainWindow, compare_form):
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
 
+        backbutton2 = QPushButton(self)
+        backbutton2.move(60, 10)
+        backbutton2.resize(150, 150)
+        backbutton2.adjustSize()
+        backbutton2.setStyleSheet(
+            'image:url(img/house.png);border:0px;background-color:#e7e6e1')
+        backbutton2.clicked.connect(self.goToHome)
+
+
+
+
+
         self.selectModel1.clicked.connect(self.choiceModel_1)
         self.selectModel2.clicked.connect(self.choiceModel_2)
         # 이미지 보여주기
@@ -353,7 +378,8 @@ class Compare_Model(QMainWindow, compare_form):
         self.nextButton.clicked.connect(self.nextPage)
 
     # 뒤로가기 -> classfication 설정 페이지
-
+    def goToHome(self):
+        widget.setCurrentWidget(choice)
     def goToBack(self):
         widget.setCurrentWidget(choice)
 
@@ -780,13 +806,26 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         self.gotestbutton.clicked.connect(self.goTest)
         self.golearnbutton.clicked.connect(self.goSR)
 
-        backbutton = QPushButton(self)
-        backbutton.move(0, 10)
-        backbutton.resize(80, 80)
-        backbutton.adjustSize()
-        backbutton.setStyleSheet(
+        backbutton1 = QPushButton(self)
+        backbutton1.move(0, 10)
+        backbutton1.resize(80, 80)
+        backbutton1.adjustSize()
+        backbutton1.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
-        backbutton.clicked.connect(self.goToBack)
+        backbutton1.clicked.connect(self.goToBack)
+        
+        
+        backbutton2 = QPushButton(self)
+
+        backbutton2.move(60, 10)
+        backbutton2.resize(150, 150)
+        backbutton2.adjustSize()
+        backbutton2.setStyleSheet(
+            'image:url(img/house.png);border:0px;background-color:#e7e6e1')
+        backbutton2.clicked.connect(self.goToHome)
+
+
+
 
         self.fig = plt.Figure()
         self.canvas = FigureCanvas(self.fig)
@@ -824,6 +863,10 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
 
     #     self.cur.execute(
     #         f"INSERT INTO Test Values('{model_name}', '{scale}', '{batch_size}', '{learning_rate}', '{epoch}');")
+
+    def goToHome(self):
+        widget.setCurrentWidget(choice)
+
 
     def goToBack(self):
         widget.setCurrentWidget(create_sr)
@@ -989,6 +1032,17 @@ class Result_SR_Model(QMainWindow):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
+        
+        backbutton2 = QPushButton(self)
+        backbutton2.move(60, 10)
+        backbutton2.resize(150, 150)
+        backbutton2.adjustSize()
+        backbutton2.setStyleSheet(
+            'image:url(img/house.png);border:0px;background-color:#e7e6e1')
+        backbutton2.clicked.connect(self.goToHome)
+
+        
+
 
         # 이미지가져오기버튼
         self.setImgBtn.clicked.connect(self.setImg)
@@ -1006,6 +1060,9 @@ class Result_SR_Model(QMainWindow):
 
         self.pushButton.clicked.connect(self.setResImg)
 
+    
+    def goToHome(self):
+        widget.setCurrentWidget(choice)
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
         msg.setWindowTitle(title)
