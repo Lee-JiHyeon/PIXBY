@@ -11,7 +11,7 @@ from PyQt5 import uic
 import glob
 from PIL import Image
 import shutil
-
+import multiprocessing
 # from pixby.newSR import Create_SR_Model
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
@@ -57,6 +57,10 @@ class WindowClass(QMainWindow):
         print("Multithreading with maximum %d threads" %
               self.threadpool.maxThreadCount())
         self.startBtn.clicked.connect(self.gotoChoice)
+        # self.logo.move(460, 180)
+        # self.logo.resize(500, 300)
+        self.logo.setStyleSheet(
+            'image:url(img/logo.png);border:0px;background-color:#faebcd')
 
     def gotoChoice(self):
         widget.setCurrentWidget(choice)
@@ -165,7 +169,6 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
     def goToHome(self):
         widget.setCurrentWidget(choice)
-
 
     def goToBack(self):
         widget.setCurrentWidget(choice)
@@ -340,9 +343,6 @@ compare_form = uic.loadUiType(compare_ui)[0]
 # 화면을 띄우는데 사용되는 Class 선언
 
 
-
-
-
 # cnn 추론
 class Thread4(QThread):
     # parent = MainWidget을 상속 받음.
@@ -355,20 +355,26 @@ class Thread4(QThread):
         self.model1 = parent.datas[0]
         self.model2 = parent.datas[1]
         self.compare_data = parent
+
     def run(self):
-        global res1, res2 
-        self.res1_loss, self.res1_accuracy, self.res1_matrix = Inf.Infer(self.path1, self.model1 )
-        self.res2_loss, self.res2_accuracy, self.res2_matrix = Inf.Infer(self.path2, self.model2 )
+        global res1, res2
+        self.res1_loss, self.res1_accuracy, self.res1_matrix = Inf.Infer(
+            self.path1, self.model1)
+        self.res2_loss, self.res2_accuracy, self.res2_matrix = Inf.Infer(
+            self.path2, self.model2)
         compare_model.nextButton.setEnabled(True)
         self.res1_loss, self.res1_accuracy = round(
-        self.res1_loss, 4), round(self.res1_accuracy, 2)
+            self.res1_loss, 4), round(self.res1_accuracy, 2)
         self.res2_loss, self.res2_accuracy = round(
             self.res2_loss, 4), round(self.res2_accuracy, 2)
-        self.compare_data.compare_table.setItem(0,0, QTableWidgetItem(str(self.res1_accuracy)))
-        self.compare_data.compare_table.setItem(0, 1, QTableWidgetItem(str(self.res1_loss)))
+        self.compare_data.compare_table.setItem(
+            0, 0, QTableWidgetItem(str(self.res1_accuracy)))
+        self.compare_data.compare_table.setItem(
+            0, 1, QTableWidgetItem(str(self.res1_loss)))
         self.compare_data.compare_table.setItem(
             1, 0, QTableWidgetItem(str(self.res2_accuracy)))
-        self.compare_data.compare_table.setItem(1, 1, QTableWidgetItem(str(self.res2_loss)))
+        self.compare_data.compare_table.setItem(
+            1, 1, QTableWidgetItem(str(self.res2_loss)))
 
         length = len(self.res1_matrix)
         self.compare_data.model1.setRowCount(length)
@@ -385,6 +391,7 @@ class Thread4(QThread):
             for j in range(length):
                 self.compare_data.model2.setItem(i, j, QTableWidgetItem(
                     str(self.res2_matrix[i][j])))
+
 
 class Compare_Model(QMainWindow, compare_form):
     command = QtCore.pyqtSignal(str)  # 이미지 주소 전달
@@ -436,14 +443,15 @@ class Compare_Model(QMainWindow, compare_form):
 
     # 뒤로가기 -> classfication 설정 페이지
 
-
     # 뒤로가기
+
     def goToBack(self):
         widget.setCurrentWidget(create_cnn)
     #홈버튼
     def goToHome(self):
         widget.setCurrentWidget(choice)
-    # 경고문 함수 
+    # 경고문 함수
+
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -503,6 +511,7 @@ class Compare_Model(QMainWindow, compare_form):
 
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
+
 
 # 1. ui 연결
 # 연결할 ui 파일의 경로 설정
@@ -573,9 +582,12 @@ class Thread1(QThread):
         # self.threadpool = QThreadPool()
         # print(parent.m_name)
         self.textBox_terminal = parent.textBox_terminal
+        self.going = parent.learnig_datas
 
     def run(self):
-        main(learn_sr, **learning)
+        
+        print(self.going)
+        main(learn_sr, **self.going)
         self.textBox_terminal.append('학습이 종료되었습니다.')
 
 
@@ -585,17 +597,18 @@ class Thread2(QThread):
         super().__init__(parent)
 
         self.textBox_terminal = parent.textBox_terminal
+        self.going = parent.testing_datas
         # self.Mname = parent.m_name
         # self.threadpool = QThreadPool()
 
     def run(self):
-        main(result_sr, **testing)
+        print("---"*5)
+        print(self.going)
+        main(result_sr, **self.going)
         # Result_SR_Model.setResImg(Result_SR_Model())
 
         self.textBox_terminal.append('SR 과정이 끝났습니다.')
         self.textBox_terminal.append('결과보기 버튼을 클릭하여 결과를 확인하세요.')
-        
-        
 
 
 # 화면을 띄우는데 사용되는 Class 선언
@@ -704,7 +717,6 @@ class Create_SR_Model(QMainWindow, new_sr_form):
     def goToBack(self):
         widget.setCurrentWidget(choice)
 
-
     def batch_changed(self):
         create_sr_data['batch_size'] = self.batchtextEdit.toPlainText()
         if self.batchtextEdit.toPlainText():
@@ -778,74 +790,69 @@ class Create_SR_Model(QMainWindow, new_sr_form):
             if learning['n_resblocks'] == 16:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_16_feats_32/model/model_best021632.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_16_feats_64/model/model_best021664.pt'
-            
+
             elif learning['n_resblocks'] == 32:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_32_feats_32/model/model_best023232.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_32_feats_64/model/model_best023264.pt'
-            
+
             elif learning['n_resblocks'] == 48:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_48_feats_32/model/model_best024832.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x2_res_48_feats_64/model/model_best024864.pt'
-
 
         elif learning['scale'] == [3]:
             if learning['n_resblocks'] == 16:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_16_feats_32/model/model_best031632.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_16_feats_64/model/model_best031664.pt'
-            
+
             elif learning['n_resblocks'] == 32:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_32_feats_32/model/model_best033232.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_32_feats_64/model/model_best033264.pt'
-            
+
             elif learning['n_resblocks'] == 48:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_48_feats_32/model/model_best034832.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x3_res_48_feats_64/model/model_best034864.pt'
 
-        
-        
         elif learning['scale'] == [4]:
             if learning['n_resblocks'] == 16:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_16_feats_32/model/model_best041632.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_16_feats_64/model/model_best041664.pt'
-            
+
             elif learning['n_resblocks'] == 32:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_32_feats_32/model/model_best043232.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_32_feats_64/model/model_best043264.pt'
-            
+
             elif learning['n_resblocks'] == 48:
                 if learning['n_feats'] == 32:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_48_feats_32/model/model_best044832.pt'
-                
+
                 elif learning['n_feats'] == 64:
                     learning['pre_train'] = './pixby/srtest/experiment/base_x4_res_48_feats_64/model/model_best044864.pt'
 
-
         widget.setCurrentWidget(learn_sr)
-
 
 
 class Learn_SR_Model(QMainWindow, learn_ui_form):
@@ -867,8 +874,7 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         backbutton1.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton1.clicked.connect(self.goToBack)
-        
-        
+
         backbutton2 = QPushButton(self)
 
         backbutton2.move(60, 10)
@@ -877,9 +883,6 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         backbutton2.setStyleSheet(
             'image:url(img/house.png);border:0px;background-color:#e7e6e1')
         backbutton2.clicked.connect(self.goToHome)
-
-
-
 
         self.fig = plt.Figure()
         self.canvas = FigureCanvas(self.fig)
@@ -920,7 +923,6 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
 
     def goToHome(self):
         widget.setCurrentWidget(choice)
-
 
     def goToBack(self):
         widget.setCurrentWidget(create_sr)
@@ -1004,11 +1006,14 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
 
         f_nums -= 1
         _number = f_nums * 4 // 5
-        learning['data_range'] = '1-{}/{}-{}'.format(_number, _number+1, f_nums)
+        learning['data_range'] = '1-{}/{}-{}'.format(
+            _number, _number+1, f_nums)
         # f_nums
         self.textBox_terminal.append('전체 데이터 갯수는 {} 입니다'.format(f_nums))
         # self.m_name = create_sr_data['model_name']
         # widget.setCurrentWidget(widget.currentIndex()+1)
+        self.learnig_datas = learning
+
         x = Thread1(self)
         x.start()
 
@@ -1026,7 +1031,8 @@ class Result_Model(QMainWindow, res_form):
     def __init__(self, parent):
         super(Result_Model, self).__init__(parent)
         self.setupUi(self)  # for_class2 ui 셋
-        self.datas = [ parent.model_1,  parent.model_2, parent.working_path1, parent. working_path2]
+        self.datas = [parent.model_1,  parent.model_2,
+                      parent.working_path1, parent. working_path2]
         t = Thread4(self)
         t.start()
         # UI
@@ -1112,9 +1118,9 @@ class Result_SR_Model(QMainWindow):
 
         self.pushButton.clicked.connect(self.setResImg)
 
-    
     def goToHome(self):
         widget.setCurrentWidget(choice)
+
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -1211,12 +1217,15 @@ class Result_SR_Model(QMainWindow):
         _data_dir = './SRimages/CHANGEDDATA/SRresults/results-Demo'
         if os.path.isdir(_data_dir):
             shutil.rmtree(_data_dir)
-
+        self.testing_datas = testing
         x = Thread2(self)
         x.start()
 
 
 if __name__ == "__main__":
+    if sys.platform.startswith('win'):
+        multiprocessing.freeze_support()
+
     app = QApplication(sys.argv)
 
     widget = QStackedWidget()
