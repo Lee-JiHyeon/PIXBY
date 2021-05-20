@@ -27,7 +27,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
   <widget class="QPushButton" name="gotestbutton">
    <property name="geometry">
     <rect>
-     <x>1000</x>
+     <x>780</x>
      <y>870</y>
      <width>210</width>
      <height>50</height>
@@ -281,11 +281,34 @@ background-color: #f7f6e7;</string>
     <layout class="QVBoxLayout" name="layout1"/>
    </widget>
   </widget>
+  <widget class="QPushButton" name="gotoInf">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>870</y>
+     <width>210</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+color: rgb(255, 255, 255);
+font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
+background-color: rgb(242, 161, 84);</string>
+   </property>
+   <property name="text">
+    <string>추론</string>
+   </property>
+  </widget>
   <zorder>groupBox</zorder>
   <zorder>gotestbutton</zorder>
   <zorder>textBox_terminal</zorder>
   <zorder>widget</zorder>
   <zorder>verticalLayoutWidget_2</zorder>
+  <zorder>gotoInf</zorder>
  </widget>
  <resources/>
  <connections/>

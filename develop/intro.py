@@ -300,14 +300,11 @@ class Train_CNN(QMainWindow, train_form):
         # print(self.cnn_train.name)
         self.gotestbutton.clicked.connect(self.test)
         backbutton = QPushButton(self)
-        srbutton = QPushButton(self)
         backbutton.move(0, 10)
-        srbutton.move(80, 20)
+
         backbutton.resize(80, 80)
-        srbutton.resize(80, 80)
         backbutton.adjustSize()
-        srbutton.adjustSize()
-        srbutton.setText("SR")
+
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
@@ -317,9 +314,13 @@ class Train_CNN(QMainWindow, train_form):
         self.canvas2 = FigureCanvas(self.fig2)
         self.layout1.addWidget(self.canvas1)
         self.layout2.addWidget(self.canvas2)
+        self.gotoInf.clicked.connect(self.goToNext)
 
     def goToBack(self):
         widget.setCurrentWidget(create_cnn)
+
+    def goToNext(self):
+        widget.setCurrentWidget(compare_model)
 
     def test(self):
         t = Thread3(self)
@@ -330,6 +331,52 @@ compare_ui = resource_path('pixby/ui/compare.ui')
 compare_form = uic.loadUiType(compare_ui)[0]
 # 화면을 띄우는데 사용되는 Class 선언
 
+
+
+
+
+# cnn 추론
+class Thread4(QThread):
+    # parent = MainWidget을 상속 받음.
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        # self.Mname = parent.m_name
+        # self.threadpool = QThreadPool()
+        self.path1 = parent.datas[2]
+        self.path2 = parent.datas[3]
+        self.model1 = parent.datas[0]
+        self.model2 = parent.datas[1]
+        self.compare_data = parent
+    def run(self):
+        global res1, res2 
+        self.res1_loss, self.res1_accuracy, self.res1_matrix = Inf.Infer(self.path1, self.model1 )
+        self.res2_loss, self.res2_accuracy, self.res2_matrix = Inf.Infer(self.path2, self.model2 )
+        compare_model.nextButton.setEnabled(True)
+        self.res1_loss, self.res1_accuracy = round(
+        self.res1_loss, 4), round(self.res1_accuracy, 2)
+        self.res2_loss, self.res2_accuracy = round(
+            self.res2_loss, 4), round(self.res2_accuracy, 2)
+        self.compare_data.compare_table.setItem(0,0, QTableWidgetItem(str(self.res1_accuracy)))
+        self.compare_data.compare_table.setItem(0, 1, QTableWidgetItem(str(self.res1_loss)))
+        self.compare_data.compare_table.setItem(
+            1, 0, QTableWidgetItem(str(self.res2_accuracy)))
+        self.compare_data.compare_table.setItem(1, 1, QTableWidgetItem(str(self.res2_loss)))
+
+        length = len(self.res1_matrix)
+        self.compare_data.model1.setRowCount(length)
+        self.compare_data.model2.setRowCount(length)
+        self.compare_data.model1.setColumnCount(length)
+        self.compare_data.model2.setColumnCount(length)
+
+        for i in range(length):
+            for j in range(length):
+                self.compare_data.model1.setItem(i, j, QTableWidgetItem(
+                    str(self.res1_matrix[i][j])))
+
+        for i in range(length):
+            for j in range(length):
+                self.compare_data.model2.setItem(i, j, QTableWidgetItem(
+                    str(self.res2_matrix[i][j])))
 
 class Compare_Model(QMainWindow, compare_form):
     command = QtCore.pyqtSignal(str)  # 이미지 주소 전달
@@ -366,9 +413,7 @@ class Compare_Model(QMainWindow, compare_form):
         backbutton2.clicked.connect(self.goToHome)
 
 
-
-
-
+        
         self.selectModel1.clicked.connect(self.choiceModel_1)
         self.selectModel2.clicked.connect(self.choiceModel_2)
         # 이미지 보여주기
@@ -378,11 +423,15 @@ class Compare_Model(QMainWindow, compare_form):
         self.nextButton.clicked.connect(self.nextPage)
 
     # 뒤로가기 -> classfication 설정 페이지
+
+
+    # 뒤로가기
+    def goToBack(self):
+        widget.setCurrentWidget(train_cnn)
+    #홈버튼
     def goToHome(self):
         widget.setCurrentWidget(choice)
-    def goToBack(self):
-        widget.setCurrentWidget(choice)
-
+    # 경고문 함수 
     def warningMSG(self, title: str, content: str):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -432,17 +481,19 @@ class Compare_Model(QMainWindow, compare_form):
         self.model_name2.append(name.split('/')[-1])
 
     def nextPage(self):
+        self.nextButton.setEnabled(False)
         if Compare_Model.working_path1 and Compare_Model.working_path2:
             self.res1 = Inf.Infer(
                 Compare_Model.working_path1, Compare_Model.model_1)
             self.res2 = Inf.Infer(
                 Compare_Model.working_path2, Compare_Model.model_2)
             Result_Model(self)
+
         else:
             self.warningMSG("주의", "이미지와 모델을 먼저 집어넣어주세요.")
 
-        # 1. ui 연결
-        # 연결할 ui 파일의 경로 설정
+# 1. ui 연결
+# 연결할 ui 파일의 경로 설정
 new_sr_ui = resource_path('pixby/ui/newSR.ui')
 learn_ui = resource_path('pixby/ui/learn.ui')
 # ui 로드
@@ -972,22 +1023,23 @@ class Result_Model(QMainWindow, res_form):
     def __init__(self, parent):
         super(Result_Model, self).__init__(parent)
         self.setupUi(self)  # for_class2 ui 셋
+        self.datas = [ parent.model_1,  parent.model_2, parent.working_path1, parent. working_path2]
+        t = Thread4(self)
+        t.start()
         # UI
-        self.res1_loss, self.res1_accuracy, self.res1_matrix = parent.res1
-        self.res2_loss, self.res2_accuracy, self.res2_matrix = parent.res2
-        self.res1_loss, self.res1_accuracy = round(
-            self.res1_loss, 4), round(self.res1_accuracy, 2)
-        self.res2_loss, self.res2_accuracy = round(
-            self.res2_loss, 4), round(self.res2_accuracy, 2)
-        # 모델 경로 출력
+        # self.res1_loss, self.res1_accuracy, self.res1_matrix = parent.res1
+        # self.res2_loss, self.res2_accuracy, self.res2_matrix = parent.res2
+        # self.res1_loss, self.res1_accuracy = round(
+        #     self.res1_loss, 4), round(self.res1_accuracy, 2)
+        # self.res2_loss, self.res2_accuracy = round(
+        #     self.res2_loss, 4), round(self.res2_accuracy, 2)
+        # # 모델 경로 출력
         # uic.loadUi(form_class2,self)
         # 테이블 모델 이름
-        self.name1.setText("모델이름 :" + parent.model_1.split('/')[-1])
-        self.name2.setText("모델이름 :" + parent.model_2.split('/')[-1])
-        # self.setGeometry(300, 300, 1000, 700)
-        # self.compare_table.resize(300, 140)
-        # self.compare_table.move(660, 610) # table 사이즈 위치 조정
-        self.setTableWidgetData()  # acc, loss
+        # self.name1.setText("모델이름 :" + parent.model_1.split('/')[-1])
+        # self.name2.setText("모델이름 :" + parent.model_2.split('/')[-1])
+
+        # self.setTableWidgetData()  # acc, loss
         # 새창 크기 픽스
         self.setFixedWidth(1000)
         self.setFixedHeight(1000)
