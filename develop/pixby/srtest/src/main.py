@@ -7,9 +7,9 @@ from pixby.srtest.src import model
 from pixby.srtest.src import loss
 from pixby.srtest.src.option import args
 from pixby.srtest.src.trainer import Trainer
+import multiprocessing
 # import subprocess
 
-torch.manual_seed(args.seed)
 
 
 def main(window, **kwargs):
@@ -37,7 +37,11 @@ def main(window, **kwargs):
         vars(args)[key] = value
         # parser.add_argument(f'--{key}', value)
         # args_key = f'{key}'
+
+    torch.manual_seed(args.seed)
+
     checkpoint = utility.checkpoint(args)
+    
         # args.args_key = value
         # print(key, value, 'key value')
         
@@ -47,7 +51,7 @@ def main(window, **kwargs):
 
     # print(args.test_only, 'asddassdasaddasasd')
 
-    # print(args.scale, 'asddassdasaddasasd')
+    print(args.scale, args.test_only,'asddassdasaddasasd')
 
     if args.data_test == ['video']:
         from videotester import VideoTester
@@ -69,4 +73,6 @@ def main(window, **kwargs):
     return
 
 if __name__ == '__main__':
+    multiprocessing.freeze_support()
     main(window, **kwargs)
+

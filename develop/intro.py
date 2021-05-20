@@ -11,7 +11,7 @@ from PyQt5 import uic
 import glob
 from PIL import Image
 import shutil
-
+import multiprocessing
 # from pixby.newSR import Create_SR_Model
 # from pixby.compare import compareModel
 from PyQt5 import QtGui, QtCore
@@ -561,9 +561,12 @@ class Thread1(QThread):
         # self.threadpool = QThreadPool()
         # print(parent.m_name)
         self.textBox_terminal = parent.textBox_terminal
+        self.going = parent.learnig_datas
 
     def run(self):
-        main(learn_sr, **learning)
+        
+        print(self.going)
+        main(learn_sr, **self.going)
         self.textBox_terminal.append('학습이 종료되었습니다.')
 
 
@@ -573,11 +576,14 @@ class Thread2(QThread):
         super().__init__(parent)
 
         self.textBox_terminal = parent.textBox_terminal
+        self.going = parent.testing_datas
         # self.Mname = parent.m_name
         # self.threadpool = QThreadPool()
 
     def run(self):
-        main(result_sr, **testing)
+        print("---"*5)
+        print(self.going)
+        main(result_sr, **self.going)
         # Result_SR_Model.setResImg(Result_SR_Model())
 
         self.textBox_terminal.append('SR 과정이 끝났습니다.')
@@ -989,6 +995,8 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
         self.textBox_terminal.append('전체 데이터 갯수는 {} 입니다'.format(f_nums))
         # self.m_name = create_sr_data['model_name']
         # widget.setCurrentWidget(widget.currentIndex()+1)
+        self.learnig_datas = learning
+
         x = Thread1(self)
         x.start()
 
@@ -1194,12 +1202,15 @@ class Result_SR_Model(QMainWindow):
         _data_dir = './SRimages/CHANGEDDATA/SRresults/results-Demo'
         if os.path.isdir(_data_dir):
             shutil.rmtree(_data_dir)
-
+        self.testing_datas = testing
         x = Thread2(self)
         x.start()
 
 
 if __name__ == "__main__":
+    if sys.platform.startswith('win'):
+        multiprocessing.freeze_support()
+
     app = QApplication(sys.argv)
 
     widget = QStackedWidget()

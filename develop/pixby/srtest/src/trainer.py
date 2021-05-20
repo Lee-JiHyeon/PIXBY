@@ -6,7 +6,7 @@ from pixby.srtest.src import utility
 
 import torch
 import torch.nn.utils as utils
-from tqdm import tqdm
+# from tqdm import tqdm
 
 class Trainer():
     def __init__(self, args, loader, my_model, my_loss, ckp, window):
@@ -82,6 +82,7 @@ class Trainer():
         self.optimizer.schedule()
 
     def test(self):
+      
         torch.set_grad_enabled(False)
 
         epoch = self.optimizer.get_last_epoch()
@@ -101,13 +102,14 @@ class Trainer():
                     d.dataset.set_scale(idx_scale)
                     _nums = len(d.dataset)
                     _cnt = 1
-                    for lr, hr, filename in tqdm(d, ncols=80):
-                        
+                  
+                    for lr, hr, filename in d:
+                       
                         lr, hr = self.prepare(lr, hr)
                         lr = lr[:, :3, :, :]
                         sr = self.model(lr, idx_scale)
                         sr = utility.quantize(sr, self.args.rgb_range)
-
+                        
                         save_list = [sr]
                         self.ckp.log[-1, idx_data, idx_scale] += utility.calc_psnr(
                             sr, hr, scale, self.args.rgb_range, dataset=d
@@ -115,10 +117,10 @@ class Trainer():
                         
                         if self.args.save_gt:
                             save_list.extend([lr, hr])
-
+                        
                         if self.args.save_results:
                             self.ckp.save_results(d, filename[0], save_list, scale)
-
+                        
                         _per = _cnt * 100 // _nums
                         _tpm = str(filename) + ' 변환중입니다...   : ' + str(_per) +  '/  100  %'
 
