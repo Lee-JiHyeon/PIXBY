@@ -32,6 +32,8 @@ def CNN_Train(window, train_path, test_path, save_path, name, LR, EPOCHS, BATCH_
         'Using PyTorch version: {} Device: {}'.format(torch.__version__, DEVICE))
     # learning rate decay(step) parameter
     STEP_SIZE = EPOCHS // 3
+    if not STEP_SIZE:
+        STEP_SIZE = 1 
     GAMMA = 0.1
 
     ''' 3. CIFAR10 데이터 다운로드(Train set, Test set 분리) - Data Augmentation 적용 (1) 기본 cifar-10 데이터 '''
