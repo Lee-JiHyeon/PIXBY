@@ -486,7 +486,6 @@ class Thread1(QThread):
         self.textBox_terminal = parent.textBox_terminal
 
     def run(self):
-
         main(learn_sr, **learning)
         self.textBox_terminal.append('학습이 종료되었습니다.')
 
@@ -639,10 +638,11 @@ class Create_SR_Model(QMainWindow, new_sr_form):
                 self.epochtextEdit.toPlainText()))
 
     def model_name_changed(self):
+        # print(self.modelnametextEdit.toPlainText())
         create_sr_data['model_name'] = self.modelnametextEdit.toPlainText()
         learning['save'] = self.modelnametextEdit.toPlainText()
         learn_sr.model.setText('Model : {}'.format(
-            self.batchtextEdit.toPlainText()))
+            self.modelnametextEdit.toPlainText()))
 
     def onRes(self, text):
         create_sr_data['resblock'] = text
@@ -905,8 +905,11 @@ class Learn_SR_Model(QMainWindow, learn_ui_form):
                 except OSError as e:
                     pass
 
+        f_nums -= 1
+        _number = f_nums * 3 // 4
+        learning['data_range'] = '1-{}/{}-{}'.format(_number, _number+1, f_nums)
         # f_nums
-        self.textBox_terminal.append('전체 데이터 갯수는 {} 입니다'.format(f_nums - 1))
+        self.textBox_terminal.append('전체 데이터 갯수는 {} 입니다'.format(f_nums))
         # self.m_name = create_sr_data['model_name']
         # widget.setCurrentWidget(widget.currentIndex()+1)
         x = Thread1(self)

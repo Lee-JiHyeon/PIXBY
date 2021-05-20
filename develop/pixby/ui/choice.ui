@@ -31,6 +31,9 @@ background-color:  #e7e6e1</string>
      <string notr="true">background-color: #f7f6e7;
 font: 75 10pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
