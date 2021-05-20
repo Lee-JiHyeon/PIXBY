@@ -163,13 +163,19 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
         backbutton2.clicked.connect(self.goToHome)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 645c121f7071fcd32335f5c53b2a96ca5a844aba
         speaker = QLabel(self)
         speaker.move(10,900)
         speaker.resize(30,30)
         speaker.setStyleSheet(
             'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
+<<<<<<< HEAD
 =======
 >>>>>>> 1c7a23a95fd206956fa0f3cdac4fd6fb844aeef9
+=======
+>>>>>>> 645c121f7071fcd32335f5c53b2a96ca5a844aba
     def goToHome(self):
         widget.setCurrentWidget(choice)
 
@@ -431,14 +437,20 @@ class Compare_Model(QMainWindow, compare_form):
         backbutton2.clicked.connect(self.goToHome)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 645c121f7071fcd32335f5c53b2a96ca5a844aba
         speaker = QLabel(self)
         speaker.move(10,890)
         speaker.resize(30,30)
         speaker.setStyleSheet(
             'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
         
+<<<<<<< HEAD
 =======
 >>>>>>> 1c7a23a95fd206956fa0f3cdac4fd6fb844aeef9
+=======
+>>>>>>> 645c121f7071fcd32335f5c53b2a96ca5a844aba
         self.selectModel1.clicked.connect(self.choiceModel_1)
         self.selectModel2.clicked.connect(self.choiceModel_2)
         # 이미지 보여주기
@@ -1100,6 +1112,9 @@ class Result_SR_Model(QMainWindow):
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 645c121f7071fcd32335f5c53b2a96ca5a844aba
         
 
         speaker = QLabel(self)
@@ -1109,6 +1124,7 @@ class Result_SR_Model(QMainWindow):
             'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
 
 
+<<<<<<< HEAD
 =======
 
         backbutton2 = QPushButton(self)
@@ -1120,6 +1136,8 @@ class Result_SR_Model(QMainWindow):
         backbutton2.clicked.connect(self.goToHome)
 
 >>>>>>> 1c7a23a95fd206956fa0f3cdac4fd6fb844aeef9
+=======
+>>>>>>> 645c121f7071fcd32335f5c53b2a96ca5a844aba
         # 이미지가져오기버튼
         self.setImgBtn.clicked.connect(self.setImg)
 
