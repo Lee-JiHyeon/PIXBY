@@ -35,7 +35,7 @@ class Data:
                 pin_memory=not args.cpu,
                 num_workers=args.n_threads,
             )
-
+        print("데이터점데이터 안에 중간부분")
         self.loader_test = []
         for d in args.data_test:
             if d in ['Set5', 'Set14', 'B100', 'Urban100']:
