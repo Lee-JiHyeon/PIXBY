@@ -35,6 +35,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 os.makedirs('./SRimages', exist_ok=True)
 os.makedirs('./SRimages/TESTDATA', exist_ok=True)
+os.makedirs('./SRimages/CHANGEDDATA', exist_ok=True)
 
 
 def resource_path(relative_path):
@@ -162,6 +163,11 @@ class Create_CNN_Model(QMainWindow, new_cnn_form):
             'image:url(img/house.png);border:0px;background-color:#e7e6e1')
         backbutton2.clicked.connect(self.goToHome)
 
+        speaker = QLabel(self)
+        speaker.move(10,900)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
     def goToHome(self):
         widget.setCurrentWidget(choice)
 
@@ -317,7 +323,11 @@ class Train_CNN(QMainWindow, train_form):
         self.layout1.addWidget(self.canvas1)
         self.layout2.addWidget(self.canvas2)
         self.gotoInf.clicked.connect(self.goToNext)
-
+        speaker = QLabel(self)
+        speaker.move(10,900)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
     def goToBack(self):
         widget.setCurrentWidget(create_cnn)
 
@@ -418,6 +428,12 @@ class Compare_Model(QMainWindow, compare_form):
             'image:url(img/house.png);border:0px;background-color:#e7e6e1')
         backbutton2.clicked.connect(self.goToHome)
 
+        speaker = QLabel(self)
+        speaker.move(10,890)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
+        
         self.selectModel1.clicked.connect(self.choiceModel_1)
         self.selectModel2.clicked.connect(self.choiceModel_2)
         # 이미지 보여주기
@@ -524,20 +540,20 @@ learning = {
     'model': 'EDSR',
     'scale': [2],
     'save': 'test',
-    'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+    'pre_train': './pixby/srtest/experiment/base_x2_res_16_feats_32/model/model_best021632.pt',
     'chop': True,
     'dir_data': './SRimages',
     'data_train': ['TESTDATA'],
     'data_test': ['TESTDATA'],
     'data_range': '1-8/9-10',
-    'epochs': 2,
+    'epochs': 5,
     'ext': 'img',
     'save_results': True,
     'batch_size': 4,  # default 16
     'lr': 0.0001,  # default 1e-4
     'n_resblocks': 16,
     'n_feats': 64,
-    # 'n_threads' : 0
+    'n_threads' : 0
 }
 #  전이학습을 위한 데이터
 
@@ -546,11 +562,11 @@ testing = {
     'test_only': True,
     'save_results': True,
     'chop': True,
-    # 'n_threads' : 0,
+    'n_threads' : 0,
     'scale': [2],
     'n_resblocks': 16,
     'n_feats': 64,
-    'pre_train': './pixby/srtest/experiment/edsr_baseline_x2/model/model_best.pt',
+    'pre_train': './pixby/srtest/experiment/base_x2_res_16_feats_32/model/model_best021632.pt',
     'save': 'SRresults',
     'dir_demo': './SRimages'
 
@@ -571,7 +587,7 @@ class Thread1(QThread):
 
     def run(self):
         
-        print(self.going)
+        # print(self.going)
         main(learn_sr, **self.going)
         self.textBox_terminal.append('학습이 종료되었습니다.')
 
@@ -587,8 +603,8 @@ class Thread2(QThread):
         # self.threadpool = QThreadPool()
 
     def run(self):
-        print("---"*5)
-        print(self.going)
+        # print("---"*5)
+        # print(self.going)
         main(result_sr, **self.going)
         # Result_SR_Model.setResImg(Result_SR_Model())
 
@@ -1078,14 +1094,14 @@ class Result_SR_Model(QMainWindow):
         backbutton.setStyleSheet(
             'image:url(img/undo.png);border:0px;background-color:#e7e6e1')
         backbutton.clicked.connect(self.goToBack)
+        
 
-        backbutton2 = QPushButton(self)
-        backbutton2.move(60, 10)
-        backbutton2.resize(150, 150)
-        backbutton2.adjustSize()
-        backbutton2.setStyleSheet(
-            'image:url(img/house.png);border:0px;background-color:#e7e6e1')
-        backbutton2.clicked.connect(self.goToHome)
+        speaker = QLabel(self)
+        speaker.move(10,890)
+        speaker.resize(30,30)
+        speaker.setStyleSheet(
+            'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
+
 
         # 이미지가져오기버튼
         self.setImgBtn.clicked.connect(self.setImg)
@@ -1208,8 +1224,8 @@ class Result_SR_Model(QMainWindow):
 
 
 if __name__ == "__main__":
-    if sys.platform.startswith('win'):
-        multiprocessing.freeze_support()
+    
+    multiprocessing.freeze_support()
 
     app = QApplication(sys.argv)
 

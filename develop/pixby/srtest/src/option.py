@@ -9,7 +9,7 @@ parser.add_argument('--template', default='.',
                     help='You can set various templates in option.py')
 
 # Hardware specifications
-parser.add_argument('--n_threads', type=int, default=6,
+parser.add_argument('--n_threads', type=int, default=1,
                     help='number of threads for data loading')
 parser.add_argument('--cpu', action='store_true',
                     help='use cpu only')
@@ -141,7 +141,9 @@ parser.add_argument('--print_every', type=int, default=100,
 parser.add_argument('--save_results', action='store_true',
                     help='save output results')
 parser.add_argument('--save_gt', action='store_true',
-                    help='save low-resolution and high-resolution images together')
+                    help='save low-resolution and high-resolution images together') 
+                    # 
+parser.add_argument('--multiprocessing-fork', required=False)
 
 args = parser.parse_args()
 # template.set_template(args)

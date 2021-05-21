@@ -51,7 +51,7 @@ def main(window, **kwargs):
 
     # print(args.test_only, 'asddassdasaddasasd')
 
-    print(args.scale, args.test_only,'asddassdasaddasasd')
+    # print(args.scale, args.test_only,'asddassdasaddasasd')
 
     if args.data_test == ['video']:
         from videotester import VideoTester
@@ -73,6 +73,6 @@ def main(window, **kwargs):
     return
 
 if __name__ == '__main__':
-    multiprocessing.freeze_support()
+    # multiprocessing.freeze_support()
     main(window, **kwargs)
 

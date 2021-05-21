@@ -22,7 +22,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>50</y>
+      <y>40</y>
       <width>1191</width>
       <height>121</height>
      </rect>
@@ -67,7 +67,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>60</y>
+       <y>50</y>
        <width>131</width>
        <height>41</height>
       </rect>
@@ -89,9 +89,9 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>180</y>
+      <y>170</y>
       <width>1191</width>
-      <height>721</height>
+      <height>711</height>
      </rect>
     </property>
     <property name="title">
@@ -154,10 +154,13 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>860</x>
-       <y>130</y>
-       <width>271</width>
-       <height>331</height>
+       <y>120</y>
+       <width>281</width>
+       <height>341</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 1px solid black</string>
      </property>
      <property name="text">
       <string/>
@@ -166,11 +169,14 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
     <widget class="QLabel" name="testSRImg">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>250</x>
        <y>120</y>
        <width>281</width>
        <height>341</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 1px solid black</string>
      </property>
      <property name="text">
       <string/>
@@ -182,7 +188,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
        <x>20</x>
        <y>80</y>
        <width>171</width>
-       <height>461</height>
+       <height>441</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -195,7 +201,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
        <x>620</x>
        <y>80</y>
        <width>171</width>
-       <height>461</height>
+       <height>441</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -206,7 +212,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>570</y>
+       <y>540</y>
        <width>771</width>
        <height>151</height>
       </rect>
@@ -224,7 +230,7 @@ font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <property name="geometry">
       <rect>
        <x>820</x>
-       <y>670</y>
+       <y>640</y>
        <width>150</width>
        <height>50</height>
       </rect>
@@ -244,7 +250,7 @@ color:rgb(255, 255, 255)</string>
      <property name="geometry">
       <rect>
        <x>1010</x>
-       <y>670</y>
+       <y>640</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -262,8 +268,44 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      </property>
     </widget>
    </widget>
+   <widget class="QTextEdit" name="description">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>890</y>
+      <width>1291</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔스퀘어라운드 Bold</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #f7f6e7; border: none;</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'나눔스퀘어라운드 Bold'; font-size:12pt; font-weight:72; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;       SR모델을 선택, 원하는 이미지를 선택후 'SR 적용하기' 버튼을 한번만 눌러주세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
+   <zorder>description</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -271,7 +313,7 @@ font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>26</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>
