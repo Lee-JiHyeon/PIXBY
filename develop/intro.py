@@ -1097,7 +1097,7 @@ class Result_SR_Model(QMainWindow):
         
 
         speaker = QLabel(self)
-        speaker.move(10,890)
+        speaker.move(10,900)
         speaker.resize(30,30)
         speaker.setStyleSheet(
             'image:url(img/megaphone.png);border:0px;background-color:#f7f6e7')
@@ -1225,7 +1225,7 @@ class Result_SR_Model(QMainWindow):
 
 if __name__ == "__main__":
     
-    multiprocessing.freeze_support()
+    # multiprocessing.freeze_support()
 
     app = QApplication(sys.argv)
 

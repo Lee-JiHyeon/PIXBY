@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>960</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 75 12pt &quot;나눔스퀘어라운드 Bold&quot;;
+background-color:  #e7e6e1</string>
+  </property>
+  <widget class="QPushButton" name="golearnbutton">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>870</y>
+     <width>210</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:  #f2a154;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>전이학습 실행</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="gotestbutton">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>870</y>
+     <width>210</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:  #f2a154;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>이미지 SR하기</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="textBox_terminal">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>500</y>
+     <width>821</width>
+     <height>331</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #314e52;
+color: rgb(255, 255, 255);
+font: 75 11pt &quot;나눔스퀘어라운드 Bold&quot;;</string>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>100</y>
+     <width>551</width>
+     <height>351</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="plotLayout"/>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>490</y>
+     <width>311</width>
+     <height>341</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>학습 모델 정보</string>
+   </property>
+   <widget class="QLabel" name="model">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>261</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔스퀘어라운드 Bold</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>MODEL : </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rate">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔스퀘어라운드 Bold</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>배율 : x2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="batch_size">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔스퀘어라운드 Bold</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>BATCH SIZE : 16</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="learnig_rate">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>261</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔스퀘어라운드 Bold</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>LEARNING RATE : 0.0001</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="epoch">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>181</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔스퀘어라운드 Bold</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>EPOCH : 4</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>100</y>
+     <width>551</width>
+     <height>351</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="plotLayout_2"/>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>60</y>
+     <width>1171</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>그래프</string>
+   </property>
+  </widget>
+  <zorder>groupBox_2</zorder>
+  <zorder>golearnbutton</zorder>
+  <zorder>gotestbutton</zorder>
+  <zorder>textBox_terminal</zorder>
+  <zorder>formLayoutWidget</zorder>
+  <zorder>groupBox</zorder>
+  <zorder>formLayoutWidget_2</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
